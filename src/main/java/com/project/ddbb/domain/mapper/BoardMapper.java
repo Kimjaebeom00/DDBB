@@ -32,12 +32,6 @@ public interface BoardMapper {
     void deleteById(Long id);
 
     /**
-     * 게시글 삭제 취소
-     * @param id - PK
-     */
-    void cancelByID(Long id);
-
-    /**
      * 게시글 리스트 조회
      * @return 게시글 리스트
      */
@@ -48,4 +42,10 @@ public interface BoardMapper {
      * @return 게시글 수
      */
 //    int count();
+
+    /**
+     * 게시글 삭제 취소
+     * @param id - PK
+     */
+    void cancelById(Long id);
 }

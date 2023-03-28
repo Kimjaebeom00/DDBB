@@ -18,7 +18,7 @@
 
 
     <!-- 게시글 저장 -->
-    <insert id="save" parameterType="com.project.ddbb.domain.vo.BoardVO">
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.BoardVO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO board (
         <include refid="postColumns" />
         ) VALUES (
@@ -69,14 +69,6 @@
             id = #{id}
     </delete>
 
-    <delete id="cancelByID">
-        UPDATE board
-        SET
-            delete_yn = 0
-        WHERE
-            id = #{id}
-    </delete>
-
 
     <!-- 게시글 리스트 조회 -->
     <select id="findAll" resultType="com.project.ddbb.domain.vo.BoardVO">
@@ -90,4 +82,12 @@
         id DESC
     </select>
 
+    <!-- 게시글 삭제 취소 -->
+    <update id="cancelById" parameterType="long">
+        UPDATE board
+        SET
+            delete_yn = 0
+        WHERE
+            id = #{id}
+    </update>
 </mapper>

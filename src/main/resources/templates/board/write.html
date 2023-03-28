@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Turtle</title>
+    <title>글작성 페이지</title>
 </head>
 <body>
-    <h2>welcome Spring Boot!</h2>
+    <h2>welcome spring boot!</h2>
+    <span th:text="${title}">여기는 제목입니다.</span>
+    <span th:text="${content}">여기는 내용입니다.</span>
+    <span>[[ ${writer} ]]</span>
 </body>
 </html>

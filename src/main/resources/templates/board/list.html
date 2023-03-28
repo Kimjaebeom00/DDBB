@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="detailForm" th:action="@{/board/detail.do}" method="post">
+        <input id="id" name="id" type="hidden"/>
+    </form>
+    <ul th:each="board : ${boardList}">
+        <li><a th:text="${board.title}" th:onclick="|javascript:goToDetail(${board.id})|"></a></li>
+        <li th:text="${board.writer}"></li>
+        <li th:text="${board.createdDate}"></li>
+    </ul>
+</body>
+<script>
+    function goToDetail(id) {
+        const form = document.getElementById('detailForm');
+        document.getElementById('id').value = id;
+        form.submit();
+    }
+    //jquery
+</script>
+</html>
