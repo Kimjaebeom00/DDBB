@@ -1,0 +1,30 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+html {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+body {
+    width: 45%;
+    border: 2px solid black;
+}
+
+input{
+    border: 1px solid black;
+    border-radius: 10px;
+    line-height: 35px;
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
