@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <p>[[ ${boardDetail.title} ]]</p>
-    <p>[[ ${boardDetail.writer} ]]</p>
-    <p>[[ ${boardDetail.viewCnt} ]]</p>
-    <p>[[ ${boardDetail.createdDate} ]]</p>
-    <p>[[ ${boardDetail.content} ]]</p>
+    <p th:value="${boardDetail.title}"></p>
+    <p th:value="${boardDetail.writer}"></p>
+    <p th:value="${boardDetail.viewCnt}"></p>
+    <p th:value="${boardDetail.createdDate}"></p>
+    <p th:value="${boardDetail.content}"></p>
 </body>
 </html>
