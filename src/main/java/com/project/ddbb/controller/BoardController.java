@@ -15,7 +15,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 게시글 작성 페이지
-    @GetMapping("/board/write.do")
+    @GetMapping("/board/write")
     public String openPostWrite(Model model) {
         String title = "제목",
                 content = "내용",
@@ -28,7 +28,7 @@ public class BoardController {
         return "board/write";
     }
 
-    @GetMapping("/board/list.do")
+    @GetMapping("/board/list")
     public String openBoardList(Model model) {
         List<BoardVO> boardList = boardService.findAllBoard();
 
@@ -37,7 +37,7 @@ public class BoardController {
         return "board/list";
     }
 
-    @PostMapping("/board/detail.do")
+    @PostMapping("/board/detail")
     public String openBoardDetail(@RequestParam("id") Long id, Model model) {
         BoardVO boardDetail = boardService.findBoardById(id);
 

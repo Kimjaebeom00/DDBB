@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-    <form id="detailForm" th:action="@{/board/detail.do}" method="post">
+    <form id="detailForm" th:action="@{/board/detail}" method="post">
         <input id="id" name="id" type="hidden"/>
     </form>
     <ul th:each="board : ${boardList}">
