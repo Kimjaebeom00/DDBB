@@ -2,6 +2,7 @@ package com.project.ddbb.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -9,31 +10,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     /**
-     * 로그인
+     * 로그인 화면
      * @return
      */
-    @PostMapping("/signIn")
+    @GetMapping("/signIn")
     public String signIn() {
 
         return "auth/sign_in";
     }
 
     /**
-     * 회원가입
+     * 로그인 처리
      * @return
      */
-    @PostMapping("/signUp")
+    @PostMapping("/signIn")
+    public String signInProcess() {
+
+        return "auth/sign_in";
+    }
+
+    /**
+     * 회원가입 화면
+     * @return
+     */
+    @GetMapping("/signUp")
     public String signUp() {
 
         return "auth/sign_up";
     }
 
     /**
-     * 회원가입 프로세스
+     * 회원가입 처리
      * @return
      */
-    @PostMapping("/join")
-    public String join() {
+    @PostMapping("/signUp")
+    public String signUpProcess() {
 
         return "auth/sign_up_complete";
     }
