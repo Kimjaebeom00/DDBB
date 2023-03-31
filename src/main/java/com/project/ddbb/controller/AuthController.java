@@ -15,7 +15,7 @@ public class AuthController {
     @PostMapping("/signIn")
     public String signIn() {
 
-        return "auth/signIn";
+        return "auth/sign_in";
     }
 
     /**
@@ -25,7 +25,7 @@ public class AuthController {
     @PostMapping("/signUp")
     public String signUp() {
 
-        return "auth/signUp";
+        return "auth/sign_up_complete";
     }
 
     /**
