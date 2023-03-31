@@ -25,6 +25,16 @@ public class AuthController {
     @PostMapping("/signUp")
     public String signUp() {
 
+        return "auth/sign_up";
+    }
+
+    /**
+     * 회원가입 프로세스
+     * @return
+     */
+    @PostMapping("/join")
+    public String join() {
+
         return "auth/sign_up_complete";
     }
 
