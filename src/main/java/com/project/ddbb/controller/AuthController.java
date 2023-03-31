@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     /**
-     * 로그인 화면
+     * 로그인 화면수정
      * @return
      */
     @GetMapping("/signIn")
