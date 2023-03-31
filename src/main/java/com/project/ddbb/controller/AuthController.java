@@ -26,7 +26,7 @@ public class AuthController {
     @PostMapping("/signIn")
     public String signInProcess() {
 
-        return "auth/sign_in";
+        return "main/home";
     }
 
     /**
