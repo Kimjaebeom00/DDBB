@@ -1,54 +1,172 @@
 <!DOCTYPE html>
-<html>
-    <haed>
-        <title>Homepage_TeamProject</title>
-        <style>
-            .font_center{text-align: center;}
-        </style>
-        
-        <body>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      data-bs-theme="auto">
+<head>
+    <title>나의 블로그</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <style>
+        /* 기본 스타일 */
+        * {
+            box-sizing: border-box;
+        }
 
-            <h1 class="font_center" style="color: indigo;">Wellcom to TeamProjectSystem Channel</h1>
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        /* 헤더 */
+        header {
+            background-color: #3f51b5;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
 
-            <h1 style="color: blue;">팀 프로젝트의 목적</h1>
-            <p>
-                프로젝트를 진행하는데 가장 중요한 구성 요소로서 ‘팀'과 ‘팀원'이 있는데요.
-                
-                우리는 프로젝트를 왜 혼자가 아니라, 팀원들과 함께, 팀이 되어 일하는 걸까요?
-                
-                여기, Software Developmet: Why Teamwork Is Conductive to a Thriving Work Environment
-                (소프트웨어 개발: 팀 워크가 더 발전적인 업무 환경에 도움이 되는 이유)의 아티클을 한번 함께 볼까요?
-                
-                In Software Development, Teams that Work Together Closely Over Extended Period Found to Be More Efficient.
-                소프트웨어 개발 업계에서는 오랜 기간동안 긴밀하게 협력하는 팀들이 훨씬 더 효율적인 것으로 나타났다.
-                
-                팀으로써 ‘잘’ 일하는 것은 누구에게나 매우 중요한 능력이지만,
-                높은 수준의 기술을 효과적이고 효율적으로 활용해야하는 소프트웨어 개발자에게는 더더욱 중요합니다.
-                소프트웨어 개발자들이 그들 개인의 장점과 강점을 결합 했을 때 비로소 ‘혁신’이 일어납니다.
-                다양한 경험과 능력을 가진 개발자들이 협업하는 팀이 올바르게 나아가면, 셀 수 없이 많은 장점들이 생깁니다.
-                그 중 몇 가지 대표적인 장점을 소개합니다.</p>
-                <p></p>
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+        }
 
-                <h1 style="color: blue;">
-                    커뮤니케이션
-                </h1>
-                <p>인간 본성의 가장 심오한 욕구는 ‘중요한 존재로 인정받고자 하는 욕구'라고 말했습니다.
-                    우리는 모두 스스로의 존재를 인정 받고, 중요한 존재로서 인식 되기를 원합니다.
-                    
-                    팀 구성원 서로서로가 서로의 존재 이유를 인정하고 계속해서 확인시켜주며, 개인의 크고 작은 기여를 알아봐주세요.
-                    우리는 서로에게 당연한 존재가 아니며, ‘함께’ 중요하고 의미있는 일을 해내고 있다는 사실을 잊지 않는 것이 중요합니다. 서로의 존재 확인과 인정을 통해 더 열심히 일 하고자 하는 동기를 불어 넣어주세요.</p>
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-                <h1 style="color: blue;">성공적인 프로젝트를 위해서</h1>
-                <p>
-                    ‘성공적인 프로젝트’란 무엇을 의미하는 것일까요? 그리고 무엇을 기준으로 그 ‘성공’을 판가름 할 수 있을까요?
-                    
-                    한 방향을 바라보며 나아가길 지향하는 우리 코드스테이츠 SE 부트캠프에서는 크게 Hard Skill적인 목표와 Soft Skill적인 목표로 나눠 보도록 하겠습니다.
-                    그리고 그 세부 항목들은 아래와 같습니다.</p>
-           
-                
+        nav ul li {
+            margin-right: 20px;
+        }
 
+        nav ul li:last-child {
+            margin-right: 0;
+        }
 
-        </body>
-    </haed>
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        nav ul li a:hover {
+            background-color: #e91e63;
+        }
+
+        /* 메인 */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        article {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        article header {
+            margin-bottom: 10px;
+        }
+
+        article h2 {
+            margin: 0;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        article time {
+            font-size: 1.2rem;
+            color: #999;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        article p {
+            font-size: 1.4rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        article a {
+            color: #3f51b5;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+            font-weight: bold;
+        }
+
+        article a:hover {
+            color: #e91e63;
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #616161;
+        }
+
+        footer a {
+            color: #3f51b5;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            color: #e91e63;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>Team Project System</h1>
+    </nav>
+</header>
+
+<main>
+    <article>
+        <header>
+            <h2>첫 번째 프로젝트</h2>
+
+        </header>
+        <p>첫 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>
+    </article>
+
+    <article>
+        <header>
+            <h2>두 번째 프로젝트</h2>
+
+        </header>
+        <p>두 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>
+    </article>
+</main>
+
+<footer>
+    <p>&copy; 2023 Team Project</p>
+    <nav>
+        <ul>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객센터</a></li>
+        </ul>
+    </nav>
+</footer>
+</body>
 </html>
