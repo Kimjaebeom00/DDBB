@@ -1,6 +1,11 @@
-/* 기본 스타일 123*/
+/* 기본 스타일*/
 * {
     box-sizing: border-box;
+}
+
+button{
+    border: 0;
+    background-color: transparent;
 }
 
 body {
@@ -102,6 +107,10 @@ article a {
 
 article a:hover {
     color: #e91e63;
+}
+
+.add-project{
+    font-size: 10em;
 }
 
 /* 푸터 */
