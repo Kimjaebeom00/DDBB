@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}"
+      data-bs-theme="auto">
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{css/common.css}" >
+    </th:block>
+
+    <main layout:fragment="content">
+        <article>
+            <header>
+                <h2>첫 번째 프로젝트</h2>
+            </header>
+            <p>첫 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>
+        </article>
+
+        <article>
+            <header>
+                <h2>두 번째 프로젝트</h2>
+            </header>
+            <p>두 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>
+        </article>
+    </main>
+</html>
