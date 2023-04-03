@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ddbb.domain.mapper.CodeCompareMapper">
+    <!-- CodeCompare 테이블 전체 컬럼 -->
+    <sql id="postColumns">
+        project_id
+        , title
+        , before_code
+        , current_code
+    </sql>
+
+    <!-- 코드 저장 -->
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.CodeCompareVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board (
+        <include refid="postColumns" />
+        ) VALUES (
+        #{projectId}
+        , #{title}
+        , #{beforeCode}
+        , #{currentCode}
+        )
+    </insert>
+
+    <!-- 현재 프로젝트 코드 레코드 조회 -->
+    <select id="FindById" parameterType="long" resultType="com.project.ddbb.domain.vo.CodeCompareVO">
+        SELECT
+        <include refid="postColumns" />
+        FROM
+        CodeCompare
+        WHERE
+        project_id = #{projectId}
+    </select>
+
+
+
+</mapper>
