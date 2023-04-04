@@ -12,14 +12,14 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @Getter
 @Table(name = "member")
-@Entity(name = "Member")
+@Entity
 // 회원정보 저장 클래스
 public class Member {
 
     @Id
-    @GeneratedValue
-    @Column(name = "member_id")
-    private Long member_id;
+//    @GeneratedValue
+    @Column(name = "member_seq")
+    private Long memberSeq;
 
     private String name;
 

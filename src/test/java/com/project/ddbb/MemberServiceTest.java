@@ -1,5 +1,8 @@
 package com.project.ddbb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.project.ddbb.domain.members.Member;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.webDto.MemberFormDto;
@@ -26,10 +29,10 @@ public class MemberServiceTest {
 
     public Member createMember() {
         MemberFormDto memberFormDto = MemberFormDto.builder()
-                .name("테스트")
-                .id("rnjsdndud00")
-                .password("1111")
-                .phone("01043423459")
+                .name("권우영")
+                .id("asdxzc")
+                .password("etsdfsdf")
+                .phone("zxzxxcz")
                 .email("test@email.com")
                 .build();
         return Member.createMember(memberFormDto, passwordEncoder);
@@ -40,6 +43,7 @@ public class MemberServiceTest {
     public void saveMemberTest() {
         createMember();
         Member member = createMember();
+
         Member savedMember = memberService.saveMember(member);
 
         assertEquals(member.getEmail(), savedMember.getEmail());

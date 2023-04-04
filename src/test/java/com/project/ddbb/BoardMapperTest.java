@@ -54,7 +54,6 @@ public class BoardMapperTest {
         params.setPhone("01043423459");
         params.setEmail("rnjsdndud00@naver.com");
 
-//        boardMapper.save(params);
         boardMapper.member_save(params);
 
     }
