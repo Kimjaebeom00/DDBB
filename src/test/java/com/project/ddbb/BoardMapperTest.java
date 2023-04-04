@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.project.ddbb.domain.mapper.BoardMapper;
 import com.project.ddbb.domain.vo.BoardVO;
+import com.project.ddbb.domain.vo.MemberVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,8 @@ public class BoardMapperTest {
 
     @Autowired
     BoardMapper boardMapper;
+
+
 
     @Test
     void save() {
@@ -40,6 +43,20 @@ public class BoardMapperTest {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void member_save() {
+        MemberVO params = new MemberVO();
+        params.setName("권우영");
+        params.setId("rnjsdndud00");
+        params.setPassword("123456");
+        params.setPhone("01043423459");
+        params.setEmail("rnjsdndud00@naver.com");
+
+//        boardMapper.save(params);
+        boardMapper.member_save(params);
+
     }
 
     @Test
