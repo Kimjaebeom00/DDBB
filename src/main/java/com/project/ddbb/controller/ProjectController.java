@@ -5,13 +5,13 @@ import com.project.ddbb.domain.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/project")
 public class ProjectController {
     private final ProjectService projectService;
 
@@ -33,7 +33,7 @@ public class ProjectController {
      * 프로젝트 추가 화면
      * @return
      */
-    @GetMapping("/addProject")
+    @GetMapping("/add")
     public String addProject() {
         return "layout/project/add";
     }
@@ -43,9 +43,23 @@ public class ProjectController {
      * @param model
      * @return
      */
-    @PostMapping("/addProject")
+    @PostMapping("/add")
     public String addProjectProcess(Model model) {
 
+        return "layout/project/info";
+    }
+
+    /**
+     * 프로젝트 상세정보
+     * @param projectId
+     * @param model
+     * @return
+     */
+    @PostMapping("/info")
+    public String projectInfo(@RequestParam("projectId") Long projectId, Model model) {
+        ProjectVO project = projectService.findById(projectId);
+
+        model.addAttribute("project", project);
         return "layout/project/info";
     }
 }

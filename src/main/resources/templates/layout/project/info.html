@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}"
+      data-bs-theme="auto">
+
+  <main layout:fragment="content">
+    <p th:text="${project.title}"></p>
+    <p th:text="${project.introduction}"></p>
+  </main>
+</html>
