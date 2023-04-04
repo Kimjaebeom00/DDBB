@@ -34,8 +34,9 @@ public class ProjectService {
      * 프로젝트 등록
      * @param vo
      */
-    public void save(ProjectVO vo){
+    public Long save(ProjectVO vo){
         projectMapper.save(vo);
+        return vo.getProjectId();
     }
 
     /**
