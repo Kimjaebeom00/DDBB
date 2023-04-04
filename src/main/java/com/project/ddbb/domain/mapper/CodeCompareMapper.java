@@ -13,6 +13,12 @@ public interface CodeCompareMapper {
     void save(CodeVO params);
 
     /**
+     * 코드 업데이트
+     * @param params - 코드 정보
+     */
+    void update(CodeVO params);
+
+    /**
      * 현재 프로젝트 코드 조회
      * @return 현재 프로젝트 코드 정보
      */
