@@ -11,8 +11,8 @@
     </sql>
 
     <!-- 코드 저장 -->
-    <insert id="save" parameterType="com.project.ddbb.domain.vo.CodeCompareVO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO board (
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.CodeVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO code (
         <include refid="postColumns" />
         ) VALUES (
         #{projectId}
@@ -23,13 +23,13 @@
     </insert>
 
     <!-- 현재 프로젝트 코드 레코드 조회 -->
-    <select id="FindById" parameterType="long" resultType="com.project.ddbb.domain.vo.CodeCompareVO">
+    <select id="FindById" parameterType="long" resultType="com.project.ddbb.domain.vo.CodeVO">
         SELECT
         <include refid="postColumns" />
         FROM
-        CodeCompare
+            code
         WHERE
-        project_id = #{projectId}
+            project_id = #{projectId}
     </select>
 
 

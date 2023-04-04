@@ -1,7 +1,7 @@
 package com.project.ddbb.domain.service;
 
 import com.project.ddbb.domain.mapper.CodeCompareMapper;
-import com.project.ddbb.domain.vo.CodeCompareVO;
+import com.project.ddbb.domain.vo.CodeVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ public class CodeCompareService {
      * @param params - 코드 정보
      */
     @Transactional
-    public void saveCode(final CodeCompareVO params) {
+    public void saveCode(final CodeVO params) {
         codeCompareMapper.save(params);
     }
 
@@ -26,7 +26,7 @@ public class CodeCompareService {
      * @return 현재 프로젝트 코드 정보
      */
     @Transactional
-    public CodeCompareVO FindById(Long PI) {
+    public CodeVO FindById(Long PI) {
         return codeCompareMapper.FindById(PI);
     }
 }
