@@ -1,10 +1,3 @@
-* {
-    margin: 0px;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-weight: 700;
-}
-
 html {
     width: 100%;
     display: flex;
@@ -39,7 +32,7 @@ body {
 
 .input-form {
     max-width: 680px;
-    margin-top: 80px;
+    margin-top: 40px;
     padding: 32px;
     background: #fff;
     -webkit-border-radius: 10px;
