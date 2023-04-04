@@ -4,31 +4,26 @@
       layout:decorate="~{layout/default}"
       data-bs-theme="auto">
 
+    <th:block layout:fragment="javascript">
+        <script th:src="@{/js/home.js}"></script>
+    </th:block>
+
     <main layout:fragment="content">
+        <form id="projectInfoForm" action="/project/info" method="post">
+            <input type="hidden" id="projectId" name="projectId" />
+        </form>
+
         <article th:each="project : ${projects}">
             <header>
                 <h2 th:text="${project.title}"></h2>
             </header>
-            <p>[[ ${project.introduction} ]]<a href="#">자세히 보기</a></p>
+            <p>[[ ${project.introduction} ]]<button th:onclick="|javascript:goToInfo(${project.projectId})|">자세히 보기</button></p>
         </article>
+
         <div class="d-flex justify-content-center">
-            <form id="addProjectForm" action="/addProject" method="get">
+            <form id="addProjectForm" action="/project/add" method="get">
                 <button class="add-project"><i class="bi bi-plus-circle"></i></button>
             </form>
         </div>
-
-<!--        <article>-->
-<!--            <header>-->
-<!--                <h2>두 번째 프로젝트</h2>-->
-<!--            </header>-->
-<!--            <p>두 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>-->
-<!--        </article>-->
-
-<!--        <article>-->
-<!--            <header>-->
-<!--                <h2>세 번째 프로젝트</h2>-->
-<!--            </header>-->
-<!--            <p>세 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>-->
-<!--        </article>-->
     </main>
 </html>

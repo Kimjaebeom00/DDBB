@@ -103,14 +103,14 @@ article p {
     text-align: center;
 }
 
-article a {
+article button {
     color: #3f51b5;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
     font-weight: bold;
 }
 
-article a:hover {
+article button:hover {
     color: #e91e63;
 }
 
