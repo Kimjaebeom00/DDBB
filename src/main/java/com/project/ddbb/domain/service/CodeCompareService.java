@@ -21,6 +21,15 @@ public class CodeCompareService {
     }
 
     /**
+     * 코드 업데이트
+     * @param params - 코드 정보
+     */
+    @Transactional
+    public void updateCode(final CodeVO params) {
+        codeCompareMapper.update(params);
+    }
+
+    /**
      * 코드 조회
      * @param PI - 현재 프로젝트 Id
      * @return 현재 프로젝트 코드 정보

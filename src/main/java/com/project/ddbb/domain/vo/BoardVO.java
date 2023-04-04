@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BoardVO {
-
     private Long id;                    // PK
     private String title;               // 제목
     private String content;             // 내용

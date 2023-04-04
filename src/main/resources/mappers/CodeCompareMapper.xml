@@ -4,23 +4,38 @@
 <mapper namespace="com.project.ddbb.domain.mapper.CodeCompareMapper">
     <!-- CodeCompare 테이블 전체 컬럼 -->
     <sql id="postColumns">
-        project_id
+        code_id
+        , project_id
         , title
         , before_code
         , current_code
     </sql>
 
     <!-- 코드 저장 -->
-    <insert id="save" parameterType="com.project.ddbb.domain.vo.CodeVO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.CodeVO" useGeneratedKeys="true" keyProperty="codeId">
         INSERT INTO code (
         <include refid="postColumns" />
         ) VALUES (
-        #{projectId}
+        #{codeId}
+        , #{projectId}
         , #{title}
         , #{beforeCode}
         , #{currentCode}
         )
     </insert>
+
+    <!-- 코드 업데이트 -->
+    <update id="update" parameterType="com.project.ddbb.domain.vo.CodeVO">
+        UPDATE code
+        SET
+            code_id = #{codeId}
+          , project_id = #{projectId}
+          , title = #{title}
+          , before_code = #{beforeCode}
+          , current_code = #{currentCode}
+        WHERE
+            code_id = #{codeId}
+    </update>
 
     <!-- 현재 프로젝트 코드 레코드 조회 -->
     <select id="FindById" parameterType="long" resultType="com.project.ddbb.domain.vo.CodeVO">
