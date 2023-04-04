@@ -5,17 +5,17 @@
       data-bs-theme="auto">
 
     <main layout:fragment="content">
-        <div class="d-flex justify-content-center add-project">
-            <form id="addProjectForm" action="/project/add" method="get">
-                <button><i class="bi bi-plus-circle"></i></button>
+        <article th:each="project : ${projects}">
+            <header>
+                <h2 th:text="${project.title}"></h2>
+            </header>
+            <p>[[ ${project.introduction} ]]<a href="#">자세히 보기</a></p>
+        </article>
+        <div class="d-flex justify-content-center">
+            <form id="addProjectForm" action="/addProject" method="get">
+                <button class="add-project"><i class="bi bi-plus-circle"></i></button>
             </form>
         </div>
-<!--        <article>-->
-<!--            <header>-->
-<!--                <h2>첫 번째 프로젝트</h2>-->
-<!--            </header>-->
-<!--            <p>첫 번째 프로젝트 내용입니다. <a href="#">자세히 보기</a></p>-->
-<!--        </article>-->
 
 <!--        <article>-->
 <!--            <header>-->

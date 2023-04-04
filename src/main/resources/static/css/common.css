@@ -8,6 +8,11 @@ button{
     background-color: transparent;
 }
 
+button:focus {
+    border: none;
+    outline:none;
+}
+
 body {
     font-family: "Noto Sans KR", sans-serif;
     margin: 0;
