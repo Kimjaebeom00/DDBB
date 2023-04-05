@@ -3,7 +3,6 @@
     margin: 0px;
     box-sizing: border-box;
     font-size: 16px;
-    font-weight: 700;
 }
 
 button{
@@ -17,7 +16,6 @@ button:focus {
 }
 
 body {
-    font-family: "Noto Sans KR", sans-serif;
     margin: 0;
     padding: 0;
 }
