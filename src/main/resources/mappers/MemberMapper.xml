@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.ddbb.domain.mapper.MemberMapper">
+
+    <sql id="postColumns">
+        id
+        , password
+        , name
+        , email
+    </sql>
+
+    <insert id="signup" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member (
+        <include refid="postColumns" />
+        ) VALUES (
+        #{id}
+        , #{password}
+        , #{name}
+        , #{email}
+        )
+    </insert>
+    
+    <select id="permit" parameterType="string" resultType="boolean">
+--         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        <include refid="postColumns" />
+        FROM member
+        WHERE id = #{id};
+    </select>
+</mapper>

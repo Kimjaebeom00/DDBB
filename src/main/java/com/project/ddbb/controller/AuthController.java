@@ -1,9 +1,11 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,8 +46,8 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signUp")
-    public String signUpProcess() {
-
+    public String signUpProcess(MemberVO memberVO) {
+        System.out.println(memberVO.toString());
         return "auth/sign_up_complete";
     }
 
