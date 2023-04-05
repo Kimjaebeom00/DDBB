@@ -1,6 +1,8 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.service.ProjectService;
+import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
     private final ProjectService projectService;
+    private final ProjectMemberService projectMemberService;
 
     /**
      * 메인화면
@@ -49,6 +52,12 @@ public class ProjectController {
     public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect) {
         vo.setMemberId(1L); // Spring Security 적용 시 삭제
         Long projectId = projectService.save(vo);
+
+        ProjectMemberVO pmv = new ProjectMemberVO();
+        pmv.setProjectId(vo.getProjectId());
+        pmv.setMemberId(vo.getMemberId());
+        pmv.setLeaderYn(true);
+        projectMemberService.save(pmv);
 
         redirect.addFlashAttribute("projectId", projectId);
         return "redirect:/project/info";

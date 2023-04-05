@@ -8,4 +8,5 @@ import lombok.Setter;
 public class ProjectMemberVO {
     private Long projectId;         // 프로젝트 고유번호
     private Long memberId;          // 사용자 고유번호
+    private boolean leaderYn;       // 팀장 여부
 }
