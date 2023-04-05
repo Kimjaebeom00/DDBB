@@ -55,8 +55,20 @@ public class ProjectController {
     }
 
     /**
+     * 프로젝트 생성 후 프로젝트 상세정보
+     * @param model
+     * @return
+     */
+    @GetMapping("/info")
+    public String projectInfo(Model model) {
+        ProjectVO project = projectService.findById((Long) model.getAttribute("projectId"));
+
+        model.addAttribute("project", project);
+        return "layout/project/info";
+    }
+
+    /**
      * 프로젝트 상세정보
-     * @param projectId
      * @param model
      * @return
      */
