@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping("/signIn")
     public String signInProcess() {
 
-        return "redirect:/project/home";
+        return "main/home";
     }
 
     /**
@@ -46,8 +46,8 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signUp")
-    public String signUpProcess(MemberVO memberVO) {
-        System.out.println(memberVO.toString());
+    public String signUpProcess() {
+
         return "auth/sign_up_complete";
     }
 
