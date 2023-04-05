@@ -5,7 +5,15 @@
       data-bs-theme="auto">
 
   <main layout:fragment="content">
+    <input type="hidden" id="projectId" name="projectId" th:value="${project.projectId}"/>
     <p th:text="${project.title}"></p>
     <p th:text="${project.introduction}"></p>
+    <p id="project-members"></p>
+
+    <script>
+      $(function() {
+        projectInfoInit();
+      });
+    </script>
   </main>
 </html>
