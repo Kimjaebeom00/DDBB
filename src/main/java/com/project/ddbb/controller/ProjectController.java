@@ -54,38 +54,30 @@ public class ProjectController {
         Long projectId = projectService.save(vo);
 
         ProjectMemberVO pmv = new ProjectMemberVO();
-        pmv.setProjectId(vo.getProjectId());
+        pmv.setProjectId(projectId);
         pmv.setMemberId(vo.getMemberId());
         pmv.setLeaderYn(true);
         projectMemberService.save(pmv);
 
-        redirect.addFlashAttribute("projectId", projectId);
+        redirect.addAttribute("projectId", projectId);
+
         return "redirect:/project/info";
     }
 
     /**
-     * 프로젝트 생성 후 프로젝트 상세정보
-     * @param model
-     * @return
-     */
-    @GetMapping("/info")
-    public String projectInfoAfterAddProject(Model model) {
-        ProjectVO project = projectService.findByProjectId((Long) model.getAttribute("projectId"));
-
-        model.addAttribute("project", project);
-        return "layout/project/info";
-    }
-
-    /**
      * 프로젝트 상세정보
+     * @param id
      * @param model
      * @return
      */
-    @PostMapping("/info")
-    public String projectInfo(@RequestParam("projectId") Long projectId, Model model) {
+    @RequestMapping("/info")
+    public String projectInfo(@RequestParam(required=false, name="projectId") Long id, Model model) {
+        Long projectId = (id == null) ? (Long) model.getAttribute("id") : id;
+
         ProjectVO project = projectService.findByProjectId(projectId);
 
         model.addAttribute("project", project);
+
         return "layout/project/info";
     }
 }
