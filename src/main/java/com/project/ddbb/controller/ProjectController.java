@@ -60,7 +60,7 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/info")
-    public String projectInfo(Model model) {
+    public String projectInfoAfterAddProject(Model model) {
         ProjectVO project = projectService.findByProjectId((Long) model.getAttribute("projectId"));
 
         model.addAttribute("project", project);
