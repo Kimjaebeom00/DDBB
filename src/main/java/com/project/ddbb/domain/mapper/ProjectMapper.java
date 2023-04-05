@@ -20,7 +20,7 @@ public interface ProjectMapper {
      * @param projectId
      * @return
      */
-    ProjectVO findById(Long projectId);
+    ProjectVO findByProjectId(Long projectId);
 
     /**
      * 프로젝트 등록

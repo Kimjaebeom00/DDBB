@@ -26,8 +26,8 @@ public class ProjectService {
      * @param projectId
      * @return
      */
-    public ProjectVO findById(Long projectId) {
-        return projectMapper.findById(projectId);
+    public ProjectVO findByProjectId(Long projectId) {
+        return projectMapper.findByProjectId(projectId);
     }
 
     /**

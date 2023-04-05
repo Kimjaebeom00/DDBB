@@ -61,7 +61,7 @@ public class ProjectController {
      */
     @GetMapping("/info")
     public String projectInfo(Model model) {
-        ProjectVO project = projectService.findById((Long) model.getAttribute("projectId"));
+        ProjectVO project = projectService.findByProjectId((Long) model.getAttribute("projectId"));
 
         model.addAttribute("project", project);
         return "layout/project/info";
@@ -74,7 +74,7 @@ public class ProjectController {
      */
     @PostMapping("/info")
     public String projectInfo(@RequestParam("projectId") Long projectId, Model model) {
-        ProjectVO project = projectService.findById(projectId);
+        ProjectVO project = projectService.findByProjectId(projectId);
 
         model.addAttribute("project", project);
         return "layout/project/info";

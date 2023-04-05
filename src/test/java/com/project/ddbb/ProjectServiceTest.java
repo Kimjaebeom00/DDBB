@@ -39,7 +39,7 @@ public class ProjectServiceTest {
 
     @Test
     void findById() {
-        ProjectVO vo = projectService.findById(1L);
+        ProjectVO vo = projectService.findByProjectId(1L);
         try {
             String projectJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(vo);
             System.out.println(projectJson);
@@ -56,7 +56,7 @@ public class ProjectServiceTest {
         updateVo.setIntroduction("객체지향 프로그래밍2 팀프로젝트 수정합니다.");
         projectService.update(updateVo);
 
-        ProjectVO resultVo = projectService.findById(1L);
+        ProjectVO resultVo = projectService.findByProjectId(1L);
         try {
             String projectJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(resultVo);
             System.out.println(projectJson);
