@@ -1,14 +1,18 @@
 package com.project.ddbb.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.project.ddbb.domain.service.MemberService;
+import com.project.ddbb.domain.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
+
+    private final MemberService memberService;
 
     /**
      * 로그인 화면
@@ -24,31 +28,26 @@ public class AuthController {
      * 로그인 처리
      * @return
      */
-//    @PostMapping("/signIn")
-//    public String signInProcess() {
-//
-//        return "redirect:/project/home";
-//    }
-    /**
-     * 로그인 유효성 처리
-     * @return
-     */
-
     @PostMapping("/signIn")
-    public String signInProcess(HttpServletRequest request) {
-        String userid = request.getParameter("userid");
-        String password = request.getParameter("password");
-
-        // userid와 password 검증 로직
-        if (userid != null && password != null && !userid.isEmpty() && !password.isEmpty()) {
-            // 로그인 성공
-            return "redirect:/project/home";
+    public String signInProcess(MemberVO memberVO) throws Exception{
+        String id = memberVO.getId();
+        String password = memberVO.getPassword();
+//         userid와 password 검증 로직
+        if (id != null && password != null && !id.isEmpty() && !password.isEmpty()) {
+//             로그인 성공
+            if (memberService.accountPermitId(id) && memberService.accountPermitPw(password)){
+                System.out.println("Success");
+                return "redirect:/project/home";
+            } else {
+                System.out.println("Fail");
+                return "redirect:/signIn";
+            }
         } else {
             // 로그인 실패
+            System.out.println("Fail2");
             return "redirect:/signIn";
         }
     }
-
 
     /**
      * 회원가입 화면
