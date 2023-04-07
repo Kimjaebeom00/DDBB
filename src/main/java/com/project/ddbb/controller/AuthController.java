@@ -17,7 +17,7 @@ import java.lang.reflect.Member;
 @RequiredArgsConstructor
 public class AuthController {
 
-    MemberMapper memberMapper;
+    private final MemberService memberService;
 
     /**
      * 로그인 화면
@@ -35,17 +35,19 @@ public class AuthController {
      */
     @PostMapping("/signIn")
     public String signInProcess(MemberVO memberVO) throws Exception{
-        String id = "Ktest";
-        String password = "Ktest";
+        String id = memberVO.getId();
+        memberVO.setId(id);
+        String password = memberVO.getPassword();
+        memberVO.setId(password);
+
 //        System.out.println(memberVO.getId());
 //        System.out.println(memberMapper.permitid(id));
 //        System.out.println(memberVO.getPassword());
 
-        MemberService memberService = new MemberService();
 //         userid와 password 검증 로직
         if (id != null && password != null && !id.isEmpty() && !password.isEmpty()) {
 //             로그인 성공
-            if (memberMapper.permitid(id)){
+            if (memberService.accountPermitId(id) && memberService.accountPermitPw(password)){
                 System.out.println("Success");
                 return "redirect:/project/home";
             } else {
