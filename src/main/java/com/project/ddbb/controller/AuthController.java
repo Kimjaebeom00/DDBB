@@ -1,17 +1,12 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.mapper.MemberMapper;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.lang.reflect.Member;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,14 +31,7 @@ public class AuthController {
     @PostMapping("/signIn")
     public String signInProcess(MemberVO memberVO) throws Exception{
         String id = memberVO.getId();
-        memberVO.setId(id);
         String password = memberVO.getPassword();
-        memberVO.setId(password);
-
-//        System.out.println(memberVO.getId());
-//        System.out.println(memberMapper.permitid(id));
-//        System.out.println(memberVO.getPassword());
-
 //         userid와 password 검증 로직
         if (id != null && password != null && !id.isEmpty() && !password.isEmpty()) {
 //             로그인 성공

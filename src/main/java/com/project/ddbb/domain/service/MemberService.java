@@ -1,9 +1,13 @@
 package com.project.ddbb.domain.service;
 
 import com.project.ddbb.domain.mapper.MemberMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class MemberService {
-    MemberMapper memberMapper;
+    private final MemberMapper memberMapper;
     public boolean accountPermitId(final String id){
         try {
             return memberMapper.permitid(id);
