@@ -47,7 +47,6 @@ public class AuthController {
      */
     @PostMapping("/signUp")
     public String signUpProcess(MemberVO memberVO) {
-        System.out.println(memberVO.toString());
         return "auth/sign_up_complete";
     }
 
