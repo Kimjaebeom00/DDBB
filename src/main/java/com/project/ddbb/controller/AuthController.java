@@ -1,20 +1,18 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.mapper.MemberMapper;
+import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
-    @Autowired
-    MemberMapper memberMapper;
+
+    private final MemberService memberService;
 
     /**
      * 로그인 화면
@@ -31,9 +29,24 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess(MemberVO memberVO) {
-        System.out.println(memberVO.getId());
-        return "redirect:/project/home";
+    public String signInProcess(MemberVO memberVO) throws Exception{
+        String id = memberVO.getId();
+        String password = memberVO.getPassword();
+//         userid와 password 검증 로직
+        if (id != null && password != null && !id.isEmpty() && !password.isEmpty()) {
+//             로그인 성공
+            if (memberService.accountPermitId(id) && memberService.accountPermitPw(password)){
+                System.out.println("Success");
+                return "redirect:/project/home";
+            } else {
+                System.out.println("Fail");
+                return "redirect:/signIn";
+            }
+        } else {
+            // 로그인 실패
+            System.out.println("Fail2");
+            return "redirect:/signIn";
+        }
     }
 
     /**
@@ -52,7 +65,6 @@ public class AuthController {
      */
     @PostMapping("/signUp")
     public String signUpProcess() {
-
 
         return "auth/sign_up_complete";
     }

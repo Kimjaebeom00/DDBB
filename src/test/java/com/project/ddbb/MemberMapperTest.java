@@ -30,7 +30,7 @@ public class MemberMapperTest {
 
     @Test
     void accountPermit() throws Exception{
-        boolean post = memberMapper.permit("K");
+        boolean post = memberMapper.permitid("Ktest");
 
         try {
             String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);

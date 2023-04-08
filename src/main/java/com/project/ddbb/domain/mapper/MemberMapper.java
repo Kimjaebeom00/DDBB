@@ -9,5 +9,7 @@ public interface MemberMapper {
     void signup(MemberVO member) throws Exception;
 
     // DB에 저장된 정보 있으면 home 화면으로 이동
-    boolean permit(String id) throws Exception;
+    boolean permitid(String id) throws Exception;
+    boolean permitpw(String pw) throws Exception;
+
 }
