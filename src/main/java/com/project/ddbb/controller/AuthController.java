@@ -30,12 +30,11 @@ public class AuthController {
      */
     @PostMapping("/signIn")
     public String signInProcess(MemberVO memberVO) throws Exception{
-        String id = memberVO.getId();
-        String password = memberVO.getPassword();
+
 //         userid와 password 검증 로직
-        if (id != null && password != null && !id.isEmpty() && !password.isEmpty()) {
+        if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
 //             로그인 성공
-            if (memberService.accountPermitId(id) && memberService.accountPermitPw(password)){
+            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberVO.getPassword())){
                 System.out.println("Success");
                 return "redirect:/project/home";
             } else {
@@ -64,9 +63,16 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signUp")
-    public String signUpProcess() {
+    public String signUpProcess(MemberVO memberVO) throws Exception {
+        if ( memberVO.getEmail() != null && memberVO.getEmail().isEmpty()){
+//            memberVO.getId() != null && memberVO.getPassword() != null && memberVO.getName() != null && memberVO.getEmail() != null
+//            && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty() && memberVO.getName().isEmpty() && memberVO.getEmail().isEmpty()) {
+            memberService.SignUp(memberVO);
+            return "auth/sign_up_complete";
+        } else {
+            return "auth/sign_up";
+        }
 
-        return "auth/sign_up_complete";
     }
 
     /**

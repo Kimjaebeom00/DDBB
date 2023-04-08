@@ -8,8 +8,6 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    void member_save(MemberVO params);
-
     /**
      * 게시글 저장
      * @param params - 게시글 정보
