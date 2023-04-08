@@ -1,7 +1,7 @@
 var api = {
-    projectMembers: function(projectId) {
+    projectMembers: function(projectId) {//컨트롤러 메소드 이름이랑 같다 ->오브젝트 형식
         var params = {
-            projectId: projectId
+            projectId: projectId//왼쪽은 키값 오른쪽은 벨류
         };
 
         $.ajax({

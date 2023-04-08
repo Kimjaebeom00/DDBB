@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +8,7 @@
         <title>뛰뛰빵빵 로그인 페이지</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
         <link href="/css/sign_in.css" rel="stylesheet">
+        <script th:src="@{js/test.js}" ></script>
     </head>
     <body class="text-center">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
@@ -16,14 +18,14 @@
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
                 <div class="form-floating">
-                    <input type="id" class="form-control" id="floatingInput">
+                    <input type="id" name="userid" class="form-control" id="floatingInput">
                     <label for="floatingInput">ID</label>
                 </div>
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword">
+                    <input type="password" name="password" class="form-control" id="floatingPassword">
                     <label for="floatingPassword">Password</label>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+                <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="check(document.forms['signInForm'])">로그인</button>
                 <p></p>
 
             </form>
