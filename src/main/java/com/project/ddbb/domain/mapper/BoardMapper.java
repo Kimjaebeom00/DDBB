@@ -1,11 +1,13 @@
 package com.project.ddbb.domain.mapper;
 
 import com.project.ddbb.domain.vo.BoardVO;
+import com.project.ddbb.domain.vo.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 @Mapper
 public interface BoardMapper {
+
     /**
      * 게시글 저장
      * @param params - 게시글 정보

@@ -16,6 +16,31 @@
         , modified_date
     </sql>
 
+    <!-- member 테이블 전체 컬럼 -->
+    <sql id="MemberPostColumns">
+        member_id
+        , name
+        , id
+        , password
+        , phone
+        , email
+    </sql>
+
+    <!-- 게시글 저장 -->
+    <insert id="member_save" parameterType="com.project.ddbb.domain.vo.MemberVO" useGeneratedKeys="true" keyProperty="member_id">
+        INSERT INTO member (
+        <include refid="MemberPostColumns" />
+        ) VALUES (
+        #{member_id}
+        , #{name}
+        , #{id}
+        , #{password}
+        , #{phone}
+        , #{email}
+        )
+    </insert>
+
+
 
     <!-- 게시글 저장 -->
     <insert id="save" parameterType="com.project.ddbb.domain.vo.BoardVO" useGeneratedKeys="true" keyProperty="id">

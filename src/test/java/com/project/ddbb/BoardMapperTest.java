@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.project.ddbb.domain.mapper.BoardMapper;
 import com.project.ddbb.domain.vo.BoardVO;
+import com.project.ddbb.domain.vo.MemberVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,8 @@ public class BoardMapperTest {
 
     @Autowired
     BoardMapper boardMapper;
+
+
 
     @Test
     void save() {
