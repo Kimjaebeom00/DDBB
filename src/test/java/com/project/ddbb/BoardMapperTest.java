@@ -46,19 +46,6 @@ public class BoardMapperTest {
     }
 
     @Test
-    void member_save() {
-        MemberVO params = new MemberVO();
-        params.setName("권우영");
-        params.setId("rnjsdndud00");
-        params.setPassword("123456");
-        params.setPhone("01043423459");
-        params.setEmail("rnjsdndud00@naver.com");
-
-        boardMapper.member_save(params);
-
-    }
-
-    @Test
     void update() {
         BoardVO params = new BoardVO();
         params.setId(2L);

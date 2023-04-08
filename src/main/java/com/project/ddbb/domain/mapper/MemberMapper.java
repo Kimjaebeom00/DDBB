@@ -6,8 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper {
     //회원가입
-    void signup(MemberVO member) throws Exception;
+    void signup(MemberVO vo) throws Exception;
 
     // DB에 저장된 정보 있으면 home 화면으로 이동
-    boolean permit(String id) throws Exception;
+    boolean permitid(String id) throws Exception;
+    boolean permitpw(String pw) throws Exception;
+
 }

@@ -14,23 +14,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MemberMapperTest {
     @Autowired
     MemberMapper memberMapper;
-    MemberVO memberVO = new MemberVO();
+    MemberVO memberVO;
+
 
     @Test
     void memberJoin() throws Exception{
-
         memberVO.setId("Ktest");
         memberVO.setPassword("Ktest");
         memberVO.setName("Ktest");
         memberVO.setEmail("Ktest");
-
         memberMapper.signup(memberVO);
+        System.out.println(memberVO.toString());
 
     }
 
     @Test
     void accountPermit() throws Exception{
-        boolean post = memberMapper.permit("K");
+        boolean post = memberMapper.permitid("Ktest");
 
         try {
             String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);

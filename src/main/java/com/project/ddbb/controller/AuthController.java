@@ -1,15 +1,18 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
+
+    private final MemberService memberService;
 
     /**
      * 로그인 화면
@@ -26,9 +29,23 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess() {
+    public String signInProcess(MemberVO memberVO) throws Exception{
 
-        return "main/home";
+//         userid와 password 검증 로직
+        if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
+//             로그인 성공
+            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberVO.getPassword())){
+                System.out.println("Success");
+                return "redirect:/project/home";
+            } else {
+                System.out.println("Fail");
+                return "redirect:/signIn";
+            }
+        } else {
+            // 로그인 실패
+            System.out.println("Fail2");
+            return "redirect:/signIn";
+        }
     }
 
     /**
@@ -46,9 +63,16 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signUp")
-    public String signUpProcess() {
+    public String signUpProcess(MemberVO memberVO) throws Exception {
+        if ( memberVO.getEmail() != null && memberVO.getEmail().isEmpty()){
+//            memberVO.getId() != null && memberVO.getPassword() != null && memberVO.getName() != null && memberVO.getEmail() != null
+//            && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty() && memberVO.getName().isEmpty() && memberVO.getEmail().isEmpty()) {
+            memberService.SignUp(memberVO);
+            return "auth/sign_up_complete";
+        } else {
+            return "auth/sign_up";
+        }
 
-        return "auth/sign_up_complete";
     }
 
     /**
