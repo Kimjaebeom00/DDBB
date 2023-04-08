@@ -14,17 +14,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MemberMapperTest {
     @Autowired
     MemberMapper memberMapper;
-    MemberVO memberVO = new MemberVO();
+    MemberVO memberVO;
+
 
     @Test
     void memberJoin() throws Exception{
-
         memberVO.setId("Ktest");
         memberVO.setPassword("Ktest");
         memberVO.setName("Ktest");
         memberVO.setEmail("Ktest");
-
         memberMapper.signup(memberVO);
+        System.out.println(memberVO.toString());
 
     }
 

@@ -1,15 +1,20 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.mapper.MemberMapper;
 import com.project.ddbb.domain.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
+    @Autowired
+    MemberMapper memberMapper;
 
     /**
      * 로그인 화면
@@ -26,9 +31,9 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess() {
-
-        return "main/home";
+    public String signInProcess(MemberVO memberVO) {
+        System.out.println(memberVO.getId());
+        return "redirect:/project/home";
     }
 
     /**
@@ -47,6 +52,7 @@ public class AuthController {
      */
     @PostMapping("/signUp")
     public String signUpProcess() {
+
 
         return "auth/sign_up_complete";
     }
