@@ -61,4 +61,5 @@ public class BoardService {
     public List<BoardVO> findAllBoard() {
         return boardMapper.findAll();
     }
+
 }
