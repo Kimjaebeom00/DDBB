@@ -34,7 +34,10 @@
       });
     }, false);
   </script>
-  <form id="signUpForm" th:action="@{/signUp}" method="post">
+
+
+
+  <form id="idValidationForm" th:action="@{/idValidation}" method="post">
     <div class="container">
       <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
@@ -49,8 +52,18 @@
                 </div>
               </div>
               <div class="col-md-6 mb-3">
+                <label for="idCheck">아이디 중복확인</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="idCheck" placeholder="아이디를 입력하세요" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">중복확인</button>
+                  </div>
+                </div>
+                <div id="idCheckResult"></div>
+              </div>
+              <div class="col-md-6 mb-3">
                 <label for="password">비밀번호</label>
-                <input type="text" name="password" class="form-control" id="password" placeholder="" value="" required>
+                <input type="password" name="password" class="form-control" id="password" placeholder="" value="" required>
                 <div class="invalid-feedback">
                   별명을 입력해주세요.
                 </div>
@@ -70,8 +83,12 @@
           </form>
         </div>
       </div>
-    <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
     </div>
+  </form>
+
+      <form id="signUpForm" th:action="@{/signUp}" method="post">
+    <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+
   </form>
 </body>
 </html>
