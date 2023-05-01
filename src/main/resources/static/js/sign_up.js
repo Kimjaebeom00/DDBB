@@ -24,6 +24,7 @@ function changePhone3(){
 
 let processID = -1;
 
+//임시 비밀번호 전송
 
 
 
@@ -119,4 +120,9 @@ function signUpCheck(){
       alert("가입이 완료되었습니다.")
   },0);
   }
+
+  function showAlert() {
+    alert("아이디를 찾습니다!");
+  }
+
 }

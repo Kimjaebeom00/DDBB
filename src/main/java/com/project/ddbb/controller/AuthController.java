@@ -103,9 +103,19 @@ public class AuthController {
      * @return
      */
 
-    @GetMapping("/findpassword")
+    @GetMapping("/findPassword")
     public String findpassword() {
 
-        return "auth/sign_in";
+        return "auth/sign_findPassword";
+    }
+    /**
+     * 아이디 찾기
+     *
+     * @return
+     */
+    @GetMapping("/findId")
+    public String findId() {
+
+        return "auth/sign_findId";
     }
 }
