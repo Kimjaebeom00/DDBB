@@ -28,8 +28,24 @@ let processID = -1;
 
 
 
-// 가입부분 체크
+// 비밀번호 체크
 
+function validatePassword() {
+  var password = document.getElementById("password").value;
+  var passwordCheck = document.getElementById("passwordCheck").value;
+  var check = true;
+  if(password !== passwordCheck){
+    document.getElementById("passwordError").innerHTML="";
+    document.getElementById("passwordCheckError").innerHTML="비밀번호가 동일하지 않습니다.";
+    check = false;
+  }else{
+    document.getElementById("passwordError").innerHTML="";
+    document.getElementById("passwordCheckError").innerHTML="";
+  }
+  return check;
+}
+
+// 가입부분 체크
 function signUpCheck(){
 
   let email = document.getElementById("email").value
@@ -65,27 +81,27 @@ function signUpCheck(){
 
 
   // 비밀번호 확인
-  if(password !== passwordCheck){
-    document.getElementById("passwordError").innerHTML=""
-    document.getElementById("passwordCheckError").innerHTML="비밀번호가 동일하지 않습니다."
-    check = false
-  }else{
-    document.getElementById("passwordError").innerHTML=""
-    document.getElementById("passwordCheckError").innerHTML=""
-  }
-
-  if(password===""){
-    document.getElementById("passwordError").innerHTML="비밀번호를 입력해주세요."
-    check = false
-  }else{
-    //document.getElementById("passwordError").innerHTML=""
-  }
-  if(passwordCheck===""){
-    document.getElementById("passwordCheckError").innerHTML="비밀번호를 다시 입력해주세요."
-    check = false
-  }else{
-    //document.getElementById("passwordCheckError").innerHTML=""
-  }
+  // if(password !== passwordCheck){
+  //   document.getElementById("passwordError").innerHTML=""
+  //   document.getElementById("passwordCheckError").innerHTML="비밀번호가 동일하지 않습니다."
+  //   check = false
+  // }else{
+  //   document.getElementById("passwordError").innerHTML=""
+  //   document.getElementById("passwordCheckError").innerHTML=""
+  // }
+  //
+  // if(password===""){
+  //   document.getElementById("passwordError").innerHTML="비밀번호를 입력해주세요."
+  //   check = false
+  // }else{
+  //   //document.getElementById("passwordError").innerHTML=""
+  // }
+  // if(passwordCheck===""){
+  //   document.getElementById("passwordCheckError").innerHTML="비밀번호를 다시 입력해주세요."
+  //   check = false
+  // }else{
+  //   //document.getElementById("passwordCheckError").innerHTML=""
+  // }
 
 
   
