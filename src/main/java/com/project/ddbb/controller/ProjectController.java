@@ -2,6 +2,7 @@ package com.project.ddbb.controller;
 
 import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.service.ProjectService;
+import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 @Controller
@@ -25,11 +27,11 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/home")
-    public String main(Model model) {
-        Long userId = 1L; // 로그인한 사용자 아이디, Spring Security 적용 시 삭제
-        List<ProjectVO> projects = projectService.findProjectsByUserId(userId);
+    public String main(@RequestParam("memberId") Long memberId, Model model) {
+        List<ProjectVO> projects = projectService.findProjectsByUserId(memberId);
 
         model.addAttribute("projects", projects);
+        model.addAttribute("memberId", memberId);
         return "layout/main/home";
     }
 

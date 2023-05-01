@@ -5,7 +5,8 @@
 <mapper namespace="com.project.ddbb.domain.mapper.MemberMapper">
 
     <sql id="postColumns">
-        id
+        member_id
+        , id
         , password
         , name
         , email
@@ -38,5 +39,11 @@
         <include refid="postColumns" />
         FROM member
         WHERE password = #{password};
+    </select>
+
+    <select id="selectById" parameterType="String" resultType="com.project.ddbb.domain.vo.MemberVO">
+        SELECT *
+        FROM member
+        WHERE id = #{id};
     </select>
 </mapper>
