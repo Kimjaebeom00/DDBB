@@ -16,7 +16,8 @@
         INSERT INTO member (
         <include refid="postColumns" />
         ) VALUES (
-        #{id}
+        #{memberId}
+        , #{id}
         , #{password}
         , #{name}
         , #{email}
