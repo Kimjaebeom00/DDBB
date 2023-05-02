@@ -11,7 +11,6 @@
     <main layout:fragment="content">
         <form id="projectInfoForm" action="/project/info" method="post">
             <input type="hidden" id="projectId" name="projectId" />
-            <input type="hidden" id="memberId" name="memberId" />
         </form>
 
         <article th:each="project : ${projects}">
