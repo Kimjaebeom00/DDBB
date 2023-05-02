@@ -20,7 +20,6 @@ public class AuthController {
 
     /**
      * 로그인 화면
-     *
      * @return
      */
     @GetMapping("/signIn")
@@ -31,17 +30,16 @@ public class AuthController {
 
     /**
      * 로그인 처리
-     *
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess(MemberVO memberVO) throws Exception {
+    public String signInProcess(MemberVO memberVO) throws Exception{
 
 
 //         userid와 password 검증 로직
         if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
 //             로그인 성공
-            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))) {
+            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
                 System.out.println("Success");
                 return "redirect:/project/home";
             } else {
@@ -58,7 +56,6 @@ public class AuthController {
 
     /**
      * 회원가입 화면
-     *
      * @return
      */
     @GetMapping("/signUp")
@@ -69,12 +66,11 @@ public class AuthController {
 
     /**
      * 회원가입 처리
-     *
      * @return
      */
     @PostMapping("/signUp")
     public String signUpProcess(MemberVO memberVO) throws Exception {
-        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty()) {
+        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty()){
             //memberVO.getId() != null && memberVO.getPassword() != null && memberVO.getName() != null && memberVO.getEmail() != null
             //&& !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty() && memberVO.getName().isEmpty() && memberVO.getEmail().isEmpty()) {
             memberVO.setPassword(memberService.PassWordEncrypt(memberVO.getPassword()));
@@ -88,34 +84,11 @@ public class AuthController {
 
     /**
      * ID 유효성 검증
-     *
      * @return
      */
     @PostMapping("/idValidation")
-    public boolean idValidation(MemberVO memberVO) throws Exception {
+    public boolean idValidation() {
 
-
-        return memberService.accountPermitId(memberVO.getId());
-    }
-    /**
-     * 비밀번호 찾기
-     *
-     * @return
-     */
-
-    @GetMapping("/findPassword")
-    public String findpassword() {
-
-        return "auth/sign_findPassword";
-    }
-    /**
-     * 아이디 찾기
-     *
-     * @return
-     */
-    @GetMapping("/findId")
-    public String findId() {
-
-        return "auth/sign_findId";
+        return true;
     }
 }

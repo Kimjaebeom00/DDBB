@@ -11,5 +11,6 @@ public interface MemberMapper {
     // DB에 저장된 정보 있으면 home 화면으로 이동
     boolean permitid(String id) throws Exception;
     boolean permitpw(String pw) throws Exception;
+    MemberVO selectById(String id) throws Exception;
 
 }
