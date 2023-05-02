@@ -1,11 +1,13 @@
 function check(form)
 {
-    if(form.userid.value=="kimjaebeom" && form.userpassword.value=="1234")
+    if(form.userid.value || form.password.value)
     {
-        window.open('target.html')
+
+        alert("로그인 성공!!")
+
     }
     else{
-        alert("아이디 및 비밀번호가 다릅니다.")
+        alert("값을 입력해주세요.")
     }
 }
 

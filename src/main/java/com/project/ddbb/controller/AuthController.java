@@ -86,6 +86,6 @@ public class AuthController {
      */
     @PostMapping("/idValidation")
     public boolean idValidation(MemberVO memberVO) throws Exception {
-        return memberService.accountPermitId(memberVO.getId());  // ID 중복 시 True, 사용 가능 시 False
+        return memberService.accountPermitId(memberVO.getId());
     }
 }
