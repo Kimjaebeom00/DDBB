@@ -5,6 +5,8 @@ import com.project.ddbb.domain.service.ProjectService;
 import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +29,14 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/home")
-    public String main(@RequestParam("memberId") Long memberId, Model model) {
-        List<ProjectVO> projects = projectService.findProjectsByUserId(memberId);
+    public String main(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
+        List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
 
         model.addAttribute("projects", projects);
-        model.addAttribute("memberId", memberId);
+
         return "layout/main/home";
     }
 
@@ -40,7 +45,7 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/add")
-    public String addProject() {
+    public String addProject(HttpServletRequest request) {
         return "layout/project/add";
     }
 
@@ -51,13 +56,18 @@ public class ProjectController {
      * @return
      */
     @PostMapping("/add")
-    public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect) {
-        vo.setMemberId(1L); // Spring Security 적용 시 삭제
+    public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
+        Long memberId = memberInfo.getMemberId();
+
+        vo.setMemberId(memberId);
         Long projectId = projectService.save(vo);
 
         ProjectMemberVO pmv = new ProjectMemberVO();
         pmv.setProjectId(projectId);
-        pmv.setMemberId(vo.getMemberId());
+        pmv.setMemberId(memberId);
         pmv.setLeaderYn(true);
         projectMemberService.save(pmv);
 

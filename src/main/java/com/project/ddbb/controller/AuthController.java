@@ -1,8 +1,9 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,13 +36,16 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess(MemberVO memberVO, RedirectAttributes redirect) throws Exception{
+    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
 //         id와 password 검증 로직
         if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
 //             로그인 성공
             if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
                 MemberVO memberInfo = memberService.selectById(memberVO.getId());
-                redirect.addAttribute("memberId", memberInfo.getMemberId());
+
+                HttpSession session = request.getSession();
+                session.setAttribute("memberInfo", memberInfo);
+
                 return "redirect:/project/home";
             } else {
 
@@ -87,5 +91,25 @@ public class AuthController {
     @PostMapping("/idValidation")
     public boolean idValidation(MemberVO memberVO) throws Exception {
         return memberService.accountPermitId(memberVO.getId());
+    }
+
+    /**
+     * ID 찾기
+     * @return
+     */
+    @GetMapping("/signFindId")
+    public String signFindId() {
+
+        return "auth/sign_findId";
+    }
+
+    /**
+     * Password 찾기
+     * @return
+     */
+    @GetMapping("/signFindPassword")
+    public String signFindPassword() {
+
+        return "auth/sign_findPassword";
     }
 }
