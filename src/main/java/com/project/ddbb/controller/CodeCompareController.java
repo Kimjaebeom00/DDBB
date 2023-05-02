@@ -2,6 +2,8 @@ package com.project.ddbb.controller;
 
 import com.project.ddbb.domain.service.CodeCompareService;
 import com.project.ddbb.domain.vo.CodeVO;
+import org.springframework.ui.Model;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +18,10 @@ public class CodeCompareController {
 
     /**
      * 코드 저장
-     * @return
+     * void
      */
     @PostMapping("/codeSave")
-    public String codeSave(CodeVO codeVO) {
+    public void codeSave(CodeVO codeVO) {
         Long projectId = codeVO.getProjectId(); // projectId 가져오기
         String codeTitle = codeVO.getTitle();  // 파일 제목 가져오기
         String currentCode = codeVO.getCurrentCode();  // 현재 저장할 코드 가져오기
@@ -45,31 +47,33 @@ public class CodeCompareController {
             cvo.setCurrentCode(currentCode);
             codeCompareService.updateCode(cvo);
         }
-        return "몰라몰라!! 뭘로주라고?!?!?!";
     }
 
     /**
      * 코드 비교
-     * @return
+     * @return project/info
      */
     @PostMapping("/codeCompare")
-    public Map codeCompare(CodeVO codeVO) {
+    public String codeCompare(CodeVO codeVO, Model model) {
         Long projectId = codeVO.getProjectId(); // projectId 가져오기
         CodeVO cvo = codeCompareService.FindById(projectId); // db정보 확인
+
         List<String> beforeList = Arrays.asList(cvo.getBeforeCode().split("\n")); // 이전 코드
         List<String> currentList = Arrays.asList(cvo.getCurrentCode().split("\n"));  // 현재 코드
 
-        Map<String, List<Integer>> indexMap = new HashMap<>();
-        for (int i = 0; (i < beforeList.size()) && (i < currentList.size()); i++) {
-            String line1 = beforeList.get(i);
-            String line2 = currentList.get(i);
-            if (!line1.equals(line2)) {
+        Map<String, List<Integer>> indexMap = new HashMap<>();  // 수정, 추가 인덱스 정보 맵
+        for (int i = 0; (i < beforeList.size()) && (i < currentList.size()); i++)  // 수정된 사항 체크
+        {
+            String beforeLine = beforeList.get(i);
+            String currentLine = currentList.get(i);
+            if (!beforeLine.equals(currentLine)) {
                 List<Integer> modifiedLines = indexMap.getOrDefault("수정", new ArrayList<>());
                 modifiedLines.add(i);
                 indexMap.put("수정", modifiedLines);
             }
         }
-        if (currentList.size() > beforeList.size()) {
+        if (currentList.size() > beforeList.size())  // 현재 코드가 이전 코드보다 길 때 (추가 사항 체크)
+        {
             List<Integer> addedLines = indexMap.getOrDefault("추가", new ArrayList<>());
             for (int i = beforeList.size(); i < currentList.size(); i++) {
                 addedLines.add(i);
@@ -77,6 +81,12 @@ public class CodeCompareController {
             indexMap.put("추가", addedLines);
         }
 
-        return indexMap;
+        model.addAttribute("", cvo.getProjectId()); // Project Id
+        model.addAttribute("", cvo.getTitle()); // Project Title
+        model.addAttribute("", cvo.getBeforeCode()); // Before Code
+        model.addAttribute("", cvo.getCurrentCode()); // Null or "" or Current Code
+        model.addAttribute("", indexMap); // 수정, 추가 된 인덱스 정보 맵
+
+        return "project/info";
     }
 }
