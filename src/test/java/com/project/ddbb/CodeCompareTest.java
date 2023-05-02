@@ -1,13 +1,11 @@
 package com.project.ddbb;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.ddbb.domain.vo.TestCode;
 import com.project.ddbb.domain.vo.CodeVO;
 import com.project.ddbb.domain.service.CodeCompareService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.ui.Model;
 
 import java.util.*;
 
