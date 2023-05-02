@@ -42,6 +42,31 @@
         WHERE password = #{password};
     </select>
 
+    <select id="permitemail" parameterType="string" resultType="boolean">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        <include refid="postColumns" />
+        FROM member
+        WHERE email = #{email};
+    </select>
+
+    <select id="permitname" parameterType="string" resultType="boolean">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        <include refid="postColumns" />
+        FROM member
+        WHERE name = #{name};
+    </select>
+
+    <select id="findid" parameterType="string" resultType="String">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT id
+        <include refid="postColumns" />
+        FROM member
+        WHERE name = #{name}
+        AND email = #{email};
+    </select>
+
     <select id="selectById" parameterType="String" resultType="com.project.ddbb.domain.vo.MemberVO">
         SELECT *
         FROM member

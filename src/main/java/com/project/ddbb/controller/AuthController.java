@@ -1,15 +1,14 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -35,29 +34,29 @@ public class AuthController {
      * 로그인 처리
      * @return
      */
-    @PostMapping("/signIn")
-    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
-//         id와 password 검증 로직
-        if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
-//             로그인 성공
-            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
-                MemberVO memberInfo = memberService.selectById(memberVO.getId());
-
-                HttpSession session = request.getSession();
-                session.setAttribute("memberInfo", memberInfo);
-
-                return "redirect:/project/home";
-            } else {
-
-                System.out.println("Fail");
-                return "redirect:/signIn";
-            }
-        } else {
-            // 로그인 실패
-            System.out.println("Fail2");
-            return "redirect:/signIn";
-        }
-    }
+//    @PostMapping("/signIn")
+//    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
+////         id와 password 검증 로직
+//        if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
+////             로그인 성공
+//            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
+//                MemberVO memberInfo = memberService.selectById(memberVO.getId());
+//
+//                HttpSession session = request.getSession();
+//                session.setAttribute("memberInfo", memberInfo);
+//
+//                return "redirect:/project/home";
+//            } else {
+//
+//                System.out.println("Fail");
+//                return "redirect:/signIn";
+//            }
+//        } else {
+//            // 로그인 실패
+//            System.out.println("Fail2");
+//            return "redirect:/signIn";
+//        }
+//    }
 
     /**
      * 회원가입 화면
@@ -92,7 +91,6 @@ public class AuthController {
     public boolean idValidation(MemberVO memberVO) throws Exception {
         return memberService.accountPermitId(memberVO.getId());
     }
-
     /**
      * ID 찾기
      * @return
@@ -103,6 +101,15 @@ public class AuthController {
         return "auth/sign_findId";
     }
 
+    @PostMapping("/signFindId")
+    public void signFindIdProcess(MemberVO memberVO) throws Exception {
+        if (memberService.accountPermitEmail(memberVO.getEmail()) && memberService.accountPermitName(memberVO.getName())) {
+            System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
+        }
+        else {
+            System.out.println("not find id");
+        }
+    }
     /**
      * Password 찾기
      * @return
