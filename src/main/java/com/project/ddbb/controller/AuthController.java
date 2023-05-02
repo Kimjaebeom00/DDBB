@@ -78,7 +78,6 @@ public class AuthController {
         } else {
             return "auth/sign_up";
         }
-
     }
 
     /**
