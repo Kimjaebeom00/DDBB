@@ -33,6 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 
+    implementation 'org.springframework.boot:spring-boot-starter-mail' // 메일 보내기 의존성
 
 
 }
