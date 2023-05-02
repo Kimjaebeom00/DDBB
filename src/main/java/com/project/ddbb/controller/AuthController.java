@@ -91,4 +91,24 @@ public class AuthController {
 
         return true;
     }
+    /**
+     * ID 찾기
+     * @return
+     */
+
+    @GetMapping("/signFindId")
+    public String signFindId() {
+
+        return "auth/sign_findId";
+    }
+    /**
+     * Password 찾기
+     * @return
+     */
+
+    @GetMapping("/signFindPassword")
+    public String signFindPassword() {
+
+        return "auth/sign_findPassword";
+    }
 }
