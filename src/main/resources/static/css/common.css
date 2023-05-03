@@ -34,6 +34,31 @@ header h1 {
     font-weight: 700;
 }
 
+.lnb {
+    width: 15%;
+    height: 100%;
+    float: left;
+    background: #e9e9e9;
+    position: fixed;
+}
+
+.lnb ul {
+    padding-left:0px;
+}
+
+.lnb ul li {
+    padding-left:10px;
+    list-style:none;
+}
+
+.lnb ul li.selected {
+    background: lightgray;
+}
+
+.lnb ul li p:nth-child(2){
+    margin-bottom: 0px;
+}
+
 nav ul {
     list-style-type: none;
     margin: 0;

@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-
+    <div th:if="${isLnb != false}" th:fragment="lnbFragment" class="lnb">
+        <ul id="projects">
+            <li th:each="project : ${projects}" th:id="${project.projectId}">
+                <p th:text="${project.title}"></p>
+                <p th:text="|${#strings.substring(project.introduction, 0, 10)}...|"></p>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

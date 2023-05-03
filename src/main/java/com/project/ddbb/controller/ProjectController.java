@@ -36,6 +36,7 @@ public class ProjectController {
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
 
         model.addAttribute("projects", projects);
+        model.addAttribute("isLnb", false);
 
         return "layout/main/home";
     }
@@ -45,7 +46,9 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/add")
-    public String addProject(HttpServletRequest request) {
+    public String addProject(Model model, HttpServletRequest request) {
+        model.addAttribute("isLnb", false);
+
         return "layout/project/add";
     }
 
@@ -83,12 +86,17 @@ public class ProjectController {
      * @return
      */
     @RequestMapping("/info")
-    public String projectInfo(@RequestParam(required=false, name="projectId") Long id, Model model) {
+    public String projectInfo(@RequestParam(required=false, name="projectId") Long id, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
         Long projectId = (id == null) ? (Long) model.getAttribute("id") : id;
 
         ProjectVO project = projectService.findByProjectId(projectId);
+        List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
 
         model.addAttribute("project", project);
+        model.addAttribute("projects", projects);
 
         return "layout/project/info";
     }
