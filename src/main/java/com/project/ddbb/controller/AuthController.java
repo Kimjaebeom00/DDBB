@@ -34,29 +34,29 @@ public class AuthController {
      * 로그인 처리
      * @return
      */
-//    @PostMapping("/signIn")
-//    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
-////         id와 password 검증 로직
-//        if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
-////             로그인 성공
-//            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
-//                MemberVO memberInfo = memberService.selectById(memberVO.getId());
-//
-//                HttpSession session = request.getSession();
-//                session.setAttribute("memberInfo", memberInfo);
-//
-//                return "redirect:/project/home";
-//            } else {
-//
-//                System.out.println("Fail");
-//                return "redirect:/signIn";
-//            }
-//        } else {
-//            // 로그인 실패
-//            System.out.println("Fail2");
-//            return "redirect:/signIn";
-//        }
-//    }
+    @PostMapping("/signIn")
+    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
+//         id와 password 검증 로직
+        if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
+//             로그인 성공
+            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
+                MemberVO memberInfo = memberService.selectById(memberVO.getId());
+
+                HttpSession session = request.getSession();
+                session.setAttribute("memberInfo", memberInfo);
+
+                return "redirect:/project/home";
+            } else {
+
+                System.out.println("Fail");
+                return "redirect:/signIn";
+            }
+        } else {
+            // 로그인 실패
+            System.out.println("Fail2");
+            return "redirect:/signIn";
+        }
+    }
 
     /**
      * 회원가입 화면

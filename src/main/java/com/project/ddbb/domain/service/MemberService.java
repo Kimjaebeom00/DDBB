@@ -66,5 +66,9 @@ public class MemberService {
         }
         return hexString.toString();
     }
+
+    public MemberVO selectById(final String id) throws Exception {
+        return memberMapper.selectById(id);
+    }
 }
 
