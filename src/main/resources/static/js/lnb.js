@@ -1,19 +1,14 @@
 let currentProject;
-function checkSelectdProject(e) {
+function selectProject(e) {
     let target = e.target;
 
-    if(e.target.localName != 'li'){
-        target = e.target.parentElement;
+    if(target.localName != 'li'){
+        target = target.parentElement;
     }
 
-    currentProject.classList.remove('selected');
-    target.className = 'selected';
-    currentProject = target;
+    let form = target.parentElement;
+    form.submit();
 }
 
 const el = document.getElementById("projects");
-el.addEventListener("click", checkSelectdProject, false);
-
-function selectProject(e) {
-
-}
+el.addEventListener("click", selectProject, false);

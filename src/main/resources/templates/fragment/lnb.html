@@ -7,10 +7,13 @@
 <body>
     <div th:if="${isLnb != false}" th:fragment="lnbFragment" class="lnb">
         <ul id="projects">
-            <li th:each="project : ${projects}" th:id="${project.projectId}">
-                <p th:text="${project.title}"></p>
-                <p th:text="|${#strings.substring(project.introduction, 0, 10)}...|"></p>
-            </li>
+            <form th:each="project : ${projects}" th:id="|projectForm-${project.projectId}|" action="/project/info" method="post">
+                <input type="hidden" id="projectId" name="projectId" th:value="${project.projectId}"/>
+                <li>
+                    <p th:text="${project.title}"></p>
+                    <p th:text="|${#strings.substring(project.introduction, 0, 10)}...|"></p>
+                </li>
+            </form>
         </ul>
     </div>
 </body>

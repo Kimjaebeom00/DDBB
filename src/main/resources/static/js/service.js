@@ -1,6 +1,9 @@
-var projectInfoInit = function() {
-    var projectId = $('#projectId').val();
+let projectInfoInit = function() {
+    let projectId = $('#currentProjectId').val();
+    let target = $('#projectForm-'+projectId);
 
-    currentProject = document.getElementById(projectId);
-    api.projectMembers(projectId);//api.js호출한것이다
+    target.addClass('selected');
+
+
+    // var projectMembers = api.projectMembers(projectId);//api.js호출한것이다
 }
