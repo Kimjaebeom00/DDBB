@@ -88,6 +88,7 @@ public class AuthController {
      */
     @PostMapping("/idValidation")
     public boolean idValidation(MemberVO memberVO) throws Exception {
+
         return memberService.accountPermitId(memberVO.getId());
     }
 }
