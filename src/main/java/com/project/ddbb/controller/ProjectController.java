@@ -2,14 +2,18 @@ package com.project.ddbb.controller;
 
 import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.service.ProjectService;
+import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 @Controller
@@ -25,11 +29,15 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/home")
-    public String main(Model model) {
-        Long userId = 1L; // 로그인한 사용자 아이디, Spring Security 적용 시 삭제
-        List<ProjectVO> projects = projectService.findProjectsByUserId(userId);
+    public String main(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
+        List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
 
         model.addAttribute("projects", projects);
+        model.addAttribute("isLnb", false);
+
         return "layout/main/home";
     }
 
@@ -38,7 +46,9 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/add")
-    public String addProject() {
+    public String addProject(Model model, HttpServletRequest request) {
+        model.addAttribute("isLnb", false);
+
         return "layout/project/add";
     }
 
@@ -49,13 +59,18 @@ public class ProjectController {
      * @return
      */
     @PostMapping("/add")
-    public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect) {
-        vo.setMemberId(1L); // Spring Security 적용 시 삭제
+    public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
+        Long memberId = memberInfo.getMemberId();
+
+        vo.setMemberId(memberId);
         Long projectId = projectService.save(vo);
 
         ProjectMemberVO pmv = new ProjectMemberVO();
         pmv.setProjectId(projectId);
-        pmv.setMemberId(vo.getMemberId());
+        pmv.setMemberId(memberId);
         pmv.setLeaderYn(true);
         projectMemberService.save(pmv);
 
@@ -71,12 +86,17 @@ public class ProjectController {
      * @return
      */
     @RequestMapping("/info")
-    public String projectInfo(@RequestParam(required=false, name="projectId") Long id, Model model) {
+    public String projectInfo(@RequestParam(required=false, name="projectId") Long id, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
         Long projectId = (id == null) ? (Long) model.getAttribute("id") : id;
 
         ProjectVO project = projectService.findByProjectId(projectId);
+        List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
 
         model.addAttribute("project", project);
+        model.addAttribute("projects", projects);
 
         return "layout/project/info";
     }

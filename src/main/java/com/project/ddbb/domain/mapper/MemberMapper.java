@@ -8,8 +8,12 @@ public interface MemberMapper {
     //회원가입
     void signup(MemberVO vo) throws Exception;
 
-    // DB에 저장된 정보 있으면 home 화면으로 이동
+    // DB에 저장된 정보 없으면 true, 있으면 false
     boolean permitid(String id) throws Exception;
     boolean permitpw(String pw) throws Exception;
+    boolean permitemail(String email) throws Exception;
+    boolean permitname(String name) throws Exception;
+    String findid(String name, String email) throws Exception;
+    MemberVO selectById(String id) throws Exception;
 
 }

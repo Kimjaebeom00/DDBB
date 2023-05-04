@@ -22,7 +22,9 @@
     </head>
     <body>
         <th:block th:replace="fragment/header :: headerFragment"></th:block>
+        <th:block th:replace="fragment/lnb :: lnbFragment"></th:block>
         <th:block layout:fragment="content"></th:block>
         <th:block th:replace="fragment/footer :: footerFragment"></th:block>
     </body>
+    <script src="/js/lnb.js"></script>
 </html>

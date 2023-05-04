@@ -3,6 +3,8 @@ package com.project.ddbb.controller;
 import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,14 +35,16 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess(MemberVO memberVO) throws Exception{
-
-
-//         userid와 password 검증 로직
+    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
+//         id와 password 검증 로직
         if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
 //             로그인 성공
             if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
-                System.out.println("Success");
+                MemberVO memberInfo = memberService.selectById(memberVO.getId());
+
+                HttpSession session = request.getSession();
+                session.setAttribute("memberInfo", memberInfo);
+
                 return "redirect:/project/home";
             } else {
 
@@ -71,15 +75,12 @@ public class AuthController {
     @PostMapping("/signUp")
     public String signUpProcess(MemberVO memberVO) throws Exception {
         if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty()){
-            //memberVO.getId() != null && memberVO.getPassword() != null && memberVO.getName() != null && memberVO.getEmail() != null
-            //&& !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty() && memberVO.getName().isEmpty() && memberVO.getEmail().isEmpty()) {
             memberVO.setPassword(memberService.PassWordEncrypt(memberVO.getPassword()));
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
         } else {
             return "auth/sign_up";
         }
-
     }
 
     /**
@@ -90,5 +91,33 @@ public class AuthController {
     public boolean idValidation(MemberVO memberVO) throws Exception {
 
         return memberService.accountPermitId(memberVO.getId());
+    }
+    /**
+     * ID 찾기
+     * @return
+     */
+    @GetMapping("/signFindId")
+    public String signFindId() {
+
+        return "auth/sign_findId";
+    }
+
+    @PostMapping("/signFindId")
+    public void signFindIdProcess(MemberVO memberVO) throws Exception {
+        if (memberService.accountPermitEmail(memberVO.getEmail()) && memberService.accountPermitName(memberVO.getName())) {
+            System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
+        }
+        else {
+            System.out.println("not find id");
+        }
+    }
+    /**
+     * Password 찾기
+     * @return
+     */
+    @GetMapping("/signFindPassword")
+    public String signFindPassword() {
+
+        return "auth/sign_findPassword";
     }
 }

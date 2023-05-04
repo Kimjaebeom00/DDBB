@@ -5,7 +5,8 @@
 <mapper namespace="com.project.ddbb.domain.mapper.MemberMapper">
 
     <sql id="postColumns">
-        id
+        member_id
+        , id
         , password
         , name
         , email
@@ -15,7 +16,8 @@
         INSERT INTO member (
         <include refid="postColumns" />
         ) VALUES (
-        #{id}
+        #{memberId}
+        , #{id}
         , #{password}
         , #{name}
         , #{email}
@@ -38,5 +40,36 @@
         <include refid="postColumns" />
         FROM member
         WHERE password = #{password};
+    </select>
+
+    <select id="permitemail" parameterType="string" resultType="boolean">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        <include refid="postColumns" />
+        FROM member
+        WHERE email = #{email};
+    </select>
+
+    <select id="permitname" parameterType="string" resultType="boolean">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        <include refid="postColumns" />
+        FROM member
+        WHERE name = #{name};
+    </select>
+
+    <select id="findid" parameterType="string" resultType="String">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT id
+        <include refid="postColumns" />
+        FROM member
+        WHERE name = #{name}
+        AND email = #{email};
+    </select>
+
+    <select id="selectById" parameterType="String" resultType="com.project.ddbb.domain.vo.MemberVO">
+        SELECT *
+        FROM member
+        WHERE id = #{id};
     </select>
 </mapper>

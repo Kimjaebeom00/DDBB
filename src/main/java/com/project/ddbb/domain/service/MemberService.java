@@ -32,6 +32,17 @@ public class MemberService {
         return memberMapper.permitpw(pw);
     }
 
+    public boolean accountPermitEmail(final String email) throws Exception{
+        return memberMapper.permitemail(email);
+    }
+    public boolean accountPermitName(final String name) throws Exception{
+        return memberMapper.permitname(name);
+    }
+
+    public String findId(final String name, String email) throws Exception{
+        return memberMapper.findid(name, email);
+    }
+
     public void SignUp(final MemberVO memberVO) throws Exception {
         memberMapper.signup(memberVO);
     }
@@ -53,10 +64,11 @@ public class MemberService {
             if (hex.length() == 1) hexString.append('0');
             hexString.append(hex);
         }
-        System.out.println("진짜값" + hexString.toString());
         return hexString.toString();
     }
 
-
+    public MemberVO selectById(final String id) throws Exception {
+        return memberMapper.selectById(id);
+    }
 }
 
