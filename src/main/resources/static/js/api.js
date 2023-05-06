@@ -39,7 +39,7 @@ var api = {
             },
             error: function(error){
                 alert("API 에러가 발생했습니다.");
-                console.error(error);
+                console.log(error);
             }
         });
     },
@@ -62,8 +62,8 @@ var api = {
                 alert(msg);
             },
             error: function(error){
+                console.log(error)
                 alert("API 에러가 발생했습니다.");
-                console.error(error);
             }
         });
     },
