@@ -14,6 +14,7 @@ public interface MemberMapper {
     boolean permitEmail(String email) throws Exception;
     boolean permitName(String name) throws Exception;
     String findId(String name, String email) throws Exception;
+    boolean findPw(String id, String nickname, String email) throws Exception;
     MemberVO selectById(String id) throws Exception;
 
     void updatePassword(String id, String password) throws Exception;

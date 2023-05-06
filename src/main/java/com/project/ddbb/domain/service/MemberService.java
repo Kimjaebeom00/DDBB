@@ -48,6 +48,10 @@ public class MemberService {
         return memberMapper.findId(name, email);
     }
 
+    public boolean findPw(final String id, String nickname, String email) throws Exception{
+        return memberMapper.findPw(id, nickname, email);
+    }
+
     public void SignUp(final MemberVO memberVO) throws Exception {
         memberMapper.signUp(memberVO);
     }
