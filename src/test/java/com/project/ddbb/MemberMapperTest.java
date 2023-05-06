@@ -23,14 +23,14 @@ public class MemberMapperTest {
         memberVO.setPassword("Ktest");
         memberVO.setName("Ktest");
         memberVO.setEmail("Ktest");
-        memberMapper.signup(memberVO);
+        memberMapper.signUp(memberVO);
         System.out.println(memberVO.toString());
 
     }
 
     @Test
     void accountPermit() throws Exception{
-        boolean post = memberMapper.permitid("Ktest");
+        boolean post = memberMapper.permitId("Ktest");
 
         try {
             String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);

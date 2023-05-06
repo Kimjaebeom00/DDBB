@@ -3,6 +3,7 @@ package com.project.ddbb.controller;
 import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -104,7 +105,7 @@ public class AuthController {
 
     @PostMapping("/signFindId")
     public void signFindIdProcess(MemberVO memberVO) throws Exception {
-        if (memberService.accountPermitEmail(memberVO.getEmail()) && memberService.accountPermitName(memberVO.getName())) {
+        if (memberService.findId(memberVO.getName(), memberVO.getEmail()) != null) {
             System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
         }
         else {
@@ -117,6 +118,19 @@ public class AuthController {
      */
     @GetMapping("/signFindPassword")
     public String signFindPassword() {
+
+        return "auth/sign_findPassword";
+    }
+    @PostMapping("/signFindPassword")
+    public String signFindPasswordProcess(MemberVO memberVO) throws Exception {
+        // 임시 비밀번호 생성
+        String TempPassword = memberService.CreateTempPassword();
+        // 임시 비밀번호 메일로 보내기
+        memberService.SendMail(memberVO.getEmail(), TempPassword);
+        // 임시 비밀번호 암호화
+        TempPassword = memberService.PassWordEncrypt(TempPassword);
+        // 비밀번호 -> 임시 비밀번호 값으로 변경
+        memberService.updatePassword(memberVO.getId(), TempPassword);
 
         return "auth/sign_findPassword";
     }

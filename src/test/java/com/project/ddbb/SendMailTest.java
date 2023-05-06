@@ -16,10 +16,10 @@ public class SendMailTest
     {
         String host = "smtp.naver.com";
         int port = 587;
-        String username = "ddbb 네이버 전용 메일 아이디";
-        String password = "ddbb 네이버 전용 메일 비밀번호";
-        String from = "ddbb 네이버 전용 메일 주소";
-        String to = "받는 분 메일 주소";
+        String username = "inhaddbb";
+        String password = "inhaddbb1234!";
+        String from = "inhaddbb@naver.com";
+        String to = "rnjsdndud00@naver.com";
         String subject = "네이버 메일 전송 테스트";
         String content = "안녕하세요. 네이버 메일 API 테스트";
 
