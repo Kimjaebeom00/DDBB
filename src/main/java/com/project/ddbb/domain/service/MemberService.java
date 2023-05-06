@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Properties;
 import java.util.Random;
-import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -40,10 +38,10 @@ public class MemberService {
     }
 
     public boolean accountPermitEmail(final String email) throws Exception{
-        return memberMapper.permitemail(email);
+        return memberMapper.permitEmail(email);
     }
     public boolean accountPermitName(final String name) throws Exception{
-        return memberMapper.permitname(name);
+        return memberMapper.permitName(name);
     }
 
     public String findId(final String name, String email) throws Exception{

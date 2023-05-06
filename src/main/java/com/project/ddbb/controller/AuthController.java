@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -81,6 +82,7 @@ public class AuthController {
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
         } else {
+            System.out.println("2");
             return "auth/sign_up";
         }
     }
@@ -148,6 +150,15 @@ public class AuthController {
     }
 
     /**
+     * 로그인 만료 페이지로 이동
+     * @return
+     */
+    @GetMapping("/auth/error")
+    public String authError(){
+        return "redirect:/signIn";
+    }
+
+    /**
      * Email 유효성 검증
      * @return
      */
@@ -158,14 +169,5 @@ public class AuthController {
         boolean email;
         email = memberService.accountPermitEmail(memberVO.getEmail());
         return email;
-    }
-
-    /**
-     * 로그인 만료 페이지로 이동
-     * @return
-     */
-    @GetMapping("/auth/error")
-    public String authError(){
-        return "redirect:/signIn";
     }
 }
