@@ -39,12 +39,12 @@ public class MemberService {
         return memberMapper.permitPw(pw);
     }
 
-//    public boolean accountPermitEmail(final String email) throws Exception{
-//        return memberMapper.permitemail(email);
-//    }
-//    public boolean accountPermitName(final String name) throws Exception{
-//        return memberMapper.permitname(name);
-//    }
+    public boolean accountPermitEmail(final String email) throws Exception{
+        return memberMapper.permitemail(email);
+    }
+    public boolean accountPermitName(final String name) throws Exception{
+        return memberMapper.permitname(name);
+    }
 
     public String findId(final String name, String email) throws Exception{
         return memberMapper.findId(name, email);
