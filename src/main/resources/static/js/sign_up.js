@@ -81,32 +81,7 @@ function signUpCheck(){
   }
 
 
-  // 비밀번호 확인
-  // if(password !== passwordCheck){
-  //   document.getElementById("passwordError").innerHTML=""
-  //   document.getElementById("passwordCheckError").innerHTML="비밀번호가 동일하지 않습니다."
-  //   check = false
-  // }else{
-  //   document.getElementById("passwordError").innerHTML=""
-  //   document.getElementById("passwordCheckError").innerHTML=""
-  // }
-  //
-  // if(password===""){
-  //   document.getElementById("passwordError").innerHTML="비밀번호를 입력해주세요."
-  //   check = false
-  // }else{
-  //   //document.getElementById("passwordError").innerHTML=""
-  // }
-  // if(passwordCheck===""){
-  //   document.getElementById("passwordCheckError").innerHTML="비밀번호를 다시 입력해주세요."
-  //   check = false
-  // }else{
-  //   //document.getElementById("passwordCheckError").innerHTML=""
-  // }
 
-
-  
-  
   if(check){
     document.getElementById("emailError").innerHTML=""
     document.getElementById("nameError").innerHTML=""
@@ -121,8 +96,6 @@ function signUpCheck(){
   },0);
   }
 
-  function showAlert() {
-    alert("아이디를 찾습니다!");
-  }
+
 
 }
