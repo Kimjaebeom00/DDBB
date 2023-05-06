@@ -24,6 +24,7 @@
         , password
         , phone
         , email
+        , nickname
     </sql>
 
     <!-- 게시글 저장 -->
@@ -37,6 +38,7 @@
         , #{password}
         , #{phone}
         , #{email}
+        , #{nickname}
         )
     </insert>
 
