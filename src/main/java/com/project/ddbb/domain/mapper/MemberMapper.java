@@ -11,9 +11,10 @@ public interface MemberMapper {
     // DB에 저장된 정보 없으면 true, 있으면 false
     boolean permitId(String id) throws Exception;
     boolean permitPw(String pw) throws Exception;
-    boolean permitemail(String email) throws Exception;
-    boolean permitname(String name) throws Exception;
+    boolean permitEmail(String email) throws Exception;
+    boolean permitName(String name) throws Exception;
     String findId(String name, String email) throws Exception;
+    boolean findPw(String id, String nickname, String email) throws Exception;
     MemberVO selectById(String id) throws Exception;
 
     void updatePassword(String id, String password) throws Exception;

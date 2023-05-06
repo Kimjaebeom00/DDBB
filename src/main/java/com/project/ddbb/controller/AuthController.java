@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -81,6 +82,7 @@ public class AuthController {
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
         } else {
+            System.out.println("2");
             return "auth/sign_up";
         }
     }
@@ -135,16 +137,28 @@ public class AuthController {
 
     @PostMapping("/signFindPassword")
     public String signFindPasswordProcess(MemberVO memberVO) throws Exception {
-        // 임시 비밀번호 생성
-        String TempPassword = memberService.CreateTempPassword();
-        // 임시 비밀번호 메일로 보내기
-        memberService.SendMail(memberVO.getEmail(), TempPassword);
-        // 임시 비밀번호 암호화
-        TempPassword = memberService.PassWordEncrypt(TempPassword);
-        // 비밀번호 -> 임시 비밀번호 값으로 변경
-        memberService.updatePassword(memberVO.getId(), TempPassword);
+        // 아이디, 닉네임, 이메일 모두 일치하면 if문 실행 (true 반환)
+        if (memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail())) {
+            // 임시 비밀번호 생성
+            String TempPassword = memberService.CreateTempPassword();
+            // 임시 비밀번호 메일로 보내기
+            memberService.SendMail(memberVO.getEmail(), TempPassword);
+            // 임시 비밀번호 암호화
+            TempPassword = memberService.PassWordEncrypt(TempPassword);
+            // 비밀번호 -> 임시 비밀번호 값으로 변경
+            memberService.updatePassword(memberVO.getId(), TempPassword);
+        }
 
         return "auth/sign_findPassword";
+    }
+
+    /**
+     * 로그인 만료 페이지로 이동
+     * @return
+     */
+    @GetMapping("/auth/error")
+    public String authError(){
+        return "redirect:/signIn";
     }
 
     /**
@@ -158,14 +172,5 @@ public class AuthController {
         boolean email;
         email = memberService.accountPermitEmail(memberVO.getEmail());
         return email;
-    }
-
-    /**
-     * 로그인 만료 페이지로 이동
-     * @return
-     */
-    @GetMapping("/auth/error")
-    public String authError(){
-        return "redirect:/signIn";
     }
 }

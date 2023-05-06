@@ -9,6 +9,7 @@
         , password
         , name
         , email
+        , nickname
     </sql>
 
     <insert id="signUp" useGeneratedKeys="true" keyProperty="id">
@@ -19,6 +20,7 @@
         , #{password}
         , #{name}
         , #{email}
+        , #{nickname}
         )
     </insert>
 
@@ -40,7 +42,7 @@
         WHERE password = #{password};
     </select>
 
-    <select id="permitemail" parameterType="string" resultType="boolean">
+    <select id="permitEmail" parameterType="string" resultType="boolean">
         --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
         SELECT IF(COUNT(*) = 1, 1, 0)
         <include refid="postColumns" />
@@ -48,7 +50,7 @@
         WHERE email = #{email};
     </select>
 
-    <select id="permitname" parameterType="string" resultType="boolean">
+    <select id="permitName" parameterType="string" resultType="boolean">
         --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
         SELECT IF(COUNT(*) = 1, 1, 0)
         <include refid="postColumns" />
@@ -57,10 +59,18 @@
     </select>
 
     <select id="findId" parameterType="string" resultType="String">
-        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
         SELECT id
         FROM member
         WHERE name = #{name}
+        AND email = #{email};
+    </select>
+
+    <select id="findPw" parameterType="string" resultType="boolean">
+        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        FROM member
+        WHERE id = #{id}
+        AND nickname = #{nickname}
         AND email = #{email};
     </select>
 

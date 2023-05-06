@@ -40,4 +40,9 @@ public class MemberMapperTest {
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    void findPw() throws Exception{
+        System.out.println(memberMapper.findPw("srkim", "test123", "srkim@naver.com"));
+    }
 }

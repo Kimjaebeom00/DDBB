@@ -20,6 +20,19 @@ public class AuthControllerTest {
     @Autowired
     MemberService memberService;
 
+    @Test
+    public void signUpProcess() throws Exception {
+        MemberVO memberVO = new MemberVO();
+
+        memberVO.setId("zx");
+        System.out.println(memberVO.getId());
+        memberVO.setPassword("zx");
+        memberVO.setName("zx");
+        memberVO.setEmail("zx");
+        memberVO.setNickname("zx");
+        memberService.SignUp(memberVO);
+    }
+
 
     @Test
     public void signInProcess() throws Exception {
