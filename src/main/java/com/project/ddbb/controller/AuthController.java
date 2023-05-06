@@ -112,9 +112,16 @@ public class AuthController {
     @PostMapping("/signFindId")
     @ResponseBody
     public String signFindIdProcess(MemberVO memberVO) throws Exception {
-        String id = memberService.findId(memberVO.getName(), memberVO.getEmail());
+        if (memberService.findId(memberVO.getName(), memberVO.getEmail()) != null) {
+            String id = memberService.findId(memberVO.getName(), memberVO.getEmail());
+            System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
+            return id;
+        }
+        else {
+            System.out.println("not find id");
+        }
+        return "auth/sign_findId";
 
-        return id;
     }
     /**
      * Password 찾기
@@ -122,6 +129,20 @@ public class AuthController {
      */
     @GetMapping("/signFindPassword")
     public String signFindPassword() {
+
+        return "auth/sign_findPassword";
+    }
+
+    @PostMapping("/signFindPassword")
+    public String signFindPasswordProcess(MemberVO memberVO) throws Exception {
+        // 임시 비밀번호 생성
+        String TempPassword = memberService.CreateTempPassword();
+        // 임시 비밀번호 메일로 보내기
+        memberService.SendMail(memberVO.getEmail(), TempPassword);
+        // 임시 비밀번호 암호화
+        TempPassword = memberService.PassWordEncrypt(TempPassword);
+        // 비밀번호 -> 임시 비밀번호 값으로 변경
+        memberService.updatePassword(memberVO.getId(), TempPassword);
 
         return "auth/sign_findPassword";
     }
@@ -137,5 +158,14 @@ public class AuthController {
         boolean email;
         email = memberService.accountPermitEmail(memberVO.getEmail());
         return email;
+    }
+
+    /**
+     * 로그인 만료 페이지로 이동
+     * @return
+     */
+    @GetMapping("/auth/error")
+    public String authError(){
+        return "redirect:/signIn";
     }
 }
