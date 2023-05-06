@@ -34,7 +34,6 @@ public class AuthController {
     public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
 //         id와 password 검증 로직
         if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
-            System.out.println(memberService.PassWordEncrypt(memberVO.getPassword()));
 //             로그인 성공
             if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
                 MemberVO memberInfo = memberService.selectById(memberVO.getId());
@@ -130,5 +129,14 @@ public class AuthController {
         memberService.updatePassword(memberVO.getId(), TempPassword);
 
         return "auth/sign_findPassword";
+    }
+
+    /**
+     * 로그인 만료 페이지로 이동
+     * @return
+     */
+    @GetMapping("/auth/error")
+    public String authError(){
+        return "redirect:/signIn";
     }
 }
