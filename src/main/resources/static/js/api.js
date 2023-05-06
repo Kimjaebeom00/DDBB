@@ -90,6 +90,33 @@ var api = {
                 console.error(error);
             }
         });
+    },
+
+    getPassword: function(id,nickname,email) {//컨트롤러 메소드 이름이랑 같다 ->오브젝트 형식
+        let params = {
+            id : id,
+            nickname : nickname,
+            email : email
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/signFindPassword",
+            data: params,
+            success: function(result){
+                let msg;
+                if(result == true){
+                    msg = "임시 비밀번호가 전송되었습니다.";
+                }else if(result == false){
+                    msg = "입력한 값이 틀립니다.";
+                }
+                alert(msg);
+            },
+            error: function(error){
+                alert("API 에러가 발생했습니다.");
+                console.error(error);
+            }
+        });
     }
 
 }

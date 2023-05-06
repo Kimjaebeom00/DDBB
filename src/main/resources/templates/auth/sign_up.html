@@ -44,6 +44,10 @@
 
   </script>
 
+    <form id="signUpForm" th:action="@{/signUp}" method="post">
+
+
+
     <div class="container">
       <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
@@ -103,10 +107,11 @@
                 <div class="input-group">
                   <input type="text" class="form-control" id="emailCheck" placeholder="이메일을 다시 입력하세요" required>
                   <div class="input-group-append">
-                    <button id="getEmail" class="w-100 btn btn-sm btn-primary"  onclick="api.getEmail($('#email').val(), )">이메일 중복검사</button>
+                    <button id="getEmail" class="w-100 btn btn-sm btn-primary" onclick="api.getEmail($('#email').val())">이메일 중복검사</button>
                   </div>
                 </div>
               </div>
+
 
                 <div class="col-md-6 mb-3">
                   <label for="name">성함</label>
@@ -115,6 +120,7 @@
                   </div>
                 </div>
             </div>
+
               <table style="width:48%">
                 <tr>
                   <th style="width:40%">  비밀번호 힌트/답변</th>
@@ -144,7 +150,6 @@
 
 
 
-          <form id="signUpForm" th:action="@{/signUp}" method="post">
 
 
 
