@@ -1,6 +1,5 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,9 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 
 
 @Controller
@@ -119,5 +115,14 @@ public class AuthController {
     public String signFindPassword() {
 
         return "auth/sign_findPassword";
+    }
+
+    /**
+     * 로그인 만료 페이지로 이동
+     * @return
+     */
+    @GetMapping("/auth/error")
+    public String authError(){
+        return "redirect:/signIn";
     }
 }
