@@ -1,6 +1,5 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,11 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 
 
 @Controller
@@ -90,14 +84,12 @@ public class AuthController {
      * @return
      */
     @PostMapping("/idValidation")
-    @ResponseBody
     public boolean idValidation(MemberVO memberVO) throws Exception {
-        boolean id;
-        id = memberService.accountPermitId(memberVO.getId());
-        return id;
+
+        return memberService.accountPermitId(memberVO.getId());
     }
     /**
-     * ID 찾기화면
+     * ID 찾기
      * @return
      */
     @GetMapping("/signFindId")
@@ -105,16 +97,15 @@ public class AuthController {
 
         return "auth/sign_findId";
     }
-    /**
-     * ID 찾기
-     * @return
-     */
-    @PostMapping("/signFindId")
-    @ResponseBody
-    public String signFindIdProcess(MemberVO memberVO) throws Exception {
-        String id = memberService.findId(memberVO.getName(), memberVO.getEmail());
 
-        return id;
+    @PostMapping("/signFindId")
+    public void signFindIdProcess(MemberVO memberVO) throws Exception {
+        if (memberService.accountPermitEmail(memberVO.getEmail()) && memberService.accountPermitName(memberVO.getName())) {
+            System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
+        }
+        else {
+            System.out.println("not find id");
+        }
     }
     /**
      * Password 찾기
@@ -127,15 +118,11 @@ public class AuthController {
     }
 
     /**
-     * Email 유효성 검증
+     * 로그인 만료 페이지로 이동
      * @return
      */
-
-    @PostMapping("/emailValidation")
-    @ResponseBody
-    public boolean emailValidation(MemberVO memberVO) throws Exception {
-        boolean email;
-        email = memberService.accountPermitEmail(memberVO.getEmail());
-        return email;
+    @GetMapping("/auth/error")
+    public String authError(){
+        return "redirect:/signIn";
     }
 }

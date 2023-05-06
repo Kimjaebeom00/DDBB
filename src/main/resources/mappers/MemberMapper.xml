@@ -12,7 +12,7 @@
         , email
     </sql>
 
-    <insert id="signup" useGeneratedKeys="true" keyProperty="id">
+    <insert id="signUp" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO member (
         <include refid="postColumns" />
         ) VALUES (
@@ -25,7 +25,7 @@
     </insert>
 
 <!--    로그인 id 검증-->
-    <select id="permitid" parameterType="string" resultType="boolean">
+    <select id="permitId" parameterType="string" resultType="boolean">
 --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
         SELECT IF(COUNT(*) = 1, 1, 0)
         <include refid="postColumns" />
@@ -34,7 +34,7 @@
     </select>
 
 <!--    로그인 password 검증-->
-    <select id="permitpw" parameterType="string" resultType="boolean">
+    <select id="permitPw" parameterType="string" resultType="boolean">
         --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
         SELECT IF(COUNT(*) = 1, 1, 0)
         <include refid="postColumns" />
@@ -42,26 +42,25 @@
         WHERE password = #{password};
     </select>
 
-    <select id="permitemail" parameterType="string" resultType="boolean">
-        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
-        SELECT IF(COUNT(*) = 1, 1, 0)
-        <include refid="postColumns" />
-        FROM member
-        WHERE email = #{email};
-    </select>
+<!--    <select id="permitemail" parameterType="string" resultType="boolean">-->
+<!--        &#45;&#45;         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END-->
+<!--        SELECT IF(COUNT(*) = 1, 1, 0)-->
+<!--        <include refid="postColumns" />-->
+<!--        FROM member-->
+<!--        WHERE email = #{email};-->
+<!--    </select>-->
 
-    <select id="permitname" parameterType="string" resultType="boolean">
-        --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
-        SELECT IF(COUNT(*) = 1, 1, 0)
-        <include refid="postColumns" />
-        FROM member
-        WHERE name = #{name};
-    </select>
+<!--    <select id="permitname" parameterType="string" resultType="boolean">-->
+<!--        &#45;&#45;         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END-->
+<!--        SELECT IF(COUNT(*) = 1, 1, 0)-->
+<!--        <include refid="postColumns" />-->
+<!--        FROM member-->
+<!--        WHERE name = #{name};-->
+<!--    </select>-->
 
-    <select id="findid" parameterType="string" resultType="String">
+    <select id="findId" parameterType="string" resultType="String">
         --         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
         SELECT id
-        <include refid="postColumns" />
         FROM member
         WHERE name = #{name}
         AND email = #{email};
@@ -72,4 +71,10 @@
         FROM member
         WHERE id = #{id};
     </select>
+
+    <update id="updatePassword" parameterType="String">
+        UPDATE member
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
 </mapper>
