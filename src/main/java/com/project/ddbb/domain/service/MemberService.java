@@ -39,13 +39,6 @@ public class MemberService {
         return memberMapper.permitPw(pw);
     }
 
-//    public boolean accountPermitEmail(final String email) throws Exception{
-//        return memberMapper.permitemail(email);
-//    }
-//    public boolean accountPermitName(final String name) throws Exception{
-//        return memberMapper.permitname(name);
-//    }
-
     public String findId(final String name, String email) throws Exception{
         return memberMapper.findId(name, email);
     }
@@ -56,48 +49,14 @@ public class MemberService {
 
     /**
      * 비밀번호 암호화
-     * @param pwd
+     * @param pw
      * @return
      * @throws NoSuchAlgorithmException
      */
 
     // SHA-256 알고리즘 적용
-    public String PassWordEncrypt(final String pwd) {
-        String result = "";
-        Supplier<String> getSalt = () -> {
-            SecureRandom sr = new SecureRandom();
-            byte[] salt = new byte[20];
-            sr.nextBytes(salt);
-            StringBuilder sb = new StringBuilder();
-            for (byte b : salt) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        };
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-            System.out.println("PWD + SALT 적용 전 : " + pwd + getSalt.get());
-            md.update((pwd + getSalt.get()).getBytes());
-            byte[] pwdSalt = md.digest();
-
-            StringBuffer sb = new StringBuffer();
-            for(byte b : pwdSalt) {
-                sb.append(String.format("%02x", b));
-            }
-
-            result = sb.toString();
-            System.out.println("PWD + SALT 적용 후 : " + result);
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-
-        return result;
-    }
-    //public String PassWordEncrypt(final String pw) throws NoSuchAlgorithmException {
-        /*MessageDigest digest = MessageDigest.getInstance("SHA-256");
+    public String PassWordEncrypt(final String pw) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] dataBytes = pw.getBytes(StandardCharsets.UTF_8);
         digest.update(dataBytes);
         byte[] hash = digest.digest();
@@ -107,8 +66,8 @@ public class MemberService {
             if (hex.length() == 1) hexString.append('0');
             hexString.append(hex);
         }
-        return hexString.toString();*/
-    //}
+        return hexString.toString();
+    }
 
     public MemberVO selectById(final String id) throws Exception {
         return memberMapper.selectById(id);
