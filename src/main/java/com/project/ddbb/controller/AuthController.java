@@ -136,8 +136,12 @@ public class AuthController {
     }
 
     @PostMapping("/signFindPassword")
+    @ResponseBody
     public String signFindPasswordProcess(MemberVO memberVO) throws Exception {
         // 아이디, 닉네임, 이메일 모두 일치하면 if문 실행 (true 반환)
+        System.out.println(memberVO.getId());
+        System.out.println(memberVO.getNickname());
+        System.out.println(memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail()));
         if (memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail())) {
             // 임시 비밀번호 생성
             String TempPassword = memberService.CreateTempPassword();
