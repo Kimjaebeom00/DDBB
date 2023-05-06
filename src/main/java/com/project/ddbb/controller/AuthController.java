@@ -1,5 +1,6 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 
 @Controller
@@ -84,12 +90,14 @@ public class AuthController {
      * @return
      */
     @PostMapping("/idValidation")
+    @ResponseBody
     public boolean idValidation(MemberVO memberVO) throws Exception {
-
-        return memberService.accountPermitId(memberVO.getId());
+        boolean id;
+        id = memberService.accountPermitId(memberVO.getId());
+        return id;
     }
     /**
-     * ID 찾기
+     * ID 찾기화면
      * @return
      */
     @GetMapping("/signFindId")
@@ -97,16 +105,23 @@ public class AuthController {
 
         return "auth/sign_findId";
     }
-
+    /**
+     * ID 찾기
+     * @return
+     */
     @PostMapping("/signFindId")
+    @ResponseBody
     public String signFindIdProcess(MemberVO memberVO) throws Exception {
-        if(memberService.findId(memberVO.getName(), memberVO.getEmail()) != null) {
+        if (memberService.findId(memberVO.getName(), memberVO.getEmail()) != null) {
+            String id = memberService.findId(memberVO.getName(), memberVO.getEmail());
             System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
+            return id;
         }
         else {
             System.out.println("not find id");
         }
         return "auth/sign_findId";
+
     }
     /**
      * Password 찾기
@@ -117,6 +132,7 @@ public class AuthController {
 
         return "auth/sign_findPassword";
     }
+
     @PostMapping("/signFindPassword")
     public String signFindPasswordProcess(MemberVO memberVO) throws Exception {
         // 임시 비밀번호 생성
@@ -129,6 +145,19 @@ public class AuthController {
         memberService.updatePassword(memberVO.getId(), TempPassword);
 
         return "auth/sign_findPassword";
+    }
+
+    /**
+     * Email 유효성 검증
+     * @return
+     */
+
+    @PostMapping("/emailValidation")
+    @ResponseBody
+    public boolean emailValidation(MemberVO memberVO) throws Exception {
+        boolean email;
+        email = memberService.accountPermitEmail(memberVO.getEmail());
+        return email;
     }
 
     /**
