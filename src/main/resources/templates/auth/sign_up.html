@@ -1,82 +1,78 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      data-bs-theme="auto">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
 
 <head>
-
-
   <meta charset="UTF-8">
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" th:href="@{css/sign_up.css}" >
-  <script th:src="@{js/api.js}" ></script>
-  <script th:src="@{js/sign_up.js}" ></script>
+  <link rel="stylesheet" th:href="@{css/sign_up.css}">
+  <script th:src="@{js/api.js}"></script>
+  <script th:src="@{js/sign_up.js}"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.js"
           integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-
-
+  <style>
+    .custom-button {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: black;
+    }
+  </style>
 </head>
 
 <body>
+<footer class="my-3 text-center text-small">
+  <p class="mb-1">Made by DDBB</p>
+</footer>
 
+<script src="js/test.js">
+  window.addEventListener('load', () => {
+    const forms = document.getElementsByClassName('validation-form');
+    Array.prototype.filter.call(forms, (form) => {
+      form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+</script>
 
-    <footer class="my-3 text-center text-small">
-      <p class="mb-1">Made by DDBB</p>
-    </footer>
-
-  <script src="js/test.js">
-
-    window.addEventListener('load', () => {
-      const forms = document.getElementsByClassName('validation-form');
-
-      Array.prototype.filter.call(forms, (form) => {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-
-  </script>
-
-    <form id="signUpForm" th:action="@{/signUp}" method="post">
-
-    <div class="container">
-      <div class="input-form-backgroud row">
-        <div class="input-form col-md-12 mx-auto">
-          <h4 class="mb-3">회원가입</h4>
-          <div class="validation-form" novalidate>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="id">아이디</label>
+<form id="signUpForm" th:action="@{/signUp}" method="post">
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">회원가입</h4>
+        <div class="validation-form" novalidate>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="id">아이디</label>
+              <div class="input-group">
                 <input type="text" name="id" class="form-control" id="id" placeholder="아이디를 입력하세요" value="" required>
-                <div class="invalid-feedback">
-                  아이디를 입력해주세요.
+                <div class="input-group-append">
+                  <button id="getId" class="w-100 btn btn-sm btn-primary custom-button" onclick="api.getId($('#id').val())">중복검사</button>
                 </div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="idCheck">아이디 중복확인</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="idCheck" placeholder="아이디를 다시 입력하세요" required>
-                  <div class="input-group-append">
-                    <button id="getId" class="w-100 btn btn-sm btn-primary"  onclick="api.getId($('#id').val())">아이디 중복검사</button>
-                  </div>
-                </div>
-
-                <div id="idCheckResult"></div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="password">비밀번호</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요" value="" required>
-                <div class="invalid-feedback">
-                  비밀번호를 입력해주세요.
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="email">이메일</label>
+              <div class="input-group">
+                <input type="text" name="email" class="form-control" id="email" placeholder="you@example.com" value="" required>
+                <div class="input-group-append">
+                  <a id="getEmail" class="w-100 btn btn-sm btn-primary custom-button" onclick="api.getEmail($('#email').val())">중복검사</a>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="password">비밀번호</label>
+              <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요" value="" required>
+              <div class="invalid-feedback">
+                비밀번호를 입력해주세요.
+              </div>
+            </div>
             <div class="col-md-6 mb-3">
               <label for="passwordCheck">비밀번호 확인
                 <div style="display: inline-block; vertical-align: middle;">
@@ -87,38 +83,22 @@
 
 
               <input type="password" name="passwordCheck" class="form-control" id="passwordCheck" placeholder="비밀번호를 다시 입력하세요" value="" required onblur="validatePassword()">
-             <div class="invalid-feedback">
-               비밀번호를 다시 입력해주세요.
-             </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <label for="email">이메일</label>
-              <input type="text" name="email" class="form-control" id="email" placeholder="you@example.com" required>
               <div class="invalid-feedback">
-                이메일을 입력해주세요.
+                비밀번호를 다시 입력해주세요.
               </div>
             </div>
 
-              <div class="col-md-6 mb-3">
-                <label for="emailCheck">이메일 중복확인</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="emailCheck" placeholder="이메일을 다시 입력하세요" required>
-                  <div class="input-group-append">
-                    <a id="getEmail" class="w-100 btn btn-sm btn-primary" onclick="api.getEmail($('#email').val())">이메일 중복검사</a>
-                  </div>
-                </div>
-
-              </div>
 
 
-                <div class="col-md-6 mb-3">
+
+
+          <div class="col-md-6 mb-3">
                   <label for="name">성함</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="성함을 알려주세요.">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="성함을 알려주세요."value="" required>
                   <div class="invalid-feedback">
                   </div>
                 </div>
-            </div>
+
 
               <table style="width:48%">
                 <tr>
@@ -138,14 +118,16 @@
                 </tr>
                 <tr>
                   <th style="width:40%">  답변</th>
-                  <td style="width:70%"><input type='text' name='nickname' class="form-control"></td>
-                </tr>
-              </table>
+                  <td style="width:70%"><input type='text' name='nickname' class="form-control"id="nickname"placeholder="성함을 알려주세요."value="" required></td>
+
+                  </tr>
+                </table>
+
                </div>
               </div>
              </div>
-
             </div>
+          </div>
 
 
 
