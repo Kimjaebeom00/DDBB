@@ -1,6 +1,5 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.service.BoardService;
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,11 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -142,7 +136,7 @@ public class AuthController {
         // 아이디, 닉네임, 이메일 모두 일치하면 if문 실행 (true 반환)
          id = memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail());
             // 임시 비밀번호 생성
-            if(id==true) {
+            if(id) {
                 String TempPassword = memberService.CreateTempPassword();
                 // 임시 비밀번호 메일로 보내기
                 memberService.SendMail(memberVO.getEmail(), TempPassword);
