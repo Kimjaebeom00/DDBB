@@ -4,16 +4,76 @@
       layout:decorate="~{layout/default}"
       data-bs-theme="auto">
 
-  <main layout:fragment="content">
+
+  <div class="project_cont" layout:fragment="content">
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" th:text="${project.title}"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" th:text="${project.introduction}"></div>
+        </div>
+      </div>
+    </div>
+
     <input type="hidden" id="currentProjectId" name="projectId" th:value="${project.projectId}"/>
-    <p th:text="${project.title}"></p>
-    <p th:text="${project.introduction}"></p>
-    <p id="project-members"></p>
+    <div class="first_column">
+      <div class="content_box project_info">
+        <div>
+          <h4 class="project_title" th:text="${project.title}"></h4>
+          <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            자세히보기
+          </button>
+          <button class="btn btn-outline-secondary btn_project_info_edit ms-2" type="button">수정</button>
+        </div>
+        <p th:text="${project.introduction}"></p>
+      </div>
+
+      <div class="content_box project_members" id="project_members">
+        <div class="member_info">
+          <div class="member_icon rounded-circle"></div>
+          <p class="member_name">권우영</p>
+        </div>
+        <div class="member_info">
+          <div class="member_icon rounded-circle"></div>
+          <p class="member_name">김성렬</p>
+        </div>
+        <div class="member_info">
+          <div class="member_icon rounded-circle"></div>
+          <p class="member_name">김재범</p>
+        </div>
+        <div class="member_info">
+          <div class="member_icon rounded-circle"></div>
+          <p class="member_name">엄재혁</p>
+        </div>
+      </div>
+    </div>
+    <div class="code_compare">
+      <div class="content_box before_code">
+        <p>import java.*;</p>
+        <p>public static void main() {</p>
+        <p class="different_code">&nbsp</p>
+        <p>}</p>
+      </div>
+      <div class="content_box current_code">
+        <p>import java.*;</p>
+        <p>public static void main() {</p>
+        <p class="different_code">123</p>
+        <p>}</p>
+      </div>
+    </div>
+
+    <div class="content_box project_comment">
+
+    </div>
 
     <script>
       $(function() {
         projectInfoInit();
       });
     </script>
-  </main>
+  </div>
 </html>

@@ -11,7 +11,8 @@
                 <input type="hidden" id="projectId" name="projectId" th:value="${project.projectId}"/>
                 <li>
                     <p th:text="${project.title}"></p>
-                    <p th:text="|${#strings.substring(project.introduction, 0, 10)}...|"></p>
+                    <p th:if="${#strings.length(project.introduction) > 10}" th:text="|${#strings.substring(project.introduction, 0, 10)}...|"></p>
+                    <p th:if="${#strings.length(project.introduction) <= 10}" th:text="${project.introduction}"></p>
                 </li>
             </form>
         </ul>
