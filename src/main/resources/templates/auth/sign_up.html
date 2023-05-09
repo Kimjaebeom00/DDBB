@@ -10,20 +10,41 @@
   <script th:src="@{js/sign_up.js}"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.js"
           integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-  <style>
-    .custom-button {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      color: black;
-    }
-    .text-center {
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  <script>
+    window.addEventListener('load', () => {
+      const signUpForm = document.getElementById('signUpForm');
+      const getIdButton = document.getElementById('getId');
+      const getEmailButton = document.getElementById('getEmail');
+      const submitButton = document.querySelector('.btn[type="submit"]');
+      let isIdChecked = false;
+      let isEmailChecked = false;
+      let isAlertShown = false;
 
-  </style>
+      signUpForm.addEventListener('submit', function (event) {
+        if (!isIdChecked || !isEmailChecked) {
+          event.preventDefault();
+          if (!isAlertShown) {
+            alert('중복확인 버튼을 눌러주세요.');
+            isAlertShown = true;
+          }
+        }
+      });
+
+      getIdButton.addEventListener('click', function () {
+        getIdButton.dataset.clicked = true;
+        isIdChecked = true;
+        submitButton.disabled = !(isIdChecked && isEmailChecked); // 중복검사 모두 확인된 경우에만 가입 완료 버튼 활성화
+      });
+
+      getEmailButton.addEventListener('click', function () {
+        getEmailButton.dataset.clicked = true;
+        isEmailChecked = true;
+        submitButton.disabled = !(isIdChecked && isEmailChecked); // 중복검사 모두 확인된 경우에만 가입 완료 버튼 활성화
+      });
+    });
+  </script>
+
+
 </head>
 
 <body>
