@@ -150,7 +150,9 @@ article button:hover {
 }
 
 .project_cont .first_column {
+    width: 100%;
     height: 150px;
+    float: left;
 }
 
 .project_cont .content_box {
@@ -164,7 +166,7 @@ article button:hover {
 }
 
 .project_cont .project_info {
-    width: 830px;
+    width: 65%;
     height: 100%;
     overflow: hidden;
 }
@@ -174,7 +176,7 @@ article button:hover {
 }
 
 .project_cont .project_members {
-    width: 400px;
+    width: 30%;
 }
 
 .project_cont .member_info {
