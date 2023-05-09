@@ -89,7 +89,7 @@ function signUpCheck(){
     document.getElementById("passwordCheckError").innerHTML=""
     document.getElementById("areaError").innerHTML=""
     document.getElementById("genderError").innerHTML=""
-    
+
     //비동기 처리이벤트
     setTimeout(function() {
       alert("가입이 완료되었습니다.")
@@ -97,5 +97,21 @@ function signUpCheck(){
   }
 
 
-
 }
+function Chek() {
+  window.addEventListener('load', () => {
+    const forms = document.getElementsByClassName('validation-form');
+    Array.prototype.filter.call(forms, (form) => {
+      form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+}
+
+// 함수 호출
+Chek();
