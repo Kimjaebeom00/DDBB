@@ -27,7 +27,7 @@
           <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             자세히보기
           </button>
-          <button class="btn btn-outline-secondary btn_project_info_edit ms-2" type="button">수정</button>
+          <button class="btn btn-outline-secondary   ms-2" type="button">수정</button>
         </div>
         <p th:text="${project.introduction}"></p>
       </div>
@@ -79,7 +79,10 @@
           <p>}</p>
         </div>
 
-        <button class="btn btn-outline-secondary btn_regist ms-2" type="button">코드 등록</button>
+        <form id="InsertCodeForm" action="/codeInsertPage" method="post">
+          <input type="hidden" id="projectIdForCode" name="projectId" />
+        </form>
+        <button class="btn btn-outline-secondary btn_regist ms-2" type="button" th:onclick="|javascript:goToInsertCode()|">코드 등록</button>
       </div>
 
       <div class="content_box project_comment">
