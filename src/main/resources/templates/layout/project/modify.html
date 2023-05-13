@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}"
+      data-bs-theme="auto">
+
+
+<div class="project_cont" layout:fragment="content">
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="first_column">
+    <div class="content_box project_info">
+      <div>
+
+        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          자세히보기
+        </button>
+      </div>
+
+    </div>
+
+    <div class="content_box project_members" id="project_members">
+      <div class="member_info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <p class="member_name">권우영</p>
+      </div>
+      <div class="member_info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <p class="member_name">김성렬</p>
+      </div>
+      <div class="member_info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <p class="member_name">김재범</p>
+      </div>
+      <div class="member_info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <p class="member_name">엄재혁</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="second_column">
+    <div class="code_compare">
+      <div class="content_box before_code">
+        <p>import java.*;</p>
+        <p>public static void main() {</p>
+        <p class="different_code">&nbsp</p>
+        <p>}</p>
+      </div>
+      <div class="content_box current_code">
+        <p>import java.*;</p>
+        <p>public static void main() {</p>
+        <p class="different_code">123</p>
+        <p>}</p>
+      </div>
+
+      <button class="btn btn-outline-secondary btn_regist ms-2" type="button">코드 등록</button>
+    </div>
+
+    <div class="content_box project_comment">
+      <div class="comment_box">
+        <h5>김성렬</h5>
+        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
+      </div>
+      <div class="comment_box">
+        <h5>김성렬</h5>
+        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
+      </div>
+      <div class="comment_box">
+        <h5>김성렬</h5>
+        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
+      </div>
+      <div class="comment_box">
+        <h5>김성렬</h5>
+        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
+      </div>
+      <div class="comment_box">
+        <h5>김성렬</h5>
+        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
+      </div>
+      <div class="comment_box">
+        <h5>김성렬</h5>
+        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-secondary btn_regist ms-2" type="button">등록</button>
+  </div>
+
+</div>
+</html>

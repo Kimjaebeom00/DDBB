@@ -19,6 +19,7 @@ public class AuthController {
 
     /**
      * 로그인 화면
+     *
      * @return
      */
     @GetMapping("/signIn")
@@ -29,14 +30,15 @@ public class AuthController {
 
     /**
      * 로그인 처리
+     *
      * @return
      */
     @PostMapping("/signIn")
-    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception{
+    public String signInProcess(MemberVO memberVO, HttpServletRequest request) throws Exception {
 //         id와 password 검증 로직
         if (memberVO.getId() != null && memberVO.getPassword() != null && !memberVO.getId().isEmpty() && !memberVO.getPassword().isEmpty()) {
 //             로그인 성공
-            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))){
+            if (memberService.accountPermitId(memberVO.getId()) && memberService.accountPermitPw(memberService.PassWordEncrypt(memberVO.getPassword()))) {
                 MemberVO memberInfo = memberService.selectById(memberVO.getId());
 
                 HttpSession session = request.getSession();
@@ -57,6 +59,7 @@ public class AuthController {
 
     /**
      * 회원가입 화면
+     *
      * @return
      */
     @GetMapping("/signUp")
@@ -67,11 +70,12 @@ public class AuthController {
 
     /**
      * 회원가입 처리
+     *
      * @return
      */
     @PostMapping("/signUp")
     public String signUpProcess(MemberVO memberVO) throws Exception {
-        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty() && memberVO.getNickname() != null && !memberVO.getNickname().isEmpty()){
+        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty() && memberVO.getNickname() != null && !memberVO.getNickname().isEmpty()) {
             memberVO.setPassword(memberService.PassWordEncrypt(memberVO.getPassword()));
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
@@ -83,6 +87,7 @@ public class AuthController {
 
     /**
      * ID 유효성 검증
+     *
      * @return
      */
     @PostMapping("/idValidation")
@@ -92,8 +97,10 @@ public class AuthController {
         id = memberService.accountPermitId(memberVO.getId());
         return id;
     }
+
     /**
      * ID 찾기화면
+     *
      * @return
      */
     @GetMapping("/signFindId")
@@ -101,8 +108,10 @@ public class AuthController {
 
         return "auth/sign_findId";
     }
+
     /**
      * ID 찾기
+     *
      * @return
      */
     @PostMapping("/signFindId")
@@ -112,15 +121,16 @@ public class AuthController {
             String id = memberService.findId(memberVO.getName(), memberVO.getEmail());
             System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
             return id;
-        }
-        else {
+        } else {
             System.out.println("not find id");
         }
         return "auth/sign_findId";
 
     }
+
     /**
      * Password 찾기
+     *
      * @return
      */
     @GetMapping("/signFindPassword")
@@ -134,32 +144,34 @@ public class AuthController {
     public boolean signFindPasswordProcess(MemberVO memberVO) throws Exception {
         boolean id;
         // 아이디, 닉네임, 이메일 모두 일치하면 if문 실행 (true 반환)
-         id = memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail());
-            // 임시 비밀번호 생성
-            if(id) {
-                String TempPassword = memberService.CreateTempPassword();
-                // 임시 비밀번호 메일로 보내기
-                memberService.SendMail(memberVO.getEmail(), TempPassword);
-                // 임시 비밀번호 암호화
-                TempPassword = memberService.PassWordEncrypt(TempPassword);
-                // 비밀번호 -> 임시 비밀번호 값으로 변경
-                memberService.updatePassword(memberVO.getId(), TempPassword);
-            }
+        id = memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail());
+        // 임시 비밀번호 생성
+        if (id) {
+            String TempPassword = memberService.CreateTempPassword();
+            // 임시 비밀번호 메일로 보내기
+            memberService.SendMail(memberVO.getEmail(), TempPassword);
+            // 임시 비밀번호 암호화
+            TempPassword = memberService.PassWordEncrypt(TempPassword);
+            // 비밀번호 -> 임시 비밀번호 값으로 변경
+            memberService.updatePassword(memberVO.getId(), TempPassword);
+        }
 
         return id;
     }
 
     /**
      * 로그인 만료 페이지로 이동
+     *
      * @return
      */
     @GetMapping("/auth/error")
-    public String authError(){
+    public String authError() {
         return "redirect:/signIn";
     }
 
     /**
      * Email 유효성 검증
+     *
      * @return
      */
 
@@ -170,5 +182,17 @@ public class AuthController {
         email = memberService.accountPermitEmail(memberVO.getEmail());
         System.out.println(email);
         return email;
+    }
+
+
+    /**
+     * 프로젝트 수정 클릭시 화면 이동
+     *
+     * @return
+     */
+    @GetMapping("/modify")
+    public String modify() {
+
+        return "layout/project/modify";
     }
 }

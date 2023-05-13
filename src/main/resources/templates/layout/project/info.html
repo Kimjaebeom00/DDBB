@@ -27,9 +27,18 @@
           <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             자세히보기
           </button>
-          <button class="btn btn-outline-secondary btn_project_info_edit ms-2" type="button">수정</button>
+
+          <form id="signUpForm" th:action="@{/modify}" method="get">
+            <button class="w-100 btn btn-sm btn-primary custom-button text-center" type="submit" style="margin: 5px; padding: 5px;">수정</button>
+
+
+
+          </form>
+
+
+
         </div>
-        <p th:text="${project.introduction}"></p>
+
       </div>
 
       <div class="content_box project_members" id="project_members">
@@ -111,10 +120,6 @@
 
       <button class="btn btn-outline-secondary btn_regist ms-2" type="button">등록</button>
     </div>
-    <script>
-      $(function() {
-        projectInfoInit();
-      });
-    </script>
+
   </div>
 </html>
