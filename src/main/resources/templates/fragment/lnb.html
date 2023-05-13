@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,6 +17,9 @@
                 </li>
             </form>
         </ul>
+        <th:block layout:fragment="javascript">
+            <script th:src="@{/js/lnb.js}"></script>
+        </th:block>
     </div>
 </body>
 </html>
