@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class ProjectMemberService {
      * @param projectId
      * @return
      */
-    public List<ProjectMemberVO> findByProjectId(Long projectId) {
+    public List<Map<String, Object>> findByProjectId(Long projectId) {
         return projectMemberMapper.findByProjectId(projectId);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,18 +18,6 @@ import java.util.List;
 public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 
-    /**
-     * 프로젝트 참여자 조회
-     * @param projectId
-     * @return
-     */
-    @PostMapping("/list")
-    @ResponseBody
-    public List<ProjectMemberVO> projectMembers(@RequestParam("projectId") Long projectId) {
-        List<ProjectMemberVO> projectMemberList = projectMemberService.findByProjectId(projectId);
-
-        return projectMemberList;
-    }
 
     /**
      * 프로젝트 참여자 등록

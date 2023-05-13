@@ -11,13 +11,11 @@
     </sql>
 
     <!-- 프로젝트 참여자 조회 -->
-    <select id="findByProjectId" parameterType="long" resultType="com.project.ddbb.domain.vo.ProjectMemberVO">
-        SELECT
-        <include refid="projectMemberColumns" />
-        FROM
-            project_member
-        WHERE
-            project_id = #{projectId}
+    <select id="findByProjectId" parameterType="long" resultType="map">
+        SELECT name, leader_yn
+        FROM member m, project_member pm
+        WHERE m.member_id = pm.member_id
+        AND pm.project_id = #{project_id};
     </select>
 
     <!-- 프로젝트 참여자 등록 -->
