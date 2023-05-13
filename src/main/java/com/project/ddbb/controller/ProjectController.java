@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
 @Controller
@@ -29,7 +28,7 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/home")
-    public String main(Model model, HttpServletRequest request) {
+    public String projectMain(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
 
@@ -83,6 +82,7 @@ public class ProjectController {
      * 프로젝트 상세정보
      * @param id
      * @param model
+     * @param request
      * @return
      */
     @RequestMapping("/info")

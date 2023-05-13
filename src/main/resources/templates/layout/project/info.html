@@ -27,18 +27,9 @@
           <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             자세히보기
           </button>
-
-          <form id="signUpForm" th:action="@{/modify}" method="get">
-            <button class="w-100 btn btn-sm btn-primary custom-button text-center" type="submit" style="margin: 5px; padding: 5px;">수정</button>
-
-
-
-          </form>
-
-
-
+          <button class="btn btn-outline-secondary   ms-2" type="button">수정</button>
         </div>
-
+        <p th:text="${project.introduction}"></p>
       </div>
 
       <div class="content_box project_members" id="project_members">
@@ -88,7 +79,10 @@
           <p>}</p>
         </div>
 
-        <button class="btn btn-outline-secondary btn_regist ms-2" type="button">코드 등록</button>
+        <form id="InsertCodeForm" action="/codeInsertPage" method="post">
+          <input type="hidden" id="projectIdForCode" name="projectId" />
+        </form>
+        <button class="btn btn-outline-secondary btn_regist ms-2" type="button" th:onclick="|javascript:goToInsertCode()|">코드 등록</button>
       </div>
 
       <div class="content_box project_comment">
@@ -120,6 +114,10 @@
 
       <button class="btn btn-outline-secondary btn_regist ms-2" type="button">등록</button>
     </div>
-
+    <script>
+      $(function() {
+        projectInfoInit();
+      });
+    </script>
   </div>
 </html>

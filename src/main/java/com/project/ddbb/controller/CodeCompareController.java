@@ -2,11 +2,13 @@ package com.project.ddbb.controller;
 
 import com.project.ddbb.domain.service.CodeCompareService;
 import com.project.ddbb.domain.vo.CodeVO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -15,6 +17,22 @@ import java.util.*;
 public class CodeCompareController {
 
     private final CodeCompareService codeCompareService;
+
+
+    /**
+     * 코드 등록 화면
+     * @param projectId
+     * @param model
+     * @param request
+     * @return
+     */
+    @PostMapping("/codeInsertPage")
+    public String insertCode(@RequestParam Long projectId, Model model, HttpServletRequest request) {
+        model.addAttribute("isLnb", false);
+        model.addAttribute("projectId", projectId);
+
+        return "layout/project/insert_code";
+    }
 
     /**
      * 코드 저장
