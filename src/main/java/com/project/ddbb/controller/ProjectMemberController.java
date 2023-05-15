@@ -5,6 +5,8 @@ import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +26,21 @@ public class ProjectMemberController {
 
     /**
      * 프로젝트 참여자 등록
-     * @param vo
+     * @param id
      */
     @PostMapping("/add")
-    @ResponseBody
-    public void addProjectMember(@RequestParam("ProjectMemberVO") ProjectMemberVO vo, @RequestParam String id) throws Exception {
-        vo.setMemberId(memberService.selectById(id).getMemberId());
-        vo.setProjectId(75L);
-        vo.setLeaderYn(false);
-        projectMemberService.save(vo);
+    public String addProjectMember(RedirectAttributes redirect, @RequestParam String id, @RequestParam Long projectId) throws Exception {
+        if (memberService.accountPermitId(id)) {
+            ProjectMemberVO pmv = new ProjectMemberVO();
+            pmv.setMemberId(memberService.selectById(id).getMemberId());
+            pmv.setProjectId(projectId);
+            pmv.setLeaderYn(false);
+            projectMemberService.save(pmv);
+        } else {
+            return "redirect:/project/info";
+        }
+        redirect.addAttribute("projectId", projectId);
+        return "redirect:/project/info";
     }
 
     /**

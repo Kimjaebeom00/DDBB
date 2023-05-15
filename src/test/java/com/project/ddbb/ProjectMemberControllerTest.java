@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -37,10 +38,10 @@ public class ProjectMemberControllerTest {
 
     @Test
     @DisplayName("프로젝트 참여자 등록")
-    public void addProjectMember() throws Exception {
+    public void addProjectMember(RedirectAttributes redirect) throws Exception {
         ProjectMemberVO pmv = new ProjectMemberVO();
 
-        projectMemberController.addProjectMember(pmv, "rnjsdndud00");
+        projectMemberController.addProjectMember(redirect, "33333", 1L);
     }
 
     @Test

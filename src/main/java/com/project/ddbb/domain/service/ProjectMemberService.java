@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.SimpleTimeZone;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +28,8 @@ public class ProjectMemberService {
      * 프로젝트 참여자 등록
      * @param vo
      */
-    public void save(ProjectMemberVO vo){
-        projectMemberMapper.save(vo);
+    public void save(ProjectMemberVO pmv){
+        projectMemberMapper.save(pmv);
     }
 
     /**
