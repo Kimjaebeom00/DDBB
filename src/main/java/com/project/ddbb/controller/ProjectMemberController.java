@@ -1,6 +1,8 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.service.ProjectMemberService;
+import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.Map;
 @RequestMapping("/projectMember")
 public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
+    private final MemberService memberService;
 
 
     /**
@@ -25,7 +28,9 @@ public class ProjectMemberController {
      */
     @PostMapping("/add")
     @ResponseBody
-    public void addProjectMember(@RequestParam("ProjectMemberVO") ProjectMemberVO vo) {
+    public void addProjectMember(@RequestParam("ProjectMemberVO") ProjectMemberVO vo, @RequestParam String id) throws Exception {
+        vo.setMemberId(memberService.selectById(id).getMemberId());
+        vo.setProjectId(75L);
         vo.setLeaderYn(false);
         projectMemberService.save(vo);
     }

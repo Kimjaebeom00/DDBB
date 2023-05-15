@@ -95,7 +95,7 @@ public class ProjectController {
 
         ProjectVO project = projectService.findByProjectId(projectId);
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
-        List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(projectId);
+        List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(1L);
 
         model.addAttribute("project", project);
         model.addAttribute("projects", projects);

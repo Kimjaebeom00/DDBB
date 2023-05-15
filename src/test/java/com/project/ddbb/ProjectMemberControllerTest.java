@@ -37,12 +37,10 @@ public class ProjectMemberControllerTest {
 
     @Test
     @DisplayName("프로젝트 참여자 등록")
-    public void addProjectMember(){
+    public void addProjectMember() throws Exception {
         ProjectMemberVO pmv = new ProjectMemberVO();
-        pmv.setProjectId(38L);
-        pmv.setMemberId(2L);
 
-        projectMemberController.addProjectMember(pmv);
+        projectMemberController.addProjectMember(pmv, "rnjsdndud00");
     }
 
     @Test
