@@ -23,7 +23,7 @@ public interface ProjectMemberMapper {
      * 프로젝트 참여자 등록
      * @param vo
      */
-    void save(ProjectMemberVO vo);
+    void save(ProjectMemberVO pmv);
 
     /**
      * 프로젝트 참여자 삭제
