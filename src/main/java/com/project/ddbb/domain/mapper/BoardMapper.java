@@ -15,11 +15,9 @@ public interface BoardMapper {
     void save(BoardVO params);
 
     /**
-     * 게시글 상세정보 조회
-     * @param id - PK
-     * @return 게시글 상세정보
+     * 게시글 리스트 조회
      */
-    BoardVO findById(Long id);
+    List<BoardVO> findAll();
 
     /**
      * 게시글 수정
@@ -29,25 +27,7 @@ public interface BoardMapper {
 
     /**
      * 게시글 삭제
-     * @param id - PK
+     * @param commentId - PK
      */
-    void deleteById(Long id);
-
-    /**
-     * 게시글 리스트 조회
-     * @return 게시글 리스트
-     */
-    List<BoardVO> findAll();
-
-    /**
-     * 게시글 수 카운팅
-     * @return 게시글 수
-     */
-//    int count();
-
-    /**
-     * 게시글 삭제 취소
-     * @param id - PK
-     */
-    void cancelById(Long id);
+    void deleteById(Long commentId);
 }
