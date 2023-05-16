@@ -70,13 +70,13 @@ public class AuthController {
      * @return
      */
     @PostMapping("/signUp")
-    public String signUpProcess(MemberVO memberVO) throws Exception {
-        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty() && memberVO.getNickname() != null && !memberVO.getNickname().isEmpty()){
+    public String signUpProcess(MemberVO memberVO, String passwordCheck) throws Exception {
+        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty() && memberVO.getNickname() != null && !memberVO.getNickname().isEmpty()
+           && passwordCheck.equals(memberVO.getPassword())){
             memberVO.setPassword(memberService.PassWordEncrypt(memberVO.getPassword()));
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
         } else {
-            System.out.println("2");
             return "auth/sign_up";
         }
     }
