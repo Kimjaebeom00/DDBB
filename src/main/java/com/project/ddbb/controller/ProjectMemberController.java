@@ -37,6 +37,7 @@ public class ProjectMemberController {
             pmv.setLeaderYn(false);
             projectMemberService.save(pmv);
         } else {
+            redirect.addAttribute("projectId", projectId);
             return "redirect:/project/info";
         }
         redirect.addAttribute("projectId", projectId);
