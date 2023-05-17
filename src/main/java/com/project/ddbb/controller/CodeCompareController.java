@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
@@ -39,7 +40,7 @@ public class CodeCompareController {
      * void
      */
     @PostMapping("/codeSave")
-    public void codeSave(CodeVO codeVO) {
+    public String codeSave(CodeVO codeVO, RedirectAttributes redirect, HttpServletRequest request) {
         Long projectId = codeVO.getProjectId(); // projectId 가져오기
         String codeTitle = codeVO.getTitle();  // 파일 제목 가져오기
         String currentCode = codeVO.getCurrentCode();  // 현재 저장할 코드 가져오기
@@ -65,6 +66,9 @@ public class CodeCompareController {
             cvo.setCurrentCode(currentCode);
             codeCompareService.updateCode(cvo);
         }
+
+        redirect.addAttribute("projectId", projectId);
+        return "redirect:/project/info";
     }
 
     /**
