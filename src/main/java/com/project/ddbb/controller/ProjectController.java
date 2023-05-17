@@ -51,6 +51,7 @@ public class ProjectController {
         return "layout/project/add";
     }
 
+
     /**
      * 프로젝트 추가 처리
      * @param vo
@@ -78,6 +79,33 @@ public class ProjectController {
         return "redirect:/project/info";
     }
 
+
+
+
+    /**
+     * 프로젝트 수정 처리
+     */
+    @PostMapping("/modify")
+
+    public String modifyProjectProcess(@RequestParam("projectId") Long projectId, ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+        Long memberId = memberInfo.getMemberId();
+
+        vo.setMemberId(memberId);
+        projectService.update(vo);
+
+        redirect.addAttribute("projectId", projectId);
+
+        return "redirect:/project/home";
+    }
+
+
+
+
+
+
     /**
      * 프로젝트 상세정보
      * @param id
@@ -100,4 +128,21 @@ public class ProjectController {
 
         return "layout/project/info";
     }
+
+
+
+    @GetMapping("/modify")
+    public String modify(@RequestParam("projectId") Long projectId,Model model,@RequestParam("title") String title,@RequestParam("introduction") String introduction, @RequestParam("leaderYn") int leaderYn) {
+
+        model.addAttribute("projectId",projectId);
+        model.addAttribute("title",title);
+        model.addAttribute("introduction",introduction);
+        model.addAttribute("isLnb", false);
+        model.addAttribute("leaderYn",leaderYn);
+
+        return "layout/project/modify";
+    }
+
+
+
 }

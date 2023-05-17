@@ -23,6 +23,14 @@ public interface ProjectMapper {
     ProjectVO findByProjectId(Long projectId);
 
     /**
+     * 프로젝트 리더정보 조회
+     * @param leaderYn
+     * @return
+     */
+    ProjectVO findLeader_in(int leaderYn);
+
+
+    /**
      * 프로젝트 등록
      * @param vo
      */
@@ -39,4 +47,6 @@ public interface ProjectMapper {
      * @param projectId
      */
     void deleteById(Long projectId);
+
+
 }

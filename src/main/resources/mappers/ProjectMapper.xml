@@ -38,6 +38,17 @@
         AND project_id = #{projectId}
     </select>
 
+    <!-- 프로젝트 리더자 조회 -->
+    <select id="findLeader_in" parameterType="int" resultType="com.project.ddbb.domain.vo.ProjectVO">
+        SELECT
+        <include refid="projectColumns" />
+        FROM
+        project
+        WHERE
+        delete_yn = 0
+        AND leaderYn = #{leaderYn}
+    </select>
+
     <!-- 프로젝트 등록 -->
     <insert id="save" parameterType="com.project.ddbb.domain.vo.ProjectVO" useGeneratedKeys="true" keyProperty="projectId">
         INSERT INTO project (

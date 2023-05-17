@@ -54,4 +54,15 @@ public class ProjectService {
     public void deleteById(Long projectId) {
         projectMapper.deleteById(projectId);
     }
+
+
+    /**
+     * 프로젝트 리더자 조회
+     * @param leaderYn
+     * @return
+     */
+
+    public ProjectVO findLeader_in(int leaderYn) {
+        return projectMapper.findLeader_in(leaderYn);
+    }
 }

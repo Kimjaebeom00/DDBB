@@ -4,112 +4,36 @@
       layout:decorate="~{layout/default}"
       data-bs-theme="auto">
 
+<main layout:fragment="content">
 
-<div class="project_cont" layout:fragment="content">
+  <form id="addProjectForm" th:action="@{/project/modify}" method="post">
+    <input type="hidden" id="projectId" name="projectId" th:value="${projectId}"/>
 
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
 
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+    <div class="container">
+      <div class="row">
+        <div class="input-form col-md-12 mx-auto">
+          <h4 class="mb-3">프로젝트 수정</h4>
+          <div class="mb-3">
+            <label for="title">프로젝트명</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${title}"/>
+
+
+          </div>
+          <div class="mb-3">
+            <label for="introduction">프로젝트 소개</label>
+            <label for="introduction">수정 할 프로젝트 소개</label>
+            <textarea class="form-control" id="introduction" name="introduction" rows="5" th:text="${introduction}"></textarea>
+
+
+          </div>
         </div>
-
       </div>
     </div>
-  </div>
+    <button class="btn btn-primary btn-lg btn-block mt-4 mb-5" type="submit">수정 완료</button>
+  </form>
 
-  <div class="first_column">
-    <div class="content_box project_info">
-      <div>
-
-        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          자세히보기
-        </button>
-      </div>
-
-    </div>
-
-    <div class="content_box project_members" id="project_members">
-      <div class="member_info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-        </svg>
-        <p class="member_name">권우영</p>
-      </div>
-      <div class="member_info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-        </svg>
-        <p class="member_name">김성렬</p>
-      </div>
-      <div class="member_info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-        </svg>
-        <p class="member_name">김재범</p>
-      </div>
-      <div class="member_info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-        </svg>
-        <p class="member_name">엄재혁</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="second_column">
-    <div class="code_compare">
-      <div class="content_box before_code">
-        <p>import java.*;</p>
-        <p>public static void main() {</p>
-        <p class="different_code">&nbsp</p>
-        <p>}</p>
-      </div>
-      <div class="content_box current_code">
-        <p>import java.*;</p>
-        <p>public static void main() {</p>
-        <p class="different_code">123</p>
-        <p>}</p>
-      </div>
-
-      <button class="btn btn-outline-secondary btn_regist ms-2" type="button">코드 등록</button>
-    </div>
-
-    <div class="content_box project_comment">
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.코멘트 테스트입니다.</p>
-      </div>
-    </div>
-
-    <button class="btn btn-outline-secondary btn_regist ms-2" type="button">등록</button>
-  </div>
-
-</div>
+</main>
 </html>

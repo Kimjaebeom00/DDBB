@@ -37,4 +37,14 @@ public class ProjectMemberService {
     public void delete(ProjectMemberVO vo) {
         projectMemberMapper.delete(vo);
     }
+
+
+    /**
+     * 프로젝트 리더자 조회
+     * @param leader_yn
+     * @return
+     */
+    public List<ProjectMemberVO> findLeader_in(int leader_yn) {
+        return projectMemberMapper.findLeader_in(leader_yn);
+    }
 }

@@ -1,7 +1,6 @@
 package com.project.ddbb.domain.mapper;
 
 import com.project.ddbb.domain.vo.ProjectMemberVO;
-import com.project.ddbb.domain.vo.ProjectVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -26,4 +25,11 @@ public interface ProjectMemberMapper {
      * @param vo
      */
     void delete(ProjectMemberVO vo);
+
+    /**
+     * 프로젝트 참여자 조회
+     * @param leaderYn
+     * @return
+     */
+    List<ProjectMemberVO> findLeader_in(int leaderYn);
 }

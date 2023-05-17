@@ -184,15 +184,4 @@ public class AuthController {
         return email;
     }
 
-
-    /**
-     * 프로젝트 수정 클릭시 화면 이동
-     *
-     * @return
-     */
-    @GetMapping("/modify")
-    public String modify() {
-
-        return "layout/project/modify";
-    }
 }

@@ -11,4 +11,5 @@ public class ProjectVO {
     private String title;           // 제목
     private String introduction;    // 소개
     private boolean deleteYn;       // 삭제여부
+    private int leaderYn;          // 리더자 여부
 }
