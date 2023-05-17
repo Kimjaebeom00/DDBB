@@ -62,18 +62,8 @@
 
     <div class="second_column">
       <div class="code_compare">
-        <div class="content_box before_code">
-          <p>import java.*;</p>
-          <p>public static void main() {</p>
-          <p class="different_code">&nbsp</p>
-          <p>}</p>
-        </div>
-        <div class="content_box current_code">
-          <p>import java.*;</p>
-          <p>public static void main() {</p>
-          <p class="different_code">123</p>
-          <p>}</p>
-        </div>
+        <div class="content_box before_code"></div>
+        <div class="content_box current_code"></div>
 
         <form id="InsertCodeForm" action="/codeInsertPage" method="post">
           <input type="hidden" id="projectIdForCode" name="projectId" />
@@ -114,6 +104,16 @@
       $(function() {
         projectInfoInit();
       });
+
+      const $divs = $('.before_code, .current_code');
+      const sync = function(e){
+        const $other = $divs.not(this).off('scroll'), other = $other.get(0);
+        const percentage = this.scrollTop / (this.scrollHeight - this.offsetHeight);
+        other.scrollTop = percentage * (other.scrollHeight - other.offsetHeight);
+        setTimeout( function(){ $other.on('scroll', sync ); },10);
+      }
+      $divs.on( 'scroll', sync);
+
       // 모달 팝업 열기
       function openModal() {
         document.getElementById("myModal").style.display = "block";

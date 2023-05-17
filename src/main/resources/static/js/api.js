@@ -91,7 +91,6 @@ var api = {
             }
         });
     },
-
     getPassword: function(id,nickname,email) {//컨트롤러 메소드 이름이랑 같다 ->오브젝트 형식
         let params = {
             id : id,
@@ -117,6 +116,27 @@ var api = {
                 console.error(error);
             }
         });
-    }
+    },
+    compareCode: function(projectId) {
+        let comparedCodeInfo;
+        const params = {
+            projectId : projectId
+        };
 
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/codeCompare",
+            data: params,
+            success: function(result){
+                comparedCodeInfo = result;
+            },
+            error: function(error){
+                alert("API 에러가 발생했습니다.");
+                console.error(error);
+            }
+        });
+
+        return comparedCodeInfo;
+    }
 }
