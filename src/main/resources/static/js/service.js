@@ -5,7 +5,7 @@ let projectInfoInit = function() {
     target.addClass('selected');
 
     let comparedCodeInfoMap = api.compareCode(projectId);
-    // console.log(comparedCodeInfoMap);
+    console.log(comparedCodeInfoMap);
     const beforeCodeContainer = $('.before_code');
     const currentCodeContainer = $('.current_code');
 
