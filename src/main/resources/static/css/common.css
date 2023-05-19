@@ -293,6 +293,10 @@ article button:hover {
     background: lawngreen;
 }
 
+.project_cont .deleted_code {
+    background: red;
+}
+
 .project_cont button.btn_project_info_edit {
     margin-left: 685px;
 }

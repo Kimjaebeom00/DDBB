@@ -9,24 +9,35 @@ let projectInfoInit = function() {
     const beforeCodeContainer = $('.before_code');
     const currentCodeContainer = $('.current_code');
 
-    comparedCodeInfoMap.beforeList.forEach((beforeLine, index) => {
-        if(comparedCodeInfoMap.modifiedList.indexOf(index) >= 0) {
-            beforeCodeContainer.append('<p class="modified_code">' + beforeLine + '</p>');
-        } else if(comparedCodeInfoMap.addedList.indexOf(index) >= 0) {
-            beforeCodeContainer.append('<p class="added_code">' + beforeLine + '</p>');
+    for(let i=0; i<comparedCodeInfoMap.beforeList.length; i++) {
+        if(comparedCodeInfoMap.codeMap.before.add.indexOf(i) >= 0) {
+            beforeCodeContainer.append('<p class="added_code">&nbsp;</p>');
+            comparedCodeInfoMap.codeMap.before.add.shift();
+            --i;
+            continue;
+        } else if(comparedCodeInfoMap.codeMap.before.modify.indexOf(i) >= 0) {
+            beforeCodeContainer.append('<p class="modified_code">' + comparedCodeInfoMap.beforeList[i] + '</p>');
+        } else if(comparedCodeInfoMap.codeMap.before.delete.indexOf(i) >= 0) {
+            beforeCodeContainer.append('<p class="deleted_code">' + comparedCodeInfoMap.beforeList[i] + '</p>');
         } else {
-            beforeCodeContainer.append('<p>' + beforeLine + '</p>');
+            beforeCodeContainer.append('<p>' + comparedCodeInfoMap.beforeList[i] + '</p>');
         }
-    });
-    comparedCodeInfoMap.currentList.forEach((currentLine, index) => {
-        if(comparedCodeInfoMap.modifiedList.indexOf(index) >= 0) {
-            currentCodeContainer.append('<p class="modified_code">' + currentLine + '</p>');
-        } else if(comparedCodeInfoMap.addedList.indexOf(index) >= 0) {
-            currentCodeContainer.append('<p class="added_code">' + currentLine + '</p>');
+    }
+
+    for(let i=0; i<comparedCodeInfoMap.currentList.length; i++) {
+        if(comparedCodeInfoMap.codeMap.current.add.indexOf(i) >= 0) {
+            currentCodeContainer.append('<p class="added_code">' + comparedCodeInfoMap.currentList[i] + '</p>');
+        } else if(comparedCodeInfoMap.codeMap.current.modify.indexOf(i) >= 0) {
+            currentCodeContainer.append('<p class="modified_code">' + comparedCodeInfoMap.currentList[i] + '</p>');
+        } else if(comparedCodeInfoMap.codeMap.current.delete.indexOf(i) >= 0) {
+            currentCodeContainer.append('<p class="deleted_code">&nbsp;</p>');
+            comparedCodeInfoMap.codeMap.current.delete.shift();
+            --i;
+            continue;
         } else {
-            currentCodeContainer.append('<p>' + currentLine + '</p>');
+            currentCodeContainer.append('<p>' + comparedCodeInfoMap.currentList[i] + '</p>');
         }
-    });
+    }
 }
 
 const goToInsertCode = function() {
