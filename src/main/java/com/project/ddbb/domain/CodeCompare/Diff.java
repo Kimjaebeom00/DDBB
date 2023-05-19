@@ -1,4 +1,4 @@
-package com.project.ddbb.domain.vo;
+package com.project.ddbb.domain.CodeCompare;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -209,7 +209,7 @@ public class Diff
                 }
             }
         }
-        throw new RuntimeException("The algorithm should never come here.");
+        throw new RuntimeException("런타임에러.");
     }
 
     private static void LCS(DiffData DataA, int LowerA, int UpperA, DiffData DataB, int LowerB, int UpperB, int[] DownVector, int[] UpVector)
