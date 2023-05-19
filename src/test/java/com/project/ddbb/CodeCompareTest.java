@@ -18,7 +18,7 @@ public class CodeCompareTest {
     @Autowired
     CodeCompareService codeService;
 
-    Long testCurrentProjectId = 1L;
+    Long testCurrentProjectId = 75L;
 
     @Test
     void save()
@@ -96,7 +96,7 @@ public class CodeCompareTest {
         Diff.Item[] diffs = Diff.DiffText(beforeCode, currentCode);
         for (Diff.Item diff : diffs)
         {
-            if ( ((diff.deletedA !=0) && (diff.insertedB !=0)) && (diff.deletedA <= diff.insertedB) ) // 수정 or 수정+추가된 경우
+            if ( ((diff.deletedA != 0) && (diff.insertedB != 0)) && (diff.deletedA <= diff.insertedB) ) // 수정 or 수정+추가된 경우
             {
                 if (diff.deletedA == diff.insertedB) // 수정
                 {
@@ -185,6 +185,50 @@ public class CodeCompareTest {
                     currentMap.put("추가", addLines);
                 }
             }
+            else // 수정 or 수정+삭제된 경우
+            {
+                int beforeCount = 0;
+                for (int i = diff.StartA; i < diff.StartA + diff.deletedA; i++)
+                {
+                    if (beforeCount < diff.insertedB)
+                    {
+                        List<Integer> modifiedLines = beforeMap.getOrDefault("수정", new ArrayList<>());
+                        modifiedLines.add(i);
+                        beforeMap.put("수정", modifiedLines);
+                    }
+                    else
+                    {
+                        List<Integer> deleteLines = beforeMap.getOrDefault("삭제", new ArrayList<>());
+                        deleteLines.add(i);
+                        beforeMap.put("삭제", deleteLines);
+                    }
+                    beforeCount++;
+                }
+
+                int currentCount = 0;
+                for (int i = diff.StartB; i < diff.StartB + diff.deletedA; i++)
+                {
+                    if (currentCount < diff.insertedB)
+                    {
+                        List<Integer> modifiedLines = currentMap.getOrDefault("수정", new ArrayList<>());
+                        modifiedLines.add(i);
+                        currentMap.put("수정", modifiedLines);
+                    }
+                    else
+                    {
+                        List<Integer> deleteLines = currentMap.getOrDefault("삭제", new ArrayList<>());
+                        deleteLines.add(i);
+                        currentMap.put("삭제", deleteLines);
+                    }
+                    currentCount++;
+                }
+            }
+
+            System.out.println("StartA: " + diff.StartA);
+            System.out.println("DeletedA: " + diff.deletedA);
+            System.out.println("StartB: " + diff.StartB);
+            System.out.println("InsertedB: " + diff.insertedB);
+            System.out.println();
         }
         codeMap.put("이전",beforeMap);
         codeMap.put("현재",currentMap);

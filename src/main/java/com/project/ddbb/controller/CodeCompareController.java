@@ -95,42 +95,52 @@ public class CodeCompareController {
             List<String> beforeList = new ArrayList<>();
             List<String> currentList = new ArrayList<>();
 
-            if (cvo.getBeforeCode() != null) {
+            if (cvo.getBeforeCode() != null)
+            {
                 beforeCode = cvo.getBeforeCode(); // 이전코드 문자열
                 beforeList = Arrays.asList(cvo.getBeforeCode().split("\n")); // 이전 코드 라인별 리스트
             }
-            if (cvo.getCurrentCode() != null) {
+            if (cvo.getCurrentCode() != null)
+            {
                 currentCode = cvo.getCurrentCode(); // 현재코드 문자열
                 currentList = Arrays.asList(cvo.getCurrentCode().split("\n"));  // 현재 코드 라인별 리스트
             }
 
-            if ((cvo.getBeforeCode() != null) || (cvo.getCurrentCode() != null)) {
+            if ((cvo.getBeforeCode() != null) || (cvo.getCurrentCode() != null))
+            {
                 Diff.Item[] diffs = Diff.DiffText(beforeCode, currentCode); // 코드 비교 알고리즘 실행
-                for (Diff.Item diff : diffs) {
+                for (Diff.Item diff : diffs)
+                {
                     if (((diff.deletedA != 0) && (diff.insertedB != 0)) && (diff.deletedA <= diff.insertedB)) // 수정 or 수정+추가된 경우
                     {
                         if (diff.deletedA == diff.insertedB) // 수정
                         {
-                            for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++) {
+                            for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++)
+                            {
                                 List<Integer> modifiedLines = beforeMap.getOrDefault("modify", new ArrayList<>());
                                 modifiedLines.add(i);
                                 beforeMap.put("modify", modifiedLines);
                             }
 
-                            for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++) {
+                            for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++)
+                            {
                                 List<Integer> modifiedLines = currentMap.getOrDefault("modify", new ArrayList<>());
                                 modifiedLines.add(i);
                                 currentMap.put("modify", modifiedLines);
                             }
-                        } else // 수정+추가
+                        }
+                        else // 수정+추가
                         {
                             int beforeCount = 0;
-                            for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++) {
-                                if (beforeCount < diff.deletedA) {
+                            for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++)
+                            {
+                                if (beforeCount < diff.deletedA)
+                                {
                                     List<Integer> modifiedLines = beforeMap.getOrDefault("modify", new ArrayList<>());
                                     modifiedLines.add(i);
                                     beforeMap.put("modify", modifiedLines);
-                                } else {
+                                } else
+                                {
                                     List<Integer> addLines = beforeMap.getOrDefault("add", new ArrayList<>());
                                     addLines.add(i);
                                     beforeMap.put("add", addLines);
@@ -139,12 +149,15 @@ public class CodeCompareController {
                             }
 
                             int currentCount = 0;
-                            for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++) {
-                                if (currentCount < diff.deletedA) {
+                            for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++)
+                            {
+                                if (currentCount < diff.deletedA)
+                                {
                                     List<Integer> modifiedLines = currentMap.getOrDefault("modify", new ArrayList<>());
                                     modifiedLines.add(i);
                                     currentMap.put("modify", modifiedLines);
-                                } else {
+                                } else
+                                {
                                     List<Integer> addLines = currentMap.getOrDefault("add", new ArrayList<>());
                                     addLines.add(i);
                                     currentMap.put("add", addLines);
@@ -152,31 +165,75 @@ public class CodeCompareController {
                                 currentCount++;
                             }
                         }
-                    } else if (diff.deletedA != 0 && diff.insertedB == 0) // 삭제
+                    }
+                    else if (diff.deletedA != 0 && diff.insertedB == 0) // 삭제
                     {
-                        for (int i = diff.StartA; i < diff.StartA + diff.deletedA; i++) {
+                        for (int i = diff.StartA; i < diff.StartA + diff.deletedA; i++)
+                        {
                             List<Integer> deleteLines = beforeMap.getOrDefault("delete", new ArrayList<>());
                             deleteLines.add(i);
                             beforeMap.put("delete", deleteLines);
                         }
 
-                        for (int i = diff.StartB; i < diff.StartB + diff.deletedA; i++) {
+                        for (int i = diff.StartB; i < diff.StartB + diff.deletedA; i++)
+                        {
                             List<Integer> deleteLines = currentMap.getOrDefault("delete", new ArrayList<>());
                             deleteLines.add(i);
                             currentMap.put("delete", deleteLines);
                         }
-                    } else if (diff.deletedA == 0 && diff.insertedB != 0) // 추가
+                    }
+                    else if (diff.deletedA == 0 && diff.insertedB != 0) // 추가
                     {
-                        for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++) {
+                        for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++)
+                        {
                             List<Integer> addLines = beforeMap.getOrDefault("add", new ArrayList<>());
                             addLines.add(i);
                             beforeMap.put("add", addLines);
                         }
 
-                        for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++) {
+                        for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++)
+                        {
                             List<Integer> addLines = currentMap.getOrDefault("add", new ArrayList<>());
                             addLines.add(i);
                             currentMap.put("add", addLines);
+                        }
+                    }
+                    else // 수정 or 수정+삭제된 경우
+                    {
+                        int beforeCount = 0;
+                        for (int i = diff.StartA; i < diff.StartA + diff.deletedA; i++)
+                        {
+                            if (beforeCount < diff.insertedB)
+                            {
+                                List<Integer> modifiedLines = beforeMap.getOrDefault("modify", new ArrayList<>());
+                                modifiedLines.add(i);
+                                beforeMap.put("modify", modifiedLines);
+                            }
+                            else
+                            {
+                                List<Integer> deleteLines = beforeMap.getOrDefault("delete", new ArrayList<>());
+                                deleteLines.add(i);
+                                beforeMap.put("delete", deleteLines);
+                            }
+                            beforeCount++;
+                        }
+
+                        int currentCount = 0;
+                        for (int i = diff.StartB; i < diff.StartB + diff.deletedA; i++)
+                        {
+                            if (currentCount < diff.insertedB)
+                            {
+                                List<Integer> modifiedLines = currentMap.getOrDefault("modify", new ArrayList<>());
+                                modifiedLines.add(i);
+                                currentMap.put("modify", modifiedLines);
+                            }
+                            else
+                            {
+                                List<Integer> deleteLines = currentMap.getOrDefault("delete", new ArrayList<>());
+                                deleteLines.add(i);
+                                currentMap.put("delete", deleteLines);
+                            }
+                            currentCount++;
                         }
                     }
                 }
