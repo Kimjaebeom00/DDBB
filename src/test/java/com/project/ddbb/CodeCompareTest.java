@@ -1,8 +1,7 @@
 package com.project.ddbb;
 
-import com.project.ddbb.domain.vo.Diff;
-import com.project.ddbb.domain.vo.DiffData;
-import com.project.ddbb.domain.vo.TestCode;
+import com.project.ddbb.domain.CodeCompare.Diff;
+import com.project.ddbb.domain.CodeCompare.TestCode;
 import com.project.ddbb.domain.vo.CodeVO;
 import com.project.ddbb.domain.service.CodeCompareService;
 import org.junit.jupiter.api.Test;
@@ -10,13 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
-import java.util.regex.Pattern;
-
-
-
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.regex.Pattern;
 
 @SpringBootTest
 public class CodeCompareTest {
@@ -55,8 +48,8 @@ public class CodeCompareTest {
         }
     }
 
-    @Test
-    void Compare() {
+    @Test  // 기존 코드 비교 방식 - 라인으로 비교 함. 라인으로 봤을 땐 맞지만 깃허브처럼 안됨.
+    void compareTest1() {
         CodeVO cvo = codeService.FindById(testCurrentProjectId); // db정보 확인
 
         List<String> beforeList = Arrays.asList(cvo.getBeforeCode().split("\n")); // 이전 코드
@@ -89,88 +82,115 @@ public class CodeCompareTest {
         System.out.println(indexMap);
     }
 
-    @Test
-    void compareTest()
+    @Test // 현재 코드 비교 방식 - 진짜 깃허브처럼 비교됨.
+    void compareTest2()
     {
+        Map<String, Map<String, List<Integer>>> codeMap = new HashMap<>(); // 이전코드, 현재코드 매핑 맵
+        Map<String, List<Integer>> beforeMap = new HashMap<>(); // 이전코드 - 수정, 삭제, 추가 인덱스 정보 매핑 맵
+        Map<String, List<Integer>> currentMap = new HashMap<>(); // 현재코드 - 수정, 삭제, 추가 인덱스 정보 매핑 맵
+
         CodeVO cvo = codeService.FindById(testCurrentProjectId); // db정보 확인
-        String textA = cvo.getBeforeCode();
-        String textB = cvo.getCurrentCode();
+        String beforeCode = cvo.getBeforeCode(); // 이전코드
+        String currentCode = cvo.getCurrentCode(); // 현재코드
 
-        Diff.Item[] diffs = Diff.DiffText(textA, textB);
+        Diff.Item[] diffs = Diff.DiffText(beforeCode, currentCode);
+        for (Diff.Item diff : diffs)
+        {
+            if ( ((diff.deletedA !=0) && (diff.insertedB !=0)) && (diff.deletedA <= diff.insertedB) ) // 수정 or 수정+추가된 경우
+            {
+                if (diff.deletedA == diff.insertedB) // 수정
+                {
+                    for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++)
+                    {
+                        List<Integer> modifiedLines = beforeMap.getOrDefault("수정", new ArrayList<>());
+                        modifiedLines.add(i);
+                        beforeMap.put("수정", modifiedLines);
+                    }
 
-        for (Diff.Item diff : diffs) {
-            System.out.println("StartA: " + diff.StartA);
-            System.out.println("DeletedA: " + diff.deletedA);
-            System.out.println("StartB: " + diff.StartB);
-            System.out.println("InsertedB: " + diff.insertedB);
-            System.out.println();
-        }
-    }
+                    for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++)
+                    {
+                        List<Integer> modifiedLines = currentMap.getOrDefault("수정", new ArrayList<>());
+                        modifiedLines.add(i);
+                        currentMap.put("수정", modifiedLines);
+                    }
+                }
+                else // 수정+추가
+                {
+                    int beforeCount = 0;
+                    for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++)
+                    {
+                        if (beforeCount < diff.deletedA)
+                        {
+                            List<Integer> modifiedLines = beforeMap.getOrDefault("수정", new ArrayList<>());
+                            modifiedLines.add(i);
+                            beforeMap.put("수정", modifiedLines);
+                        }
+                        else
+                        {
+                            List<Integer> addLines = beforeMap.getOrDefault("추가", new ArrayList<>());
+                            addLines.add(i);
+                            beforeMap.put("추가", addLines);
+                        }
+                        beforeCount++;
+                    }
 
-    @Test
-    void cc()
-    {
-        CodeVO cvo = codeService.FindById(testCurrentProjectId); // db정보 확인
-        List<String> beforeList = Arrays.asList(cvo.getBeforeCode().split("\n")); // 이전 코드
-        List<String> currentList = Arrays.asList(cvo.getCurrentCode().split("\n"));  // 현재 코드
-        Map<String, List<Integer>> indexMap = compareFiles(beforeList, currentList);
-        System.out.println("Differences:");
-        for (Map.Entry<String, List<Integer>> entry : indexMap.entrySet()) {
-            String action = entry.getKey();
-            List<Integer> lines = entry.getValue();
-            System.out.println(action + ": " + lines);
-        }
-    }
-    private static Map<String, List<Integer>> compareFiles(List<String> file1Contents, List<String> file2Contents) {
-        Map<String, List<Integer>> indexMap = new HashMap<>();
+                    int currentCount = 0;
+                    for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++)
+                    {
+                        if (currentCount < diff.deletedA)
+                        {
+                            List<Integer> modifiedLines = currentMap.getOrDefault("수정", new ArrayList<>());
+                            modifiedLines.add(i);
+                            currentMap.put("수정", modifiedLines);
+                        }
+                        else
+                        {
+                            List<Integer> addLines = currentMap.getOrDefault("추가", new ArrayList<>());
+                            addLines.add(i);
+                            currentMap.put("추가", addLines);
+                        }
+                        currentCount++;
+                    }
+                }
+            }
+            else if (diff.deletedA != 0 && diff.insertedB == 0) // 삭제
+            {
+                for (int i = diff.StartA; i < diff.StartA + diff.deletedA; i++)
+                {
+                    List<Integer> deleteLines = beforeMap.getOrDefault("삭제", new ArrayList<>());
+                    deleteLines.add(i);
+                    beforeMap.put("삭제", deleteLines);
+                }
 
-        int rows = file1Contents.size();
-        int cols = file2Contents.size();
+                for (int i = diff.StartB; i < diff.StartB + diff.deletedA; i++)
+                {
+                    List<Integer> deleteLines = currentMap.getOrDefault("삭제", new ArrayList<>());
+                    deleteLines.add(i);
+                    currentMap.put("삭제", deleteLines);
+                }
+            }
+            else if (diff.deletedA == 0 && diff.insertedB != 0) // 추가
+            {
+                for (int i = diff.StartA; i < diff.StartA + diff.insertedB; i++)
+                {
+                    List<Integer> addLines = beforeMap.getOrDefault("추가", new ArrayList<>());
+                    addLines.add(i);
+                    beforeMap.put("추가", addLines);
+                }
 
-        int[][] dp = new int[rows + 1][cols + 1];
-
-        for (int i = 0; i <= rows; i++) {
-            for (int j = 0; j <= cols; j++) {
-                if (i == 0 || j == 0) {
-                    dp[i][j] = 0;
-                } else if (file1Contents.get(i - 1).equals(file2Contents.get(j - 1))) {
-                    dp[i][j] = dp[i - 1][j - 1] + 1;
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                for (int i = diff.StartB; i < diff.StartB + diff.insertedB; i++)
+                {
+                    List<Integer> addLines = currentMap.getOrDefault("추가", new ArrayList<>());
+                    addLines.add(i);
+                    currentMap.put("추가", addLines);
                 }
             }
         }
+        codeMap.put("이전",beforeMap);
+        codeMap.put("현재",currentMap);
 
-        int i = rows;
-        int j = cols;
-
-        while (i > 0 && j > 0) {
-            if (file1Contents.get(i - 1).equals(file2Contents.get(j - 1))) {
-                i--;
-                j--;
-            } else if (dp[i - 1][j] >= dp[i][j - 1]) {
-                indexMap.computeIfAbsent("삭제된내용", k -> new ArrayList<>()).add(i);
-                i--;
-            } else {
-                indexMap.computeIfAbsent("추가된내용", k -> new ArrayList<>()).add(j);
-                j--;
-            }
-        }
-
-        while (i > 0) {
-            indexMap.computeIfAbsent("삭제된내용", k -> new ArrayList<>()).add(i);
-            i--;
-        }
-
-        while (j > 0) {
-            indexMap.computeIfAbsent("추가된내용", k -> new ArrayList<>()).add(j);
-            j--;
-        }
-
-        for (Map.Entry<String, List<Integer>> entry : indexMap.entrySet()) {
-            entry.getValue().sort(null);
-        }
-
-        return indexMap;
+        System.out.println("이전 = " + codeMap.getOrDefault("이전", beforeMap));
+        System.out.println("현재 = " + codeMap.getOrDefault("현재", currentMap));
+        System.out.println(codeMap);
     }
 }

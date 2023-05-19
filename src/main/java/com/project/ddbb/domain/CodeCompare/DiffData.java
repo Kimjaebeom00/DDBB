@@ -1,4 +1,4 @@
-package com.project.ddbb.domain.vo;
+package com.project.ddbb.domain.CodeCompare;
 
 public class DiffData
 {
