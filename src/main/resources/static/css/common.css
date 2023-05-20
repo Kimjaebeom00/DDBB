@@ -183,6 +183,12 @@ article button:hover {
     overflow: hidden;
 }
 
+.project_cont .project_info p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .project_cont .project_info .project_title {
     float: left;
 }
