@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.SimpleTimeZone;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class ProjectMemberService {
      * @param projectId
      * @return
      */
-    public List<ProjectMemberVO> findByProjectId(Long projectId) {
+    public List<Map<String, Object>> findByProjectId(Long projectId) {
         return projectMemberMapper.findByProjectId(projectId);
     }
 
@@ -26,8 +28,8 @@ public class ProjectMemberService {
      * 프로젝트 참여자 등록
      * @param vo
      */
-    public void save(ProjectMemberVO vo){
-        projectMemberMapper.save(vo);
+    public void save(ProjectMemberVO pmv){
+        projectMemberMapper.save(pmv);
     }
 
     /**
@@ -37,16 +39,4 @@ public class ProjectMemberService {
     public void delete(ProjectMemberVO vo) {
         projectMemberMapper.delete(vo);
     }
-
-
-    /**
-     * 프로젝트 리더자 조회
-     * @param leader_yn
-     * @return
-     */
-    public List<ProjectMemberVO> findLeader_in(int leader_yn) {
-        return projectMemberMapper.findLeader_in(leader_yn);
-    }
-
-
 }

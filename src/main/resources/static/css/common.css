@@ -65,6 +65,9 @@ header h1 {
 
 .lnb ul li p:nth-child(2){
     margin-bottom: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 nav ul {
@@ -180,6 +183,12 @@ article button:hover {
     overflow: hidden;
 }
 
+.project_cont .project_info p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .project_cont .project_info .project_title {
     float: left;
 }
@@ -210,7 +219,7 @@ article button:hover {
     background: #e9e9e9;
 }
 
-.project_cont .modal {
+.project_cont .userModal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -227,7 +236,7 @@ article button:hover {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 26%;
     max-width: 500px;
 }
 
@@ -236,6 +245,9 @@ article button:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .project_cont .close:hover,
@@ -244,6 +256,26 @@ article button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+.project_cont .add_member {
+    position: absolute;
+    top: 74%;
+    right: 0%;
+    background: blue;
+    color: white;
+    border: white;
+    width: 100%;
+}
+.project_cont .del_member {
+    position: absolute;
+    top: 74%;
+    right: 0%;
+    background-color: red;
+    color: white;
+    border: white;
+    width: 100%;
+}
+
 
 .project_cont .code_compare {
     width: 67%;
@@ -254,11 +286,13 @@ article button:hover {
 .project_cont .code_compare .before_code {
     width: 48.85%;
     height: 90%;
+    overflow-y: scroll;
 }
 
 .project_cont .code_compare .current_code {
     width: 48.85%;
     height: 90%;
+    overflow-y: scroll;
 }
 
 .project_cont .project_comment {
@@ -283,8 +317,16 @@ article button:hover {
     margin-bottom: 0;
 }
 
-.project_cont .different_code {
+.project_cont .modified_code {
     background: yellow;
+}
+
+.project_cont .added_code {
+    background: lawngreen;
+}
+
+.project_cont .deleted_code {
+    background: red;
 }
 
 .project_cont button.btn_project_info_edit {

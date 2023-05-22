@@ -29,12 +29,12 @@ public class ProjectMemberController {
      * @param id
      */
     @PostMapping("/add")
-    public String addProjectMember(RedirectAttributes redirect, @RequestParam String id, @RequestParam Long projectId,@RequestParam int leaderYn) throws Exception {
+    public String addProjectMember(RedirectAttributes redirect, @RequestParam String id, @RequestParam Long projectId) throws Exception {
         if (memberService.accountPermitId(id)) {
             ProjectMemberVO pmv = new ProjectMemberVO();
             pmv.setMemberId(memberService.selectById(id).getMemberId());
             pmv.setProjectId(projectId);
-            pmv.setLeaderYn(leaderYn);
+            pmv.setLeaderYn(false);
             projectMemberService.save(pmv);
         } else {
             return "redirect:/project/info";

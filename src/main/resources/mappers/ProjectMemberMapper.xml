@@ -36,16 +36,4 @@
             project_id = #{projectId}
         AND member_id = #{memberId}
     </delete>
-
-
-    <!-- 프로젝트 리더자 조회 -->
-    <select id="findLeader_in" parameterType="int" resultType="com.project.ddbb.domain.vo.ProjectMemberVO">
-        SELECT
-        <include refid="projectMemberColumns" />
-        FROM
-        project_member
-        WHERE
-        leaderYn = #{leaderYn}
-    </select>
-
 </mapper>
