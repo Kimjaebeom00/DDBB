@@ -54,5 +54,17 @@ public class ProjectMemberControllerTest {
 //        projectMemberController.deleteProjectMember(pmv);
     }
 
-    
+    @Test
+    public void findByMember() {
+        ProjectMemberVO projectMember = projectMemberService.findByProjectMember(1L, 1L);
+        System.out.println("---------------------------------------------");
+        System.out.println("---------------------------------------------");
+        System.out.println(projectMember);
+        System.out.println("---------------------------------------------");
+        System.out.println("---------------------------------------------");
+
+
+    }
+
+
 }

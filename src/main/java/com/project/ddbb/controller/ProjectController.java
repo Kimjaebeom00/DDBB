@@ -94,10 +94,13 @@ public class ProjectController {
         Long projectId = (id == null) ? (Long) model.getAttribute("id") : id;
 
         ProjectVO project = projectService.findByProjectId(projectId);
+        ProjectMemberVO projectMemberVO = projectMemberService.findByProjectMember(memberInfo.getMemberId(), projectId);
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
         List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(projectId);
 
+
         model.addAttribute("project", project);
+        model.addAttribute("projectMemberVO", projectMemberVO);
         model.addAttribute("projects", projects);
         model.addAttribute("projectMemberList", projectMemberList);
 

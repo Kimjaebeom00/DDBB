@@ -36,5 +36,5 @@ public interface ProjectMemberMapper {
      * @param vo
      * @return
      */
-    boolean checkProjectMember(ProjectMemberVO vo);
+    ProjectMemberVO findByProjectMember(Long memberId, Long projectId);
 }

@@ -2,19 +2,11 @@ package com.project.ddbb.controller;
 
 import com.project.ddbb.domain.service.MemberService;
 import com.project.ddbb.domain.service.ProjectMemberService;
-import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
-import com.project.ddbb.domain.vo.ProjectVO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +18,7 @@ public class ProjectMemberController {
 
     /**
      * 프로젝트 참여자 등록
-     * @param id
+     * @param addId
      */
     @PostMapping("/add")
     public String addProjectMember(RedirectAttributes redirect, @RequestParam String addId, @RequestParam Long projectId) throws Exception {
@@ -50,11 +42,11 @@ public class ProjectMemberController {
      */
     @PostMapping("delete")
     public String deleteProjectMember(RedirectAttributes redirect, @RequestParam String deleteId, @RequestParam Long projectId) throws Exception {
-        ProjectMemberVO vo = new ProjectMemberVO();
-        vo.setMemberId(memberService.selectById(deleteId).getMemberId());
-        vo.setProjectId(projectId);
-        if(projectMemberService.checkProjectMember(vo))
+        Long memId = memberService.selectById(deleteId).getMemberId();
+        ProjectMemberVO vo = projectMemberService.findByProjectMember(memId, projectId);
+        if(vo != null)
             projectMemberService.delete(vo);
+
         redirect.addAttribute("projectId", projectId);
         return "redirect:/project/info";
     }

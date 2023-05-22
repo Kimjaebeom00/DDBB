@@ -2,13 +2,11 @@ package com.project.ddbb.domain.service;
 
 import com.project.ddbb.domain.mapper.ProjectMemberMapper;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
-import com.project.ddbb.domain.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.SimpleTimeZone;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +43,7 @@ public class ProjectMemberService {
      * @param vo
      * @return
      */
-    public boolean checkProjectMember(ProjectMemberVO vo) {
-        return projectMemberMapper.checkProjectMember(vo);
+    public ProjectMemberVO findByProjectMember(Long memberId, Long projectId) {
+        return projectMemberMapper.findByProjectMember(memberId, projectId);
     }
 }

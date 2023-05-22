@@ -37,9 +37,10 @@
         AND member_id = #{memberId}
     </delete>
 
-<!--    현재 프로젝트에 참여하고 있는 멤버인지 확인    -->
-    <select id="checkProjectMember" parameterType="com.project.ddbb.domain.vo.ProjectMemberVO" resultType="boolean">
-        SELECT IF(COUNT(*) = 1, 1, 0)
+<!--    현재 프로젝트에 참여하고 있는 멤버 VO  -->
+    <select id="findByProjectMember" parameterType="long" resultType="com.project.ddbb.domain.vo.ProjectMemberVO">
+        SELECT
+        <include refid="projectMemberColumns" />
         FROM project_member
         WHERE member_id = #{memberId}
           AND project_id = #{projectId}

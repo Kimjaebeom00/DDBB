@@ -209,6 +209,10 @@ article button:hover {
     font-size: 80%;
 }
 
+.project_cont .member_info .member_del_icon {
+    cursor: default;
+}
+
 .project_cont .member_info:nth-child(1) {
     margin-left: 0;
 }
