@@ -270,7 +270,7 @@ article button:hover {
     position: absolute;
     top: 74%;
     right: 0%;
-    background-color: rgba(255, 0, 0, 0.8);
+    background-color: red;
     color: white;
     border: white;
     width: 100%;
