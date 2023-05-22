@@ -236,7 +236,7 @@ article button:hover {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 26%;
     max-width: 500px;
 }
 
@@ -245,6 +245,9 @@ article button:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .project_cont .close:hover,
@@ -253,6 +256,26 @@ article button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+.project_cont .add_member {
+    position: absolute;
+    top: 74%;
+    right: 0%;
+    background: blue;
+    color: white;
+    border: white;
+    width: 100%;
+}
+.project_cont .del_member {
+    position: absolute;
+    top: 74%;
+    right: 0%;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: white;
+    width: 100%;
+}
+
 
 .project_cont .code_compare {
     width: 67%;
