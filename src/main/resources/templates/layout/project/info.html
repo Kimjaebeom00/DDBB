@@ -24,13 +24,35 @@
     <div class="content_box project_info">
       <div>
         <h4 class="project_title" th:text="${project.title}"></h4>
-        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          자세히보기
-        </button>
-        <button class="btn btn-outline-secondary   ms-2" type="button">수정</button>
+        <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static">
+            자세히보기
+          </button>
+
+          <form id="modifyForm" th:action="@{/project/modify}" method="get" style="flex: 1;">
+            <input type="hidden" id="modifyProjectId" name="projectId" th:value="${project.projectId}" />
+            <input type="hidden" id="modifyTitle" name="title" th:value="${project.title}">
+            <input type="hidden" id="modifyIntroduction" name="introduction" th:value="${project.introduction}">
+            <input type="hidden" id="modifyLeaderYn" name="leaderYn" th:value="${project.leaderYn}" />
+            <button class="btn btn-primary" type="submit">수정</button>
+          </form>
+          <form id="deleteForm" th:action="@{/project/delete}" method="post" class="ms-2">
+            <input type="hidden" id="deleteProjectId" name="projectId" th:value="${project.projectId}" />
+            <button class="btn btn-danger" type="submit">삭제</button>
+          </form>
+        </div>
+
+
+
+
+
+
+        <p>프로젝트 소개: <span th:text="${project.introduction}"></span></p>
+
+
       </div>
-      <p th:text="${project.introduction}"></p>
     </div>
+
 
     <div class="content_box project_members" id="project_members" >
       <div class="member_info" th:each="projectMember : ${projectMemberList}">

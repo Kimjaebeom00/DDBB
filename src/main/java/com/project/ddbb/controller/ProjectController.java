@@ -1,5 +1,6 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.mapper.ProjectMapper;
 import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.service.ProjectService;
 import com.project.ddbb.domain.vo.MemberVO;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +25,7 @@ public class ProjectController {
 
     /**
      * 메인화면
+     *
      * @param model
      * @return
      */
@@ -43,6 +44,7 @@ public class ProjectController {
 
     /**
      * 프로젝트 추가 화면
+     *
      * @return
      */
     @GetMapping("/add")
@@ -52,8 +54,10 @@ public class ProjectController {
         return "layout/project/add";
     }
 
+
     /**
      * 프로젝트 추가 처리
+     *
      * @param vo
      * @param redirect
      * @return
@@ -71,7 +75,7 @@ public class ProjectController {
         ProjectMemberVO pmv = new ProjectMemberVO();
         pmv.setProjectId(projectId);
         pmv.setMemberId(memberId);
-        pmv.setLeaderYn(true);
+        pmv.setLeaderYn(1);
         projectMemberService.save(pmv);
 
         redirect.addAttribute("projectId", projectId);
@@ -79,15 +83,37 @@ public class ProjectController {
         return "redirect:/project/info";
     }
 
+
+    /**
+     * 프로젝트 수정 처리
+     */
+    @PostMapping("/modify")
+
+    public String modifyProjectProcess(@RequestParam("projectId") Long projectId, ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+        Long memberId = memberInfo.getMemberId();
+
+        vo.setMemberId(memberId);
+        projectService.update(vo);
+
+        redirect.addAttribute("projectId", projectId);
+
+        return "redirect:/project/home";
+    }
+
+
     /**
      * 프로젝트 상세정보
+     *
      * @param id
      * @param model
      * @param request
      * @return
      */
     @RequestMapping("/info")
-    public String projectInfo(@RequestParam(required=false, name="projectId") Long id, Model model, HttpServletRequest request) {
+    public String projectInfo(@RequestParam(required = false, name = "projectId") Long id, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
 
@@ -96,15 +122,97 @@ public class ProjectController {
         ProjectVO project = projectService.findByProjectId(projectId);
         ProjectMemberVO projectMemberVO = projectMemberService.findByProjectMember(memberInfo.getMemberId(), projectId);
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
-        List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(projectId);
 
 
         model.addAttribute("project", project);
         model.addAttribute("projectMemberVO", projectMemberVO);
         model.addAttribute("projects", projects);
-        model.addAttribute("projectMemberList", projectMemberList);
-
 
         return "layout/project/info";
     }
+
+
+    @GetMapping("/modify")
+    public String modify(@RequestParam("projectId") Long projectId, Model model, @RequestParam("title") String title, @RequestParam("introduction") String introduction, @RequestParam("leaderYn") int leaderYn) {
+
+        model.addAttribute("projectId", projectId);
+        model.addAttribute("title", title);
+        model.addAttribute("introduction", introduction);
+        model.addAttribute("isLnb", false);
+        model.addAttribute("leaderYn", leaderYn);
+
+        return "layout/project/modify";
+    }
+
+
+    /**
+     * 프로젝트 삭제
+     *
+     * @param
+     * @param
+     * @param
+     * @return
+     */
+
+
+    @PostMapping("/delete")
+    public String deleteProjectProcess(ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+
+        Long memberId = memberInfo.getMemberId();
+        Long projectId = vo.getProjectId();
+        vo.setMemberId(memberId);
+        vo.setProjectId(projectId);
+
+        // 프로젝트 삭제
+        projectService.deleteById(projectId);
+
+        // 삭제된 프로젝트의 ID를 redirect 플래시 속성으로 추가
+        redirect.addFlashAttribute("projectId", projectId);
+
+        return "redirect:/project/home";
+    }
+
+
 }
+//    @PostMapping("/delete")
+//    public String deleteProjectProcess(@RequestParam("projectId") Long projectId, RedirectAttributes redirect, HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+//        Long memberId = memberInfo.getMemberId();
+//        ProjectMemberVO pmv = new ProjectMemberVO();
+//
+//        projectService.deleteById(projectId);
+//
+//        redirect.addFlashAttribute("projectId", projectId);
+//
+//        return "redirect:/project/home";
+//    }
+
+
+
+
+
+
+
+//    @PostMapping("/add")
+//    public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
+//
+//        Long memberId = memberInfo.getMemberId();
+//
+//        vo.setMemberId(memberId);
+//        Long projectId = projectService.save(vo);
+//
+//        ProjectMemberVO pmv = new ProjectMemberVO();
+//        pmv.setProjectId(projectId);
+//        pmv.setMemberId(memberId);
+//        pmv.setLeaderYn(1);
+//        projectMemberService.save(pmv);
+//
+//        redirect.addAttribute("projectId", projectId);
+//
+//        return "redirect:/project/info";
+//    }

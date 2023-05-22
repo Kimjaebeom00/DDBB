@@ -14,6 +14,7 @@ public class ProjectService {
 
     /**
      * 사용자가 참여한 프로젝트 목록 조회
+     *
      * @param userId
      * @return
      */
@@ -23,6 +24,7 @@ public class ProjectService {
 
     /**
      * 프로젝트 상세정보 조회
+     *
      * @param projectId
      * @return
      */
@@ -32,15 +34,18 @@ public class ProjectService {
 
     /**
      * 프로젝트 등록
+     *
      * @param vo
      */
-    public Long save(ProjectVO vo){
+    public Long save(ProjectVO vo) {
         projectMapper.save(vo);
         return vo.getProjectId();
     }
 
+
     /**
      * 프로젝트 수정
+     *
      * @param vo
      */
     public void update(ProjectVO vo) {
@@ -49,9 +54,26 @@ public class ProjectService {
 
     /**
      * 프로젝트 삭제
+     *
      * @param projectId
      */
     public void deleteById(Long projectId) {
         projectMapper.deleteById(projectId);
     }
+
+
+    /**
+     * 프로젝트 리더자 조회
+     *
+     * @param leaderYn
+     * @return
+     */
+
+    public ProjectVO findLeader_in(int leaderYn) {
+        return projectMapper.findLeader_in(leaderYn);
+    }
+
+
+
 }
+
