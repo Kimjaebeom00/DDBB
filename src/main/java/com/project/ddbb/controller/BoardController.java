@@ -39,11 +39,11 @@ public class BoardController {
 
     @PostMapping("/board/detail")
     public String openBoardDetail(@RequestParam("id") Long id, Model model) {
-        BoardVO boardDetail = boardService.findBoardById(id);
+        //BoardVO boardDetail = boardService.findBoardById(id);
 
-        System.out.println(boardDetail.getId());
+        //System.out.println(boardDetail.getId());
 
-        model.addAttribute("boardDetail", boardDetail);
+        //model.addAttribute("boardDetail", boardDetail);
         return "board/detail";
     }
 }

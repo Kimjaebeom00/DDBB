@@ -5,13 +5,10 @@
 
     <!-- tb_post 테이블 전체 컬럼 -->
     <sql id="postColumns">
-        id
-        , title
+        comment_id
+        , project_id
+        , member_id
         , content
-        , writer
-        , view_cnt
-        , notice_yn
-        , delete_yn
         , created_date
         , modified_date
     </sql>
@@ -24,7 +21,6 @@
         , password
         , phone
         , email
-        , nickname
     </sql>
 
     <!-- 게시글 저장 -->
@@ -38,7 +34,6 @@
         , #{password}
         , #{phone}
         , #{email}
-        , #{nickname}
         )
     </insert>
 
@@ -49,53 +44,15 @@
         INSERT INTO board (
         <include refid="postColumns" />
         ) VALUES (
-        #{id}
-        , #{title}
+        #{commentId}
+        , #{projectId}
+        , #{memberId}
         , #{content}
-        , #{writer}
-        , 0
-        , #{noticeYn}
-        , 0
         , NOW()
         , NULL
+        , 0
         )
     </insert>
-
-
-    <!-- 게시글 상세정보 조회 -->
-    <select id="findById" parameterType="long" resultType="com.project.ddbb.domain.vo.BoardVO">
-        SELECT
-        <include refid="postColumns" />
-        FROM
-        board
-        WHERE
-        id = #{id}
-    </select>
-
-
-    <!-- 게시글 수정 -->
-    <update id="update" parameterType="com.project.ddbb.domain.vo.BoardVO">
-        UPDATE board
-        SET
-            modified_date = NOW()
-          , title = #{title}
-          , content = #{content}
-          , writer = #{writer}
-          , notice_yn = #{noticeYn}
-        WHERE
-            id = #{id}
-    </update>
-
-
-    <!-- 게시글 삭제 -->
-    <delete id="deleteById" parameterType="long">
-        UPDATE board
-        SET
-            delete_yn = 1
-        WHERE
-            id = #{id}
-    </delete>
-
 
     <!-- 게시글 리스트 조회 -->
     <select id="findAll" resultType="com.project.ddbb.domain.vo.BoardVO">
@@ -104,17 +61,29 @@
         FROM
         board
         WHERE
-        delete_yn = 0
+        status = 0
         ORDER BY
-        id DESC
+        comment_id DESC
     </select>
 
-    <!-- 게시글 삭제 취소 -->
-    <update id="cancelById" parameterType="long">
+    <!-- 게시글 수정 -->
+    <update id="update" parameterType="com.project.ddbb.domain.vo.BoardVO">
         UPDATE board
         SET
-            delete_yn = 0
+            updated_date = NOW()
+          , content = #{content}
+          , member_id = #{menberId}
+          , notice_yn = #{noticeYn}
         WHERE
-            id = #{id}
+            comment_id = #{commentId}
     </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteById" parameterType="long">
+        UPDATE board
+        SET
+            status = 1
+        WHERE
+            comment_id = #{commentId}
+    </delete>
 </mapper>
