@@ -75,7 +75,7 @@ public class ProjectController {
         ProjectMemberVO pmv = new ProjectMemberVO();
         pmv.setProjectId(projectId);
         pmv.setMemberId(memberId);
-        pmv.setLeaderYn(1);
+        pmv.setLeaderYn(true);
         projectMemberService.save(pmv);
 
         redirect.addAttribute("projectId", projectId);
