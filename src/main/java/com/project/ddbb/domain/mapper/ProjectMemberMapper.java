@@ -30,4 +30,11 @@ public interface ProjectMemberMapper {
      * @param vo
      */
     void delete(ProjectMemberVO vo);
+
+    /**
+     * 현재 프로젝트에 참여하고 있는 멤버인지 확인
+     * @param vo
+     * @return
+     */
+    boolean checkProjectMember(ProjectMemberVO vo);
 }

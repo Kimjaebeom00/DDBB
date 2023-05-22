@@ -29,10 +29,10 @@ public class ProjectMemberController {
      * @param id
      */
     @PostMapping("/add")
-    public String addProjectMember(RedirectAttributes redirect, @RequestParam String id, @RequestParam Long projectId) throws Exception {
-        if (memberService.accountPermitId(id)) {
+    public String addProjectMember(RedirectAttributes redirect, @RequestParam String addId, @RequestParam Long projectId) throws Exception {
+        if (memberService.accountPermitId(addId)) {
             ProjectMemberVO pmv = new ProjectMemberVO();
-            pmv.setMemberId(memberService.selectById(id).getMemberId());
+            pmv.setMemberId(memberService.selectById(addId).getMemberId());
             pmv.setProjectId(projectId);
             pmv.setLeaderYn(false);
             projectMemberService.save(pmv);
@@ -46,11 +46,16 @@ public class ProjectMemberController {
 
     /**
      * 프로젝트 참여자 삭제
-     * @param vo
+     * @param deleteId
      */
     @PostMapping("delete")
-    @ResponseBody
-    public void deleteProjectMember(@RequestParam("ProjectMemberVO") ProjectMemberVO vo) {
-        projectMemberService.delete(vo);
+    public String deleteProjectMember(RedirectAttributes redirect, @RequestParam String deleteId, @RequestParam Long projectId) throws Exception {
+        ProjectMemberVO vo = new ProjectMemberVO();
+        vo.setMemberId(memberService.selectById(deleteId).getMemberId());
+        vo.setProjectId(projectId);
+        if(projectMemberService.checkProjectMember(vo))
+            projectMemberService.delete(vo);
+        redirect.addAttribute("projectId", projectId);
+        return "redirect:/project/info";
     }
 }

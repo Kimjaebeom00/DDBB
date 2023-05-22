@@ -26,7 +26,7 @@ public class ProjectMemberService {
 
     /**
      * 프로젝트 참여자 등록
-     * @param vo
+     * @param pmv
      */
     public void save(ProjectMemberVO pmv){
         projectMemberMapper.save(pmv);
@@ -38,5 +38,14 @@ public class ProjectMemberService {
      */
     public void delete(ProjectMemberVO vo) {
         projectMemberMapper.delete(vo);
+    }
+
+    /**
+     * 현재 프로젝트에 참여하고 있는 멤버인지 확인
+     * @param vo
+     * @return
+     */
+    public boolean checkProjectMember(ProjectMemberVO vo) {
+        return projectMemberMapper.checkProjectMember(vo);
     }
 }
