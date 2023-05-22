@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -122,10 +123,12 @@ public class ProjectController {
         ProjectVO project = projectService.findByProjectId(projectId);
         ProjectMemberVO projectMemberVO = projectMemberService.findByProjectMember(memberInfo.getMemberId(), projectId);
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
+        List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(projectId);
 
 
         model.addAttribute("project", project);
         model.addAttribute("projectMemberVO", projectMemberVO);
+        model.addAttribute("projectMemberList", projectMemberList);
         model.addAttribute("projects", projects);
 
         return "layout/project/info";
