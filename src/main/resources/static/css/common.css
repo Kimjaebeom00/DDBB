@@ -209,6 +209,10 @@ article button:hover {
     font-size: 80%;
 }
 
+.project_cont .member_info .member_del_icon {
+    cursor: default;
+}
+
 .project_cont .member_info:nth-child(1) {
     margin-left: 0;
 }
@@ -233,11 +237,10 @@ article button:hover {
 
 .project_cont .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 23% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 26%;
-    max-width: 500px;
+    width: 18%;
 }
 
 .project_cont .close {

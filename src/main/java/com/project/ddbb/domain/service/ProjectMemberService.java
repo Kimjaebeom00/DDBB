@@ -2,13 +2,11 @@ package com.project.ddbb.domain.service;
 
 import com.project.ddbb.domain.mapper.ProjectMemberMapper;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
-import com.project.ddbb.domain.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.SimpleTimeZone;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +24,7 @@ public class ProjectMemberService {
 
     /**
      * 프로젝트 참여자 등록
-     * @param vo
+     * @param pmv
      */
     public void save(ProjectMemberVO pmv){
         projectMemberMapper.save(pmv);
@@ -38,5 +36,14 @@ public class ProjectMemberService {
      */
     public void delete(ProjectMemberVO vo) {
         projectMemberMapper.delete(vo);
+    }
+
+    /**
+     * 현재 프로젝트에 참여하고 있는 멤버인지 확인
+     * @param vo
+     * @return
+     */
+    public ProjectMemberVO findByProjectMember(Long memberId, Long projectId) {
+        return projectMemberMapper.findByProjectMember(memberId, projectId);
     }
 }

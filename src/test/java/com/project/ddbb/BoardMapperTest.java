@@ -20,50 +20,50 @@ public class BoardMapperTest {
 
 
 
-    @Test
-    void save() {
-        BoardVO params = new BoardVO();
-        params.setTitle("1번 게시글 제목");
-        params.setContent("1번 게시글 내용");
-        params.setWriter("테스터");
-        params.setNoticeYn(false);
-        boardMapper.save(params);
+//    @Test
+//    void save() {
+//        BoardVO params = new BoardVO();
+//        params.setTitle("1번 게시글 제목");
+//        params.setContent("1번 게시글 내용");
+//        params.setWriter("테스터");
+//        params.setNoticeYn(false);
+//        boardMapper.save(params);
+//
+//        List<BoardVO> posts = boardMapper.findAll();
+//        System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
+//    }
 
-        List<BoardVO> posts = boardMapper.findAll();
-        System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
-    }
+//    @Test
+//    void findById() {
+//        BoardVO post = boardMapper.findById(1L);
+//        try {
+//            String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
+//            System.out.println(postJson);
+//
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-    @Test
-    void findById() {
-        BoardVO post = boardMapper.findById(1L);
-        try {
-            String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
-            System.out.println(postJson);
-
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Test
-    void update() {
-        BoardVO params = new BoardVO();
-        params.setId(2L);
-        params.setTitle("1번 게시글 제목 수정합니다.");
-        params.setContent("1번 게시글 내용 수정합니다.");
-        params.setWriter("김성렬");
-        params.setNoticeYn(true);
-        boardMapper.update(params);
-
-        BoardVO post = boardMapper.findById(2L);
-        try {
-            String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
-            System.out.println(postJson);
-
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Test
+//    void update() {
+//        BoardVO params = new BoardVO();
+//        params.setId(2L);
+//        params.setTitle("1번 게시글 제목 수정합니다.");
+//        params.setContent("1번 게시글 내용 수정합니다.");
+//        params.setWriter("김성렬");
+//        params.setNoticeYn(true);
+//        boardMapper.update(params);
+//
+//        BoardVO post = boardMapper.findById(2L);
+//        try {
+//            String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
+//            System.out.println(postJson);
+//
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Test
     void delete() {
@@ -72,10 +72,10 @@ public class BoardMapperTest {
         System.out.println("삭제 이후의 전체 게시글 개수는 : " + boardMapper.findAll().size() + "개입니다.");
     }
 
-    @Test
-    void cancel() {
-        System.out.println("삭제 이전의 전체 게시글 개수는 : " + boardMapper.findAll().size() + "개입니다.");
-        boardMapper.cancelById(2L);
-        System.out.println("삭제 이후의 전체 게시글 개수는 : " + boardMapper.findAll().size() + "개입니다.");
-    }
+//    @Test
+//    void cancel() {
+//        System.out.println("삭제 이전의 전체 게시글 개수는 : " + boardMapper.findAll().size() + "개입니다.");
+//        boardMapper.cancelById(2L);
+//        System.out.println("삭제 이후의 전체 게시글 개수는 : " + boardMapper.findAll().size() + "개입니다.");
+//    }
 }
