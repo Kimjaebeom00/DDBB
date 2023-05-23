@@ -146,9 +146,15 @@
     }
     function openDeleteModal() {
       document.getElementById("deleteModal").style.display = "block";
+      document.getElementById("deleteModal").classList.add("open");
     }
     function closeDeleteModal() {
+      document.getElementById("deleteModal").style.display = "none";
+      document.getElementById("deleteModal").classList.add("close");
+      setTimeout(function () {
         document.getElementById("deleteModal").style.display = "none";
+        document.getElementById("deleteModal").classList.remove("open", "close");
+      }, 300);
     }
 
     function closeModalByClickBackground(event) {

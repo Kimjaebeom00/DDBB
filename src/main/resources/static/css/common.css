@@ -241,6 +241,18 @@ article button:hover {
     padding: 20px;
     border: 1px solid #888;
     width: 18%;
+    animation: modalOpenAnimation 0.3s ease-in-out forwards;
+}
+
+@keyframes modalOpenAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .project_cont .close {
@@ -278,7 +290,6 @@ article button:hover {
     border: white;
     width: 100%;
 }
-
 
 .project_cont .code_compare {
     width: 67%;
