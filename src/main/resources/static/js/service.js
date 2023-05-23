@@ -14,6 +14,8 @@ let projectInfoInit = function() {
             $beforeCodeContainer.append('<p class="modified_code">' + beforeLine + '</p>');
         } else if(comparedCodeInfoMap.codeMap.before.delete !== undefined && comparedCodeInfoMap.codeMap.before.delete.indexOf(index) >= 0) {
             $beforeCodeContainer.append('<p class="deleted_code">' + beforeLine + '</p>');
+        } else if(beforeLine === "\r") {
+            $beforeCodeContainer.append('<p>&nbsp;</p>');
         } else {
             $beforeCodeContainer.append('<p>' + beforeLine + '</p>');
         }
@@ -23,6 +25,8 @@ let projectInfoInit = function() {
             $currentCodeContainer.append('<p class="added_code">' + currentLine + '</p>');
         } else if(comparedCodeInfoMap.codeMap.current.modify !== undefined && comparedCodeInfoMap.codeMap.current.modify.indexOf(index) >= 0) {
             $currentCodeContainer.append('<p class="modified_code">' + currentLine + '</p>');
+        } else if(currentLine === "\r") {
+            $currentCodeContainer.append('<p>&nbsp;</p>');
         } else {
             $currentCodeContainer.append('<p>' + currentLine + '</p>');
         }
@@ -69,40 +73,6 @@ let projectInfoInit = function() {
             $('.current_code p:nth-child(' + (index + interval) + ')').after('<p class="deleted_code">&nbsp;</p>');
         });
     }
-
-    // let poppedBeforeIndex;
-    // for(let i=0; i<comparedCodeInfoMap.beforeList.length; i++) {
-    //     if(comparedCodeInfoMap.codeMap.before.add !== undefined && comparedCodeInfoMap.codeMap.before.add.indexOf(i) >= 0) {
-    //         beforeCodeContainer.append('<p class="added_code">&nbsp;</p>');
-    //         poppedBeforeIndex = comparedCodeInfoMap.codeMap.before.add.shift();
-    //         --i;
-    //     } else if(comparedCodeInfoMap.codeMap.before.modify !== undefined && comparedCodeInfoMap.codeMap.before.modify.indexOf(i) >= 0) {
-    //         beforeCodeContainer.append('<p class="modified_code">' + comparedCodeInfoMap.beforeList[i] + '</p>');
-    //     } else if(comparedCodeInfoMap.codeMap.before.delete !== undefined && comparedCodeInfoMap.codeMap.before.delete.indexOf(i) >= 0) {
-    //         beforeCodeContainer.append('<p class="deleted_code">' + comparedCodeInfoMap.beforeList[i] + '</p>');
-    //     } else if(poppedBeforeIndex === i) {
-    //         // beforeCodeContainer.append('<p class="added_code">&nbsp;</p>');
-    //     } else {
-    //         beforeCodeContainer.append('<p>' + comparedCodeInfoMap.beforeList[i] + '</p>');
-    //     }
-    // }
-    //
-    // let poppedCurrentIndex;
-    // for(let i=0; i<comparedCodeInfoMap.currentList.length; i++) {
-    //     if(comparedCodeInfoMap.codeMap.current.add !== undefined && comparedCodeInfoMap.codeMap.current.add.indexOf(i) >= 0) {
-    //         currentCodeContainer.append('<p class="added_code">' + comparedCodeInfoMap.currentList[i] + '</p>');
-    //     } else if(comparedCodeInfoMap.codeMap.current.modify !== undefined && comparedCodeInfoMap.codeMap.current.modify.indexOf(i) >= 0) {
-    //         currentCodeContainer.append('<p class="modified_code">' + comparedCodeInfoMap.currentList[i] + '</p>');
-    //     } else if(comparedCodeInfoMap.codeMap.current.delete !== undefined && comparedCodeInfoMap.codeMap.current.delete.indexOf(i) >= 0) {
-    //         currentCodeContainer.append('<p class="deleted_code">&nbsp;</p>');
-    //         poppedCurrentIndex = comparedCodeInfoMap.codeMap.current.delete.shift();
-    //         --i;
-    //     } else if(poppedCurrentIndex === i) {
-    //         // beforeCodeContainer.append('<p class="deleted_code">&nbsp;</p>');
-    //     } else {
-    //         currentCodeContainer.append('<p>' + comparedCodeInfoMap.currentList[i] + '</p>');
-    //     }
-    // }
 }
 
 const goToInsertCode = function() {
