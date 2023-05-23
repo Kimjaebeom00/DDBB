@@ -25,7 +25,7 @@
       <div>
         <h4 class="project_title" th:text="${project.title}"></h4>
         <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static">
+          <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             자세히보기
           </button>
 
@@ -34,7 +34,7 @@
             <input type="hidden" id="modifyTitle" name="title" th:value="${project.title}">
             <input type="hidden" id="modifyIntroduction" name="introduction" th:value="${project.introduction}">
             <input type="hidden" id="modifyLeaderYn" name="leaderYn" th:value="${project.leaderYn}" />
-            <button class="btn btn-primary" type="submit">수정</button>
+            <button class="btn btn-outline-secondary ms-2" type="submit">수정</button>
           </form>
           <form id="deleteForm" th:action="@{/project/delete}" method="post" class="ms-2">
             <input type="hidden" id="deleteProjectId" name="projectId" th:value="${project.projectId}" />
