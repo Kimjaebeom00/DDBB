@@ -117,23 +117,25 @@
               <table style="width:48%">
                 <tr>
                   <th style="width: 40%; font-family: Monospace; font-size: 17px; font-weight: lighter;">비밀번호 힌트/답변</th>
-                  <td style="width:70%"><select name='pwhint' size='1' class='select'>
-                    <option value=''>선택하세요</option>
-                    <option value='30'>졸업한 초등학교 이름은?</option>
-                    <option value='31'>제일 친한 친구의 핸드폰 번호는?</option>
-                    <option value='32'>아버지 성함은?</option>
-                    <option value='33'>어머니 성함은?</option>
-                    <option value='34'>어릴 적 내 별명은?</option>
-                    <option value='35'>가장 아끼는 물건은?</option>
-                    <option value='36'>좋아하는 동물은?</option>
-                    <option value='37'>좋아하는 색깔은?</option>
-                    <option value='38'>좋아하는 음식은?</option>
-                  </select></td>
+                  <td style="width:70%"><label>
+                    <select name="question" size='1' class='select'>
+                      <option value=''>선택하세요</option>
+                      <option value='졸업한 초등학교 이름은?'>졸업한 초등학교 이름은?</option>
+                      <option value='제일 친한 친구의 핸드폰 번호는?'>제일 친한 친구의 핸드폰 번호는?</option>
+                      <option value='아버지 성함은?'>아버지 성함은?</option>
+                      <option value='어머니 성함은?'>어머니 성함은?</option>
+                      <option value='어릴 적 내 별명은?'>어릴 적 내 별명은?</option>
+                      <option value='가장 아끼는 물건은?'>가장 아끼는 물건은?</option>
+                      <option value='좋아하는 동물은?'>좋아하는 동물은?</option>
+                      <option value='좋아하는 색깔은?'>좋아하는 색깔은?</option>
+                      <option value='좋아하는 음식은?'>좋아하는 음식은?</option>
+                    </select>
+                  </label></td>
                 </tr>
                 <tr>
                   <th style="width: 40%; font-family: Monospace; font-size: 16px; font-weight: lighter;">답변</th>
 
-                  <td style="width:70%"><input type='text' name='nickname' class="form-control"id="nickname"placeholder="성함을 알려주세요."value="" required></td>
+                  <td style="width:70%"><input type='text' name='answer' class="form-control" id="answer" placeholder="성함을 알려주세요." value="" required></td>
 
                   </tr>
                 </table>

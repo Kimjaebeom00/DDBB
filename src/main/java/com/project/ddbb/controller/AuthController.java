@@ -75,7 +75,7 @@ public class AuthController {
      */
     @PostMapping("/signUp")
     public String signUpProcess(MemberVO memberVO) throws Exception {
-        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty() && memberVO.getNickname() != null && !memberVO.getNickname().isEmpty()) {
+        if (memberVO.getEmail() != null && !memberVO.getEmail().isEmpty() && memberVO.getAnswer() != null && !memberVO.getAnswer().isEmpty()) {
             memberVO.setPassword(memberService.PassWordEncrypt(memberVO.getPassword()));
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
@@ -144,7 +144,7 @@ public class AuthController {
     public boolean signFindPasswordProcess(MemberVO memberVO) throws Exception {
         boolean id;
         // 아이디, 닉네임, 이메일 모두 일치하면 if문 실행 (true 반환)
-        id = memberService.findPw(memberVO.getId(), memberVO.getNickname(), memberVO.getEmail());
+        id = memberService.findPw(memberVO.getId(), memberVO.getAnswer(), memberVO.getEmail());
         // 임시 비밀번호 생성
         if (id) {
             String TempPassword = memberService.CreateTempPassword();
