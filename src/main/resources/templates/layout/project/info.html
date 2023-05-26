@@ -34,11 +34,11 @@
             <input type="hidden" id="modifyTitle" name="title" th:value="${project.title}">
             <input type="hidden" id="modifyIntroduction" name="introduction" th:value="${project.introduction}">
             <input type="hidden" id="modifyLeaderYn" name="leaderYn" th:value="${project.leaderYn}" />
-            <button class="btn btn-outline-secondary ms-2" type="submit">수정</button>
+            <button class="btn btn-outline-secondary ms-2" type="submit" th:if="${projectMemberVO.isLeaderYn()==true}">수정</button>
           </form>
           <form id="deleteForm" th:action="@{/project/delete}" method="post" class="ms-2">
             <input type="hidden" id="deleteProjectId" name="projectId" th:value="${project.projectId}" />
-            <button class="btn btn-danger" type="submit">삭제</button>
+            <button th:if="${projectMemberVO.isLeaderYn()==true}" class="btn btn-danger" type="button" onclick="confirmDelete(this)">삭제</button>
           </form>
         </div>
         <p>프로젝트 소개: <span th:text="${project.introduction}"></span></p>
@@ -150,6 +150,12 @@
     function closeDeleteModal() {
       document.getElementById("deleteModal").style.display = "none";
     };
+
+    function confirmDelete() {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        document.getElementById("deleteForm").submit();
+      }
+    }
 
   </script>
 </div>
