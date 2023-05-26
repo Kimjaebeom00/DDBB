@@ -38,7 +38,7 @@
           </form>
           <form id="deleteForm" th:action="@{/project/delete}" method="post" class="ms-2">
             <input type="hidden" id="deleteProjectId" name="projectId" th:value="${project.projectId}" />
-            <button class="btn btn-danger" type="submit">삭제</button>
+            <button th:if="${projectMemberVO.isLeaderYn()==true}" class="btn btn-danger" type="button" onclick="confirmDelete(this)">삭제</button>
           </form>
         </div>
         <p>프로젝트 소개: <span th:text="${project.introduction}"></span></p>
@@ -167,6 +167,12 @@
     }
     document.getElementById("deleteModal").addEventListener("click", closeModalByClickBackground);
     document.getElementById("addModal").addEventListener("click", closeModalByClickBackground);
+    function confirmDelete() {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        document.getElementById("deleteForm").submit();
+      }
+    }
+
   </script>
 </div>
 </html>
