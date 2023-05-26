@@ -42,11 +42,12 @@ public class ProjectMemberController {
      */
     @PostMapping("delete")
     public String deleteProjectMember(RedirectAttributes redirect, @RequestParam String deleteId, @RequestParam Long projectId) throws Exception {
-        Long memId = memberService.selectById(deleteId).getMemberId();
-        ProjectMemberVO vo = projectMemberService.findByProjectMember(memId, projectId);
-        if(vo != null)
-            projectMemberService.delete(vo);
-
+        if(memberService.selectById(deleteId) != null) {
+            Long memId = memberService.selectById(deleteId).getMemberId();
+            ProjectMemberVO vo = projectMemberService.findByProjectMember(memId, projectId);
+            if(vo != null)
+                projectMemberService.delete(vo);
+        }
         redirect.addAttribute("projectId", projectId);
         return "redirect:/project/info";
     }

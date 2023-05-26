@@ -34,11 +34,11 @@
             <input type="hidden" id="modifyTitle" name="title" th:value="${project.title}">
             <input type="hidden" id="modifyIntroduction" name="introduction" th:value="${project.introduction}">
             <input type="hidden" id="modifyLeaderYn" name="leaderYn" th:value="${project.leaderYn}" />
-            <button class="btn btn-outline-secondary ms-2" type="submit" th:if="${projectMemberVO.isLeaderYn()==true}">수정</button>
+            <button class="btn btn-outline-secondary ms-2" type="submit">수정</button>
           </form>
           <form id="deleteForm" th:action="@{/project/delete}" method="post" class="ms-2">
             <input type="hidden" id="deleteProjectId" name="projectId" th:value="${project.projectId}" />
-            <button th:if="${projectMemberVO.isLeaderYn()==true}" class="btn btn-danger" type="button" onclick="confirmDelete(this)">삭제</button>
+            <button class="btn btn-danger" type="submit">삭제</button>
           </form>
         </div>
         <p>프로젝트 소개: <span th:text="${project.introduction}"></span></p>
@@ -67,7 +67,7 @@
       </button>
     </div>
     <div id="addModal" class="userModal">
-      <div class="modal-content">
+      <div class="member_modal-content">
         <span class="close" onclick="closeAddModal()">&times;</span>
         <form id="addMemberForm" th:action="@{/projectMember/add}" method="post">
           <input type="hidden" id="addProjectMemberProjectId" name="projectId" th:value="${project.projectId}"/>
@@ -78,11 +78,11 @@
       </div>
     </div>
     <div id="deleteModal" class="userModal">
-      <div class="modal-content">
+      <div class="member_modal-content">
         <span class="close" onclick="closeDeleteModal()">&times;</span>
         <form id="deleteMemberForm" th:action="@{/projectMember/delete}" method="post">
           <input type="hidden" id="deleteProjectMemberProjectId" name="projectId" th:value="${project.projectId}"/>
-          <label for="deleteId">아이디 : </label>
+          <label for="deleteId">아이디  </label>
           <input type="text" id="deleteId" name="deleteId"/><br><br>
           <button class="del_member" name="addMember" type="submit">제거</button>
         </form>
@@ -143,20 +143,30 @@
     }
     function closeAddModal() {
       document.getElementById("addModal").style.display = "none";
-    };
+    }
     function openDeleteModal() {
       document.getElementById("deleteModal").style.display = "block";
+      document.getElementById("deleteModal").classList.add("open");
     }
     function closeDeleteModal() {
       document.getElementById("deleteModal").style.display = "none";
-    };
-
-    function confirmDelete() {
-      if (confirm("정말 삭제하시겠습니까?")) {
-        document.getElementById("deleteForm").submit();
-      }
+      document.getElementById("deleteModal").classList.add("close");
+      setTimeout(function () {
+        document.getElementById("deleteModal").style.display = "none";
+        document.getElementById("deleteModal").classList.remove("open", "close");
+      }, 300);
     }
 
+    function closeModalByClickBackground(event) {
+      if (event.target === document.getElementById("deleteModal")) {
+        document.getElementById("deleteModal").style.display = "none";
+      }
+      else if (event.target === document.getElementById("addModal")) {
+        document.getElementById("addModal").style.display = "none";
+      }
+    }
+    document.getElementById("deleteModal").addEventListener("click", closeModalByClickBackground);
+    document.getElementById("addModal").addEventListener("click", closeModalByClickBackground);
   </script>
 </div>
 </html>

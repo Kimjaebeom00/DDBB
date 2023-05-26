@@ -29,7 +29,7 @@ public class AuthControllerTest {
         memberVO.setPassword("zx");
         memberVO.setName("zx");
         memberVO.setEmail("zx");
-        memberVO.setNickname("zx");
+        memberVO.setAnswer("zx");
         memberService.SignUp(memberVO);
     }
 

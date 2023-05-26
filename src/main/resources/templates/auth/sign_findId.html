@@ -15,7 +15,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <main class="form-signin w-100 m-auto">
         <img class="mb-4" src="img/Car.jpg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Please write down your Email, Name</h1>
     <div class="form-floating">
             <input type="id" name="email" class="form-control" id="email">
             <label for="email">이메일</label>
@@ -23,8 +22,9 @@
 
         <div class="form-floating">
             <input type="id" name="name" class="form-control" id="name">
-            <label for="name">성함</label>
+            <label for="name">이름</label>
         </div>
+    <p></p>
         <button id="findId" class="w-100 btn btn-lg btn-primary"  onclick="api.findId($('#email').val(), $('#name').val())">아이디 찾기</button>
 </main>
 </body>
