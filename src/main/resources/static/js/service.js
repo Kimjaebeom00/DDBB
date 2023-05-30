@@ -13,7 +13,11 @@ let projectInfoInit = function() {
         if(comparedCodeInfoMap.codeMap.before.modify !== undefined && comparedCodeInfoMap.codeMap.before.modify.indexOf(index) >= 0) {
             $beforeCodeContainer.append('<p class="modified_code">' + beforeLine + '</p>');
         } else if(comparedCodeInfoMap.codeMap.before.delete !== undefined && comparedCodeInfoMap.codeMap.before.delete.indexOf(index) >= 0) {
-            $beforeCodeContainer.append('<p class="deleted_code">' + beforeLine + '</p>');
+            if(beforeLine === "\r") {
+                $beforeCodeContainer.append('<p class="deleted_code">&nbsp;</p>');
+            } else {
+                $beforeCodeContainer.append('<p class="deleted_code">' + beforeLine + '</p>');
+            }
         } else if(beforeLine === "\r") {
             $beforeCodeContainer.append('<p>&nbsp;</p>');
         } else {
@@ -24,7 +28,11 @@ let projectInfoInit = function() {
         if(comparedCodeInfoMap.codeMap.current.add !== undefined && comparedCodeInfoMap.codeMap.current.add.indexOf(index) >= 0) {
             $currentCodeContainer.append('<p class="added_code">' + currentLine + '</p>');
         } else if(comparedCodeInfoMap.codeMap.current.modify !== undefined && comparedCodeInfoMap.codeMap.current.modify.indexOf(index) >= 0) {
-            $currentCodeContainer.append('<p class="modified_code">' + currentLine + '</p>');
+            if(currentLine === "\r") {
+                $currentCodeContainer.append('<p class="modified_code">&nbsp</p>');
+            } else {
+                $currentCodeContainer.append('<p class="modified_code">' + currentLine + '</p>');
+            }
         } else if(currentLine === "\r") {
             $currentCodeContainer.append('<p>&nbsp;</p>');
         } else {

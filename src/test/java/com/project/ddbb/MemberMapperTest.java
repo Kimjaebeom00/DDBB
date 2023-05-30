@@ -43,6 +43,6 @@ public class MemberMapperTest {
 
     @Test
     void findPw() throws Exception{
-        System.out.println(memberMapper.findPw("srkim", "test123", "srkim@naver.com"));
+        System.out.println(memberMapper.findPw("srkim", "srkim@naver.com", "test123", "test111"));
     }
 }

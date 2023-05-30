@@ -46,13 +46,10 @@ public class AuthController {
 
                 return "redirect:/project/home";
             } else {
-
-                System.out.println("Fail");
                 return "redirect:/signIn";
             }
         } else {
             // 로그인 실패
-            System.out.println("Fail2");
             return "redirect:/signIn";
         }
     }
@@ -80,7 +77,6 @@ public class AuthController {
             memberService.SignUp(memberVO);
             return "auth/sign_up_complete";
         } else {
-            System.out.println("2");
             return "auth/sign_up";
         }
     }
@@ -119,10 +115,8 @@ public class AuthController {
     public String signFindIdProcess(MemberVO memberVO) throws Exception {
         if (memberService.findId(memberVO.getName(), memberVO.getEmail()) != null) {
             String id = memberService.findId(memberVO.getName(), memberVO.getEmail());
-            System.out.println(memberService.findId(memberVO.getName(), memberVO.getEmail()));
             return id;
         } else {
-            System.out.println("not find id");
         }
         return "auth/sign_findId";
 
@@ -144,16 +138,18 @@ public class AuthController {
     public boolean signFindPasswordProcess(MemberVO memberVO) throws Exception {
         boolean id;
         // 아이디, 닉네임, 이메일 모두 일치하면 if문 실행 (true 반환)
-        id = memberService.findPw(memberVO.getId(), memberVO.getAnswer(), memberVO.getEmail());
+        id = memberService.findPw(memberVO.getId(), memberVO.getEmail(), memberVO.getQuestion(), memberVO.getAnswer());
         // 임시 비밀번호 생성
         if (id) {
-            String TempPassword = memberService.CreateTempPassword();
-            // 임시 비밀번호 메일로 보내기
-            memberService.SendMail(memberVO.getEmail(), TempPassword);
-            // 임시 비밀번호 암호화
-            TempPassword = memberService.PassWordEncrypt(TempPassword);
-            // 비밀번호 -> 임시 비밀번호 값으로 변경
-            memberService.updatePassword(memberVO.getId(), TempPassword);
+            if (memberVO.getEmail().contains("@")) {
+                String TempPassword = memberService.CreateTempPassword();
+                // 임시 비밀번호 메일로 보내기
+                memberService.SendMail(memberVO.getEmail(), TempPassword);
+                // 임시 비밀번호 암호화
+                TempPassword = memberService.PassWordEncrypt(TempPassword);
+                // 비밀번호 -> 임시 비밀번호 값으로 변경
+                memberService.updatePassword(memberVO.getId(), TempPassword);
+            }
         }
 
         return id;
@@ -180,7 +176,6 @@ public class AuthController {
     public boolean emailValidation(MemberVO memberVO) throws Exception {
         boolean email;
         email = memberService.accountPermitEmail(memberVO.getEmail());
-        System.out.println(email);
         return email;
     }
 

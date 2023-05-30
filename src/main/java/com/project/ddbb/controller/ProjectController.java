@@ -1,6 +1,5 @@
 package com.project.ddbb.controller;
 
-import com.project.ddbb.domain.mapper.ProjectMapper;
 import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.service.ProjectService;
 import com.project.ddbb.domain.vo.MemberVO;
@@ -176,46 +175,4 @@ public class ProjectController {
 
         return "redirect:/project/home";
     }
-
-
 }
-//    @PostMapping("/delete")
-//    public String deleteProjectProcess(@RequestParam("projectId") Long projectId, RedirectAttributes redirect, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
-//        Long memberId = memberInfo.getMemberId();
-//        ProjectMemberVO pmv = new ProjectMemberVO();
-//
-//        projectService.deleteById(projectId);
-//
-//        redirect.addFlashAttribute("projectId", projectId);
-//
-//        return "redirect:/project/home";
-//    }
-
-
-
-
-
-
-
-//    @PostMapping("/add")
-//    public String addProjectProcess(ProjectVO vo, RedirectAttributes redirect, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
-//
-//        Long memberId = memberInfo.getMemberId();
-//
-//        vo.setMemberId(memberId);
-//        Long projectId = projectService.save(vo);
-//
-//        ProjectMemberVO pmv = new ProjectMemberVO();
-//        pmv.setProjectId(projectId);
-//        pmv.setMemberId(memberId);
-//        pmv.setLeaderYn(1);
-//        projectMemberService.save(pmv);
-//
-//        redirect.addAttribute("projectId", projectId);
-//
-//        return "redirect:/project/info";
-//    }
