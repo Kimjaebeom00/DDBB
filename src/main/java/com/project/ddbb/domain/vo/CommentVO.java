@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class BoardVO {
+public class CommentVO {
     private Long commentId;                      // PK, 코멘트 고유번호
     private Long projectId;                      // FK, 프로젝트 고유번호
     private Long memberId;                       // FK, 사용자 고유번호

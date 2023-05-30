@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ddbb.domain.mapper.CommentMapper">
+
+    <!-- comment 테이블 전체 컬럼 -->
+    <sql id="commentColumns">
+        comment_id
+        , project_id
+        , member_id
+        , content
+        , created_date
+        , updated_date
+        , status
+    </sql>
+
+    <!-- 코멘트 저장 -->
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.CommentVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment (
+        <include refid="commentColumns" />
+        ) VALUES (
+        #{commentId}
+        , #{projectId}
+        , #{memberId}
+        , #{content}
+        , NOW()
+        , NULL
+        , 0
+        )
+    </insert>
+
+    <!-- 코멘트 조회 -->
+    <select id="readById" resultType="com.project.ddbb.domain.vo.CommentVO">
+        <include refid="commentColumns" />
+        FROM comment
+        WHERE status = 0
+        AND project_id = #{projectId}
+        ORDER BY comment_id DESC
+    </select>
+
+    <!-- 코멘트 수정 -->
+    <update id="update" parameterType="com.project.ddbb.domain.vo.CommentVO">
+        UPDATE comment
+        SET
+            member_id = #{menberId}
+          , content = #{content}
+          , updated_date = NOW()
+        WHERE
+            comment_id = #{commentId}
+    </update>
+
+    <!-- 코멘트 삭제 -->
+    <delete id="deleteById" parameterType="long">
+        UPDATE comment
+        SET
+            status = 1
+        WHERE
+            comment_id = #{commentId}
+    </delete>
+</mapper>
