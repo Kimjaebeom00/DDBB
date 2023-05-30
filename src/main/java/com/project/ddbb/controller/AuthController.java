@@ -141,15 +141,18 @@ public class AuthController {
         id = memberService.findPw(memberVO.getId(), memberVO.getEmail(), memberVO.getQuestion(), memberVO.getAnswer());
         // 임시 비밀번호 생성
         if (id) {
-            if (memberVO.getEmail().contains("@")) {
+//            if (memberVO.getEmail().contains("@")) {
                 String TempPassword = memberService.CreateTempPassword();
                 // 임시 비밀번호 메일로 보내기
                 memberService.SendMail(memberVO.getEmail(), TempPassword);
                 // 임시 비밀번호 암호화
+            System.out.println("이메일 로직 중간2");
                 TempPassword = memberService.PassWordEncrypt(TempPassword);
                 // 비밀번호 -> 임시 비밀번호 값으로 변경
                 memberService.updatePassword(memberVO.getId(), TempPassword);
-            }
+            System.out.println("이메일 로직 실행 완료");
+
+//            }
         }
 
         return id;
