@@ -92,11 +92,12 @@ var api = {
         });
     },
 
-    getPassword: function(id,nickname,email) {//컨트롤러 메소드 이름이랑 같다 ->오브젝트 형식
+    getPassword: function(id, email, question, answer) {//컨트롤러 메소드 이름이랑 같다 ->오브젝트 형식
         let params = {
             id : id,
-            nickname : nickname,
-            email : email
+            email : email,
+            question : question,
+            answer : answer
         };
 
         $.ajax({
@@ -105,9 +106,9 @@ var api = {
             data: params,
             success: function(result){
                 let msg;
-                if(result == true){
+                if(result === true){
                     msg = "임시 비밀번호가 전송되었습니다.";
-                }else if(result == false){
+                }else if(result === false){
                     msg = "입력한 값이 틀립니다.";
                 }else{
                     msg = "입력된 값이 없습니다.";
