@@ -1,8 +1,6 @@
 package com.project.ddbb;
 
-import com.project.ddbb.domain.vo.BoardVO;
-import com.project.ddbb.domain.service.BoardService;
-import org.junit.jupiter.api.Test;
+import com.project.ddbb.domain.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,7 +9,7 @@ public class BoardServiceTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    BoardService boardService;
+    CommentService boardService;
 
 //    @Test
 //    void save() {
