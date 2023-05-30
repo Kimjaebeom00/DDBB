@@ -1,5 +1,8 @@
 package com.project.ddbb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.project.ddbb.domain.mapper.CommentMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,7 @@ public class BoardMapperTest {
     CommentMapper boardMapper;
 
 
-
+//
 //    @Test
 //    void save() {
 //        BoardVO params = new BoardVO();
@@ -25,7 +28,7 @@ public class BoardMapperTest {
 //        List<BoardVO> posts = boardMapper.findAll();
 //        System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
 //    }
-
+//
 //    @Test
 //    void findById() {
 //        BoardVO post = boardMapper.findById(1L);
@@ -37,7 +40,7 @@ public class BoardMapperTest {
 //            throw new RuntimeException(e);
 //        }
 //    }
-
+//
 //    @Test
 //    void update() {
 //        BoardVO params = new BoardVO();

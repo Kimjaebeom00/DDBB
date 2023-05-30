@@ -22,7 +22,7 @@ public class CommentController {
      * @param redirect
      * @return
      */
-    @PostMapping("/comment/write")
+    @PostMapping("/commentSave")
     public String commentSave(CommentVO commentVO, RedirectAttributes redirect)
     {
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
@@ -39,15 +39,16 @@ public class CommentController {
      * @param model
      * @return
      */
-    @PostMapping("/comment/list")
+    @PostMapping("/commentRead")
     @ResponseBody
-    public String commentRead(@RequestParam Long projectId, Model model)
+    public String commentRead(@RequestParam Long projectId, Model model, RedirectAttributes redirect)
     {
         List<CommentVO> commentList = commentService.readComment(projectId); // 해당 프로젝트의 코멘트 조회 후 리스트로 저장
 
         model.addAttribute("commentList", commentList);
 
-        return "comment/list";
+        redirect.addAttribute("projectId", projectId);
+        return "redirect:/project/info"; // 코멘트 조회 후 프로젝트 화면
     }
 
     /**
@@ -56,7 +57,7 @@ public class CommentController {
      * @param redirect
      * @return
      */
-    @PostMapping("/comment/detail")
+    @PostMapping("/commentUpdate")
     public String commentUpdate(CommentVO commentVO, RedirectAttributes redirect)
     {
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
@@ -67,19 +68,21 @@ public class CommentController {
         return "redirect:/project/info"; // 코멘트 수정 후 프로젝트 화면
     }
 
-//    /**
-//     * 코멘트 삭제
-//     * @param id
-//     * @param model
-//     * @return
-//     */
-//    @PostMapping("/board/detail")
-//    public String commentDelete(@RequestParam("id") Long id, Model model) {
-//        //BoardVO boardDetail = boardService.findBoardById(id);
-//
-//        //System.out.println(boardDetail.getId());
-//
-//        //model.addAttribute("boardDetail", boardDetail);
-//        return "board/detail";
-//    }
+    /**
+     * 코멘트 삭제
+     * @param commentVO
+     * @param redirect
+     * @return
+     */
+    @PostMapping("/commentDelete")
+    public String commentDelete(CommentVO commentVO, RedirectAttributes redirect)
+    {
+        Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
+        Long commentId = commentVO.getCommentId(); // 코멘트 id 가져오기
+
+        commentService.deleteComment(commentId); // 코멘트 삭제
+
+        redirect.addAttribute("projectId", projectId);
+        return "redirect:/project/info"; // 코멘트 삭제 후 프로젝트 화면
+    }
 }
