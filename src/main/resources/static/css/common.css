@@ -300,13 +300,23 @@ article button:hover {
 .project_cont .code_compare .before_code {
     width: 48.85%;
     height: 90%;
-    overflow-y: scroll;
+    overflow: scroll;
+}
+
+.project_cont .code_compare .before_code p {
+    white-space: nowrap;
+    margin-bottom: 0;
 }
 
 .project_cont .code_compare .current_code {
     width: 48.85%;
     height: 90%;
-    overflow-y: scroll;
+    overflow: scroll;
+}
+
+.project_cont .code_compare .current_code p {
+    white-space: nowrap;
+    margin-bottom: 0;
 }
 
 .project_cont .project_comment {

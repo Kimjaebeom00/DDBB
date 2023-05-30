@@ -1,3 +1,4 @@
+/* Existing CSS code */
 html {
     width: 100%;
     height: 100%;
@@ -11,12 +12,11 @@ body {
     background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
 }
 
-input{
+input {
     border: 1px solid black;
     border-radius: 10px;
     line-height: 35px;
     font-size: 12px;
-    padding-left: 10px;
     padding-right: 10px;
 }
 
@@ -24,19 +24,17 @@ input{
     margin-top: 40px;
     padding: 32px;
     background: #fff;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
     border-radius: 10px;
-    -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
 }
 
- .custom-button {
-     font-family: Arial, sans-serif;
-     font-size: 14px;
-     color: black;
- }
+.custom-button {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
 .text-center {
     text-align: center;
     display: flex;
@@ -44,3 +42,33 @@ input{
     align-items: center;
 }
 
+/* Added styles for the table */
+table {
+    width: 48%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+table th {
+    width: 40%;
+    font-weight: lighter;
+    padding-right: 10px; /* Add right padding */
+}
+
+table td {
+    width: 60%; /* Adjusted to accommodate the longer select element */
+    padding-right: 10px; /* Add right padding */
+}
+
+table select,
+table input {
+    padding-left:15px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: lighter;
+}
