@@ -33,13 +33,13 @@
       getIdButton.addEventListener('click', function () {
         getIdButton.dataset.clicked = true;
         isIdChecked = true;
-        submitButton.disabled = !(isIdChecked && isEmailChecked); // 중복검사 모두 확인된 경우에만 가입 완료 버튼 활성화
+        // 중복검사 모두 확인된 경우에만 가입 완료 버튼 활성화
       });
 
       getEmailButton.addEventListener('click', function () {
         getEmailButton.dataset.clicked = true;
         isEmailChecked = true;
-        submitButton.disabled = !(isIdChecked && isEmailChecked); // 중복검사 모두 확인된 경우에만 가입 완료 버튼 활성화
+        // 중복검사 모두 확인된 경우에만 가입 완료 버튼 활성화
       });
     });
   </script>
@@ -64,7 +64,7 @@
               <div class="input-group">
                 <input type="text" name="id" class="form-control" id="id" placeholder="아이디를 입력하세요" value="" required>
                 <div class="input-group-append">
-                  <button id="getId" class="w-100 btn btn-sm btn-primary custom-button text-center" onclick="api.getId($('#id').val())">중복검사</button>
+                  <a id="getId" class="w-100 btn btn-sm btn-primary custom-button text-center" onclick="api.getId($('#id').val())">중복검사</a>
 
                 </div>
               </div>
@@ -116,7 +116,7 @@
 
             <table class="col-md-6 mb-3" style="width: 48%">
               <tr>
-                <th style="width: 40%; padding-left: 15px; font-family: Monospace; font-size: 17px; font-weight: lighter;">비밀번호 질문</th>
+                <th style="width: 40%; padding-left: 15px; font-size: 17px; font-weight: lighter;">비밀번호 질문</th>
                 <td style="width: 70%; padding-right: 15px;"><select name="pwhint" size="1" class="select">
                   <option value="">선택하세요</option>
                       <option value='졸업한 초등학교 이름은?'>졸업한 초등학교 이름은?</option>
@@ -132,7 +132,7 @@
                   </label></td>
                 </tr>
                 <tr>
-                  <th style="width: 40%; padding-left: 15px; font-family: Monospace; font-size: 16px; font-weight: lighter;">답변</th>
+                  <th style="width: 40%; padding-left: 15px; font-size: 16px; font-weight: lighter;">답변</th>
 
                   <td style="width: 70%; padding-right: 14px;"><input type="text" name="nickname" class="form-control" id="nickname" placeholder="성함을 알려주세요." value="" required></td>
 
