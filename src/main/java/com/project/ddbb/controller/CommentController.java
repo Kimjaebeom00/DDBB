@@ -52,24 +52,6 @@ public class CommentController {
     }
 
     /**
-     * 코멘트 조회
-     * @param projectId
-     * @param model
-     * @return
-     */
-    @PostMapping("/commentRead")
-    @ResponseBody
-    public String commentRead(@RequestParam Long projectId, Model model, RedirectAttributes redirect)
-    {
-        List<CommentVO> commentList = commentService.readComment(projectId); // 해당 프로젝트의 코멘트 조회 후 리스트로 저장
-
-        model.addAttribute("commentList", commentList);
-
-        redirect.addAttribute("projectId", projectId);
-        return "redirect:/project/info"; // 코멘트 조회 후 프로젝트 화면
-    }
-
-    /**
      * 코멘트 수정
      * @param commentVO
      * @param redirect

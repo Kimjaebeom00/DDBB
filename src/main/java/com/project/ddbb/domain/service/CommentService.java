@@ -25,12 +25,13 @@ public class CommentService {
 
     /**
      * 코멘트 조회
-     * @param projectId - 프로젝트 ID
+     * @param memberId
+     * @param projectId
      * @return
      */
-    public List<CommentVO> readComment(final Long projectId)
+    public List<CommentVO> readComment(final Long memberId, final Long projectId)
     {
-        return commentMapper.readById(projectId);
+        return commentMapper.readById(memberId, projectId);
     }
 
     /**
