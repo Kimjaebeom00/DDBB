@@ -123,7 +123,10 @@
       </div>
     </div>
 
-    <button class="btn btn-outline-secondary btn_regist ms-2" type="button">등록</button>
+    <form id="addCommentForm" action="/commentSavePage" method="post">
+      <input type="hidden" id="projectIdForComment" name="projectId" />
+    </form>
+    <button class="btn btn-outline-secondary btn_regist ms-2" type="button" th:onclick="|javascript:goToAddComment()|">등록</button>
   </div>
   <script>
     $(function() {

@@ -2,7 +2,9 @@ package com.project.ddbb.controller;
 
 import com.project.ddbb.domain.service.CommentService;
 import com.project.ddbb.domain.vo.CommentVO;
+import com.project.ddbb.domain.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +19,35 @@ public class CommentController {
     private final CommentService commentService;
 
     /**
+     * 코멘트 저장 화면
+     * @return
+     */
+    @PostMapping("/commentSavePage")
+    public String commentSavePage(@RequestParam Long projectId, Model model, HttpServletRequest request)
+    {
+        model.addAttribute("isLnb", false);
+        model.addAttribute("projectId", projectId);
+
+        return "layout/comment/add";
+    }
+
+    /**
      * 코멘트 저장
      * @param commentVO
      * @param redirect
      * @return
      */
     @PostMapping("/commentSave")
-    public String commentSave(CommentVO commentVO, RedirectAttributes redirect)
+    public String commentSave(CommentVO commentVO, RedirectAttributes redirect, HttpServletRequest request)
     {
-        Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
+        HttpSession session = request.getSession();
+        MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
 
+        commentVO.setMemberId(memberInfo.getMemberId());
         commentService.saveComment(commentVO); // 코멘트 저장
 
-        redirect.addAttribute("projectId", projectId);
+        redirect.addAttribute("projectId", commentVO.getProjectId());
+
         return "redirect:/project/info"; // 코멘트 저장 후 프로젝트 화면
     }
 

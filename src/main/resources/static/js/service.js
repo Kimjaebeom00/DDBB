@@ -91,3 +91,12 @@ const goToInsertCode = function() {
 
     form.submit();
 }
+
+const goToAddComment = function() {
+    const projectId = $('#currentProjectId').val();
+    const form = $('#addCommentForm');
+
+    $('#projectIdForComment').val(projectId);
+
+    form.submit();
+}

@@ -15,7 +15,7 @@
     </sql>
 
     <!-- 코멘트 저장 -->
-    <insert id="save" parameterType="com.project.ddbb.domain.vo.CommentVO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.CommentVO" useGeneratedKeys="true" keyProperty="commentId">
         INSERT INTO comment (
         <include refid="commentColumns" />
         ) VALUES (
