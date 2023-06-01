@@ -15,10 +15,11 @@ public interface CommentMapper {
 
     /**
      * 코멘트 조회
-     * @param projectId - 프로젝트 ID
+     * @param memberId
+     * @param projectId
      * @return
      */
-    List<CommentVO> readById(Long projectId);
+    List<CommentVO> readById(Long memberId, Long projectId);
 
     /**
      * 코멘트 수정

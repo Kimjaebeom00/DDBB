@@ -101,29 +101,16 @@
     </div>
 
     <div class="content_box project_comment">
-      <div class="comment_box">
-        <h5>권우영</h5>
-        <p>프로젝트 잘 해봅시다!</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>이게 되네</p>
-      </div>
-      <div class="comment_box">
-        <h5>김재범</h5>
-        <p>아이고오</p>
-      </div>
-      <div class="comment_box">
-        <h5>엄재혁</h5>
-        <p>배고파요</p>
-      </div>
-      <div class="comment_box">
-        <h5>김성렬</h5>
-        <p>끝나고 회식합시다!😋</p>
+      <div class="comment_box" th:each="comment : ${commentList}">
+        <h5 th:text="${comment.name}"></h5>
+        <p th:utext="${comment.content}"></p>
       </div>
     </div>
 
-    <button class="btn btn-outline-secondary btn_regist ms-2" type="button">등록</button>
+    <form id="addCommentForm" action="/commentSavePage" method="post">
+      <input type="hidden" id="projectIdForComment" name="projectId" />
+    </form>
+    <button class="btn btn-outline-secondary btn_regist ms-2" type="button" th:onclick="|javascript:goToAddComment()|">등록</button>
   </div>
   <script>
     $(function() {

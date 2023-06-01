@@ -1,7 +1,9 @@
 package com.project.ddbb.controller;
 
+import com.project.ddbb.domain.service.CommentService;
 import com.project.ddbb.domain.service.ProjectMemberService;
 import com.project.ddbb.domain.service.ProjectService;
+import com.project.ddbb.domain.vo.CommentVO;
 import com.project.ddbb.domain.vo.MemberVO;
 import com.project.ddbb.domain.vo.ProjectMemberVO;
 import com.project.ddbb.domain.vo.ProjectVO;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class ProjectController {
     private final ProjectService projectService;
     private final ProjectMemberService projectMemberService;
+    private final CommentService commentService;
 
     /**
      * 메인화면
@@ -123,12 +126,17 @@ public class ProjectController {
         ProjectMemberVO projectMemberVO = projectMemberService.findByProjectMember(memberInfo.getMemberId(), projectId);
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
         List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(projectId);
+        List<CommentVO> commentList = commentService.readComment(memberInfo.getMemberId(), projectId);
 
+        for(CommentVO comment : commentList) {
+            comment.setContent(comment.getContent().replaceAll("\n", "<br/>"));
+        }
 
         model.addAttribute("project", project);
         model.addAttribute("projectMemberVO", projectMemberVO);
         model.addAttribute("projectMemberList", projectMemberList);
         model.addAttribute("projects", projects);
+        model.addAttribute("commentList", commentList);
 
         return "layout/project/info";
     }

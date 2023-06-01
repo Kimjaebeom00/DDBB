@@ -15,4 +15,5 @@ public class CommentVO {
     private LocalDateTime createdDate;           // 최초 작성 일자
     private LocalDateTime updatedDate;           // 삭제 여부 판단
     private int status;                          // 최종 수정 일시
+    private String name;                         // 등록자
 }

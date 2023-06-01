@@ -15,7 +15,7 @@
     </sql>
 
     <!-- 코멘트 저장 -->
-    <insert id="save" parameterType="com.project.ddbb.domain.vo.CommentVO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.project.ddbb.domain.vo.CommentVO" useGeneratedKeys="true" keyProperty="commentId">
         INSERT INTO comment (
         <include refid="commentColumns" />
         ) VALUES (
@@ -30,8 +30,14 @@
     </insert>
 
     <!-- 코멘트 조회 -->
-    <select id="readById" resultType="com.project.ddbb.domain.vo.CommentVO">
-        <include refid="commentColumns" />
+    <select id="readById" parameterType="long" resultType="com.project.ddbb.domain.vo.CommentVO">
+        SELECT
+            comment_id
+            , project_id
+            , (SELECT name FROM member where member_id = #{memberId}) AS name
+            , content
+            , created_date
+            , updated_date
         FROM comment
         WHERE status = 0
         AND project_id = #{projectId}
