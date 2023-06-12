@@ -25,7 +25,6 @@ public class CommentController {
     {
         model.addAttribute("isLnb", false);
         model.addAttribute("projectId", projectId);
-
         return "layout/comment/add";
     }
     /**
@@ -54,10 +53,8 @@ public class CommentController {
     {
         HttpSession session = request.getSession();
         MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
-
         commentVO.setMemberId(memberInfo.getMemberId());
         commentService.saveComment(commentVO); // 코멘트 저장
-
         redirect.addAttribute("projectId", commentVO.getProjectId());
 
         return "redirect:/project/info"; // 코멘트 저장 후 프로젝트 화면
@@ -89,9 +86,10 @@ public class CommentController {
     @PostMapping("/commentDelete")
     public String commentDelete(CommentVO commentVO, RedirectAttributes redirect)
     {
+        System.out.println("삭제 버튼 클릭 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
         Long commentId = commentVO.getCommentId(); // 코멘트 id 가져오기
-
+        System.out.println("commentId : " + commentId);
         commentService.deleteComment(commentId); // 코멘트 삭제
 
         redirect.addAttribute("projectId", projectId);

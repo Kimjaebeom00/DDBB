@@ -98,7 +98,7 @@ function signUpCheck(){
 
 
 }
-function Chek() {
+function Check() {
   window.addEventListener('load', () => {
     const forms = document.getElementsByClassName('validation-form');
     Array.prototype.filter.call(forms, (form) => {
@@ -114,4 +114,4 @@ function Chek() {
 }
 
 // 함수 호출
-Chek();
+Check();

@@ -126,7 +126,7 @@ public class ProjectController {
         ProjectMemberVO projectMemberVO = projectMemberService.findByProjectMember(memberInfo.getMemberId(), projectId);
         List<ProjectVO> projects = projectService.findProjectsByUserId(memberInfo.getMemberId());
         List<Map<String, Object>> projectMemberList = projectMemberService.findByProjectId(projectId);
-        List<CommentVO> commentList = commentService.readComment(memberInfo.getMemberId(), projectId);
+        List<CommentVO>  commentList = commentService.readComment(memberInfo.getMemberId(), projectId);
 
         for(CommentVO comment : commentList) {
             comment.setContent(comment.getContent().replaceAll("\n", "<br/>"));

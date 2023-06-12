@@ -53,10 +53,10 @@
           </svg>
         </button>
         <button class="member_del_icon" th:if="${projectMemberVO.isLeaderYn()==false}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-          </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
         </button>
         <p class="member_name"  th:text="${projectMember.name}" id="projectMemberName"></p>
       </div>
@@ -102,17 +102,15 @@
 
     <div class="content_box project_comment">
       <div class="comment_box" th:each="comment : ${commentList}">
-        <form id="modifyCommentForm" action="/commentDelete" method="post">
-          <input type="hidden" name="projectId" th:value="${comment.projectId}" />
-          <input type="hidden" name="commentId" th:value="${comment.commentId}" />
-          <button th:if="${projectMemberVO.isLeaderYn()==true}" class="bi bi-trash" type="submit">삭제</button>
+        <button id="deleteComment" th:if="${projectMemberVO.getMemberId()==comment.getMemberId() || projectMemberVO.isLeaderYn()==true}" class="bi bi-trash" type="submit" onclick="confirmDeleteComment(this)"></button>
+        <form id="commentDeleteForm" th:action="@{/commentDelete}" method="post">
+          <input type="hidden" id="commentDeleteProjectId" name="projectId" th:value="${project.projectId}"/>
+          <input type="hidden" id="commentDeleteCommentId" name="commentId" th:value="${comment.commentId}"/>
         </form>
         <h5 th:text="${comment.name}"></h5>
         <p th:utext="${comment.content}"></p>
       </div>
     </div>
-
-
 
     <form id="addCommentForm" action="/commentSavePage" method="post">
       <input type="hidden" id="projectIdForComment" name="projectId" />
@@ -164,6 +162,11 @@
     function confirmDelete() {
       if (confirm("정말 삭제하시겠습니까?")) {
         document.getElementById("deleteForm").submit();
+      }
+    }
+    function confirmDeleteComment() {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        document.getElementById("commentDeleteForm").submit();
       }
     }
 
