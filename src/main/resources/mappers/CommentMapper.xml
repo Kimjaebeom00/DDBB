@@ -48,7 +48,7 @@
     <update id="update" parameterType="com.project.ddbb.domain.vo.CommentVO">
         UPDATE comment
         SET
-            member_id = #{menberId}
+            member_id = #{memberId}
           , content = #{content}
           , updated_date = NOW()
         WHERE

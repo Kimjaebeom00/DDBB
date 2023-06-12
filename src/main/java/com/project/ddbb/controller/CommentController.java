@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class CommentController {
@@ -29,6 +27,20 @@ public class CommentController {
         model.addAttribute("projectId", projectId);
 
         return "layout/comment/add";
+    }
+    /**
+     * 코멘트 수정 화면
+     * @return
+     */
+    @PostMapping("/commentUpdatePage")
+    public String commentUpdatePage(@RequestParam Long projectId, Long commentId, Model model, HttpServletRequest request)
+    {
+        model.addAttribute("isLnb", false);
+        model.addAttribute("projectId", projectId);
+        model.addAttribute("commentId", commentId);
+
+
+        return "layout/comment/modify";
     }
 
     /**
@@ -58,15 +70,15 @@ public class CommentController {
      * @return
      */
     @PostMapping("/commentUpdate")
-    public String commentUpdate(CommentVO commentVO, RedirectAttributes redirect)
-    {
+    public String commentUpdate(CommentVO commentVO, RedirectAttributes redirect) {
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
 
         commentService.updateComment(commentVO); // 코멘트 수정
 
-        redirect.addAttribute("projectId", projectId);
+        redirect.addFlashAttribute("projectId", projectId);
         return "redirect:/project/info"; // 코멘트 수정 후 프로젝트 화면
     }
+
 
     /**
      * 코멘트 삭제
@@ -85,4 +97,5 @@ public class CommentController {
         redirect.addAttribute("projectId", projectId);
         return "redirect:/project/info"; // 코멘트 삭제 후 프로젝트 화면
     }
+
 }

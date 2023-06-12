@@ -102,10 +102,17 @@
 
     <div class="content_box project_comment">
       <div class="comment_box" th:each="comment : ${commentList}">
+        <form id="modifyCommentForm" action="/commentDelete" method="post">
+          <input type="hidden" name="projectId" th:value="${comment.projectId}" />
+          <input type="hidden" name="commentId" th:value="${comment.commentId}" />
+          <button th:if="${projectMemberVO.isLeaderYn()==true}" class="bi bi-trash" type="submit">삭제</button>
+        </form>
         <h5 th:text="${comment.name}"></h5>
         <p th:utext="${comment.content}"></p>
       </div>
     </div>
+
+
 
     <form id="addCommentForm" action="/commentSavePage" method="post">
       <input type="hidden" id="projectIdForComment" name="projectId" />
