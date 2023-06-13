@@ -69,13 +69,7 @@ public class CommentController {
      */
     @PostMapping("/commentUpdate")
     public String commentUpdate(CommentVO commentVO, RedirectAttributes redirect) {
-        System.out.println("@@@@@@@@@@@commentUpdate 실행@@@@@@@@@@@");
-        System.out.println("MemberID : " + commentVO.getMemberId());
-        System.out.println("CommentID : " + commentVO.getCommentId());
-        System.out.println("editText : " + commentVO.getContent());
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
-        System.out.println("editText : " + projectId);
-
         commentService.updateComment(commentVO); // 코멘트 수정
 
         redirect.addAttribute("projectId", projectId);

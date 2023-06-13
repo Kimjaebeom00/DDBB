@@ -41,7 +41,6 @@ public class CommentService {
     @Transactional
     public void updateComment(final CommentVO params)
     {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@" + params.getContent());
         commentMapper.update(params);
     }
 

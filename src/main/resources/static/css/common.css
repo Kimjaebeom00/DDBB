@@ -333,6 +333,7 @@ article button:hover {
     background: white;
     border: 1px solid #000000;
     border-radius: 0.3rem;
+    overflow: hidden;
 }
 
 .project_cont .project_comment .comment_box:last-child {
@@ -378,6 +379,17 @@ article button:hover {
     -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+}
+
+.edit-input {
+    height: 100px;
+    width: 100%;
+    margin: 0;
+}
+
+.comment_container {
+    display: flex;
+    align-items: center;
 }
 
 /* 푸터 */

@@ -110,16 +110,18 @@
           <input type="hidden" id="commentDeleteProjectId" name="projectId" th:value="${project.projectId}"/>
           <input type="hidden" id="commentDeleteCommentId" name="commentId" th:value="${comment.commentId}"/>
         </form>
+        <h5 th:text="${comment.name}"></h5>
+        <p class="comment-text" th:utext="${comment.content}"></p>
         <form id="commentModifyForm" th:action="@{/commentUpdate}" method="post">
           <input type="hidden" id="commentUpdateMemberId" name="memberId" th:value="${projectMemberVO.getMemberId()}"/>
           <input type="hidden" id="commentUpdateCommentId" name="commentId" th:value="${comment.commentId}"/>
           <input type="hidden" id="commentUpdateProjectId" name="projectId" th:value="${project.projectId}"/>
-          <input type="text" name="content" class="edit-input" style="display: none;">
+          <textarea type="text" name="content" class="edit-input" style="display: none;"></textarea>
+          <div class="comment_container">
           <button class="save-button" style="display: none;">저장</button>
           <button class="cancel-button" style="display: none;">취소</button>
+          </div>
         </form>
-        <h5 th:text="${comment.name}"></h5>
-        <p class="comment-text" th:utext="${comment.content}"></p>
       </div>
     </div>
 
@@ -223,6 +225,15 @@
           saveButton.style.display = "none";
           cancelButton.style.display = "none";
           editInput.value = commentText.innerText;
+        });
+
+        editInput.addEventListener("keydown", function(event) {
+          if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            let currentContent = editInput.value;
+            let caretPosition = editInput.selectionStart;
+            editInput.value = currentContent.substring(0, caretPosition) + "\n" + currentContent.substring(caretPosition);
+          }
         });
     });
     }
