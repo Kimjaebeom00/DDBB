@@ -60,6 +60,7 @@ public class CommentController {
         return "redirect:/project/info"; // 코멘트 저장 후 프로젝트 화면
     }
 
+
     /**
      * 코멘트 수정
      * @param commentVO
@@ -67,22 +68,42 @@ public class CommentController {
      * @return
      */
     @PostMapping("/commentUpdate")
-    public String commentUpdate(Long memberId, Long commentId, String editText, RedirectAttributes redirect) {
-        CommentVO commentVO = new CommentVO();
+    public String commentUpdate(CommentVO commentVO, RedirectAttributes redirect) {
         System.out.println("@@@@@@@@@@@commentUpdate 실행@@@@@@@@@@@");
-        System.out.println("MemberID : " + memberId);
-        System.out.println("CommentID : " + commentId);
-        System.out.println("editText : " + editText);
-        commentVO.setMemberId(memberId);
-        commentVO.setCommentId(commentId);
-        commentVO.setContent(editText);
+        System.out.println("MemberID : " + commentVO.getMemberId());
+        System.out.println("CommentID : " + commentVO.getCommentId());
+        System.out.println("editText : " + commentVO.getContent());
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
+        System.out.println("editText : " + projectId);
 
         commentService.updateComment(commentVO); // 코멘트 수정
 
-        redirect.addFlashAttribute("projectId", projectId);
+        redirect.addAttribute("projectId", projectId);
         return "redirect:/project/info"; // 코멘트 수정 후 프로젝트 화면
     }
+//    /**
+//     * 코멘트 수정
+//     * @param commentVO
+//     * @param redirect
+//     * @return
+//     */
+//    @PostMapping("/commentUpdate")
+//    public String commentUpdate(Long memberId, Long commentId, String editText, RedirectAttributes redirect) {
+//        CommentVO commentVO = new CommentVO();
+//        System.out.println("@@@@@@@@@@@commentUpdate 실행@@@@@@@@@@@");
+//        System.out.println("MemberID : " + memberId);
+//        System.out.println("CommentID : " + commentId);
+//        System.out.println("editText : " + editText);
+//        commentVO.setMemberId(memberId);
+//        commentVO.setCommentId(commentId);
+//        commentVO.setContent(editText);
+//        Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
+//
+//        commentService.updateComment(commentVO); // 코멘트 수정
+//
+//        redirect.addFlashAttribute("projectId", projectId);
+//        return "redirect:/project/info"; // 코멘트 수정 후 프로젝트 화면
+//    }
 
 
     /**
@@ -94,10 +115,8 @@ public class CommentController {
     @PostMapping("/commentDelete")
     public String commentDelete(CommentVO commentVO, RedirectAttributes redirect)
     {
-        System.out.println("삭제 버튼 클릭 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
         Long commentId = commentVO.getCommentId(); // 코멘트 id 가져오기
-        System.out.println("commentId : " + commentId);
         commentService.deleteComment(commentId); // 코멘트 삭제
 
         redirect.addAttribute("projectId", projectId);
