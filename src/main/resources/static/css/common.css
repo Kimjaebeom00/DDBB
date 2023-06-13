@@ -392,6 +392,11 @@ article button:hover {
     align-items: center;
 }
 
+.comment_button {
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* 푸터 */
 footer {
     width: -webkit-fill-available;
