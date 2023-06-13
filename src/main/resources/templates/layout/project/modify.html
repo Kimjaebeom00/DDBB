@@ -6,16 +6,9 @@
 <script th:src="@{js/api.js}" ></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js"
         integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-
 <main layout:fragment="content">
     <form id="addProjectForm" th:action="@{/project/modify}" method="post">
-
-
         <input type="hidden" id="projectId" name="projectId" th:value="${projectId}"/>
-
-
-
-
         <div class="container">
             <div class="row">
                 <div class="input-form col-md-12 mx-auto">
