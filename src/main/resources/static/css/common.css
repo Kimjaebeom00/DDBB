@@ -397,6 +397,14 @@ article button:hover {
     justify-content: flex-end;
 }
 
+.edit-button {
+    float: right;
+}
+
+.delete_button {
+    float: right;
+}
+
 /* 푸터 */
 footer {
     width: -webkit-fill-available;
