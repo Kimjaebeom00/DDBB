@@ -177,4 +177,13 @@ public class AuthController {
         return email;
     }
 
+    @GetMapping("/signOut")
+    public String signOut(HttpServletRequest request) throws Exception{
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:/signIn";
+    }
+
 }

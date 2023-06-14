@@ -6,6 +6,11 @@
     <body>
         <header th:fragment="headerFragment">
             <h1>Team Project System</h1>
+            <form id="signOutForm" th:action="@{/signOut}" method="get">
+                <button id="signOut" type="submit">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
         </header>
     </body>
 </html>
