@@ -75,29 +75,6 @@ public class CommentController {
         redirect.addAttribute("projectId", projectId);
         return "redirect:/project/info"; // 코멘트 수정 후 프로젝트 화면
     }
-//    /**
-//     * 코멘트 수정
-//     * @param commentVO
-//     * @param redirect
-//     * @return
-//     */
-//    @PostMapping("/commentUpdate")
-//    public String commentUpdate(Long memberId, Long commentId, String editText, RedirectAttributes redirect) {
-//        CommentVO commentVO = new CommentVO();
-//        System.out.println("@@@@@@@@@@@commentUpdate 실행@@@@@@@@@@@");
-//        System.out.println("MemberID : " + memberId);
-//        System.out.println("CommentID : " + commentId);
-//        System.out.println("editText : " + editText);
-//        commentVO.setMemberId(memberId);
-//        commentVO.setCommentId(commentId);
-//        commentVO.setContent(editText);
-//        Long projectId = commentVO.getProjectId(); // 프로젝트 id 가져오기
-//
-//        commentService.updateComment(commentVO); // 코멘트 수정
-//
-//        redirect.addFlashAttribute("projectId", projectId);
-//        return "redirect:/project/info"; // 코멘트 수정 후 프로젝트 화면
-//    }
 
 
     /**
