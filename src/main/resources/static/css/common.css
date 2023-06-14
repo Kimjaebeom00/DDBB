@@ -39,6 +39,16 @@ header h1 {
     justify-content: center;
 }
 
+header #signOut {
+    margin-top: -3.5%;
+    float: right;
+    color: white;
+}
+
+header i {
+    font-size: 2em;
+}
+
 .lnb {
     width: 15%;
     height: 90%;
