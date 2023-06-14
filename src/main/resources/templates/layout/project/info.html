@@ -99,14 +99,12 @@
       </form>
       <button class="btn btn-outline-secondary btn_regist ms-2" type="button" th:onclick="|javascript:goToInsertCode()|">코드 등록</button>
     </div>
-
     <div class="content_box project_comment">
+      <form id="commentDeleteForm" th:action="@{/commentDelete}" method="post">
+        <input type="hidden" id="commentDeleteProjectId" name="projectId" th:value="${project.projectId}"/>
+        <input type="hidden" id="commentDeleteCommentId" name="commentId"/>
+      </form>
       <div class="comment_box" th:each="comment : ${commentList}">
-
-        <form id="commentDeleteForm" th:action="@{/commentDelete}" method="post">
-          <input type="hidden" id="commentDeleteProjectId" name="projectId" th:value="${project.projectId}"/>
-          <input type="hidden" id="commentDeleteCommentId" name="commentId" th:value="${comment.commentId}"/>
-        </form>
         <h5 th:text="${comment.name}"></h5>
         <p class="comment-text" th:utext="${comment.content}"></p>
         <form id="commentModifyForm" th:action="@{/commentUpdate}" method="post">
@@ -119,7 +117,7 @@
           <button class="cancel-button" style="display: none;">취소</button>
           </div>
         </form>
-        <button id="deleteComment" th:if="${projectMemberVO.getMemberId()==comment.getMemberId() || projectMemberVO.isLeaderYn()==true}" class="delete_button" type="submit" onclick="confirmDeleteComment(this)">
+        <button id="deleteComment" th:if="${projectMemberVO.getMemberId()==comment.getMemberId() || projectMemberVO.isLeaderYn()==true}" class="delete_button" type="submit" onclick="confirmDeleteComment('${comment.commentId}')">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -186,8 +184,10 @@
         document.getElementById("deleteForm").submit();
       }
     }
-    function confirmDeleteComment() {
+    function confirmDeleteComment(commentId) {
       if (confirm("정말 삭제하시겠습니까?")) {
+        document.getElementById("commentDeleteCommentId").value = commentId;
+        console.log(document.getElementById("commentDeleteCommentId").value);
         document.getElementById("commentDeleteForm").submit();
       }
     }
