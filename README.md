@@ -5,3 +5,7 @@
 - 다양한 커뮤니티 활동이 가능한 게시판 기능 존재<br>
   <계정 오류로 인해 Contributor에 kinjaebeom이 저의 계정입니다. 현재는 사용불가하여 Kimjaebeom00으로 새로활동>
 ![Kinjaebeom](https://github.com/user-attachments/assets/911b94ec-c960-4ca1-ac59-a01fe05724c1)
+![뛰뛰빵빵(DDBB)진행사항](https://github.com/user-attachments/assets/fa3a7112-db27-4003-bf06-fa6c5ca7a546)
+![뛰뛰빵빵(DDBB)진행사항2](https://github.com/user-attachments/assets/050405c7-a0cc-4e54-8968-fef5091a25cc)
+![뛰뛰빵빵(DDBB)진행사항3](https://github.com/user-attachments/assets/ac26a967-a30e-42c6-a62e-88711b47fbb3)
+![뛰뛰빵빵(DDBB)진행사항4](https://github.com/user-attachments/assets/82f10ae8-4a46-4aa8-9210-ac59906f57bb)
